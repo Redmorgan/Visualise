@@ -37,6 +37,13 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    function openMainApp(){
+
+        Vibration.vibrate(5)
+        navigation.push("ChildView")
+
+    }
+
     return (
  
     <MainView>
@@ -55,7 +62,7 @@ const LoginScreen = ({ navigation }) => {
 
             <ForgottenPasswordLabel onPress={()=>{openForgotPassword()}}>Forgotten Password</ForgottenPasswordLabel>
 
-            <LoginButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{showMessage("Login")}}>
+            <LoginButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{openMainApp()}}>
 
                 <LoginButtonLabel>LOGIN</LoginButtonLabel>
 

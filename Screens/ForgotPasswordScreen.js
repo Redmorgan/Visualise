@@ -156,37 +156,5 @@ const LoginButtonLabel = styled.Text`
 
 `
 
-const AccountSignUpContainer = styled.View`
-
-    width:350px
-    height:23px
-    margin-top:45px
-    margin-left:30px
-    display:flex
-    flex-direction:row
-    justify-content:center
-
-`
-
-const SignUpSubtext = styled.Text`
-
-    font-family:BarlowSemi
-    font-size:18px
-    color:#000000
-
-`
-
-const SignUpLabel = styled.Text`
-
-    font-family:BarlowSemi
-    font-size:18px
-    color:#8A84FF
-    margin-left:10px
-
-`
-
-
-
-
 export default ForgotPasswordScreen;
  
