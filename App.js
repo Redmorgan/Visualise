@@ -1,20 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+
+// Components
+import LoginScreen from './Screens/LoginScreen.js'
+import CreateAccountScreen from './Screens/CreateAccountScreen.js'
+import ForgotPasswordScreen from './Screens/ForgotPasswordScreen.js';
+import LoginHelpScreen from './Screens/LoginHelpScreen.js';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  // Loads the custom fonts that are used all throughout the application.
+  const fetchFonts = () => {
+    return Font.loadAsync({
+      Barlow: require('../Timetable/assets/Barlow-Regular.ttf'),
+      BarlowBold: require('../Timetable/assets/Barlow-Bold.ttf'),
+      BarlowSemi: require('../Timetable/assets/Barlow-SemiBold.ttf')
+    });
+  };
+
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  if(!fontLoaded) {
+    return (
+
+      <AppLoading
+        startAsync = {fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={console.warn}/>
+
+    );
+
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+
+    <NavigationContainer>
+
+    <AppLoading/>
+
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown:false }}>
+
+        <Stack.Screen name="Login"component={LoginScreen}/>
+        <Stack.Screen name="CreateAccount"component={CreateAccountScreen}/>
+        <Stack.Screen name="ForgotPassword"component={ForgotPasswordScreen}/>
+        <Stack.Screen name="LoginHelp"component={LoginHelpScreen}/>
+
+      </Stack.Navigator>
+      
+    </NavigationContainer>
+
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
