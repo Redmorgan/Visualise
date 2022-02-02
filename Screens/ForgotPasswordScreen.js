@@ -6,7 +6,9 @@
  
  // Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
-import BackArrowImage from '../Images/BackArrow.png' 
+
+// Icons
+import { AntDesign } from '@expo/vector-icons';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   
@@ -28,7 +30,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
             <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
 
-                <BackArrow source={BackArrowImage}/>
+                <AntDesign name="arrowleft" size={40} color="#8A84FF" />
 
             </BackArrowTouchable>
 
@@ -70,18 +72,13 @@ const LoginBackground = styled.ImageBackground`
 
 const BackArrowTouchable = styled.TouchableHighlight`
 
-    width:33px
-    height:24px
+    width:40px
+    height:40px
     margin-left:30px
     margin-top: 30px
     border-radius:90px
-
-`
-
-const BackArrow = styled.Image`
-
-    width:100%
-    height:100%
+    align-items:center
+    justify-content:center
 
 `
 

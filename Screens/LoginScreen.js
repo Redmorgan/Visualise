@@ -37,10 +37,10 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
-    function openMainApp(){
+    function openViewPick(){
 
         Vibration.vibrate(5)
-        navigation.push("ChildView")
+        navigation.push("ViewPick")
 
     }
 
@@ -62,7 +62,7 @@ const LoginScreen = ({ navigation }) => {
 
             <ForgottenPasswordLabel onPress={()=>{openForgotPassword()}}>Forgotten Password</ForgottenPasswordLabel>
 
-            <LoginButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{openMainApp()}}>
+            <LoginButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{openViewPick()}}>
 
                 <LoginButtonLabel>LOGIN</LoginButtonLabel>
 
