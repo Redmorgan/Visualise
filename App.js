@@ -10,6 +10,7 @@ import CreateAccountScreen from './Screens/CreateAccountScreen.js'
 import ForgotPasswordScreen from './Screens/ForgotPasswordScreen.js';
 import LoginHelpScreen from './Screens/LoginHelpScreen.js';
 import ChildViewScreen from './Screens/ChildViewScreen.js';
+import ViewPickScreen from './Screens/ViewPickScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +52,7 @@ export default function App() {
         <Stack.Screen name="ForgotPassword"component={ForgotPasswordScreen}/>
         <Stack.Screen name="LoginHelp"component={LoginHelpScreen}/>
         <Stack.Screen name="ChildView"component={ChildViewScreen}/>
+        <Stack.Screen name="ViewPick"component={ViewPickScreen}/>
 
       </Stack.Navigator>
       
