@@ -17,7 +17,7 @@ import { AntDesign } from '@expo/vector-icons'
 
 const ChildViewScreen = ({ navigation }) => {
 
-    const showMessage = (input) => {
+    const onPressVibration = (input) => {
 
         Alert.alert(`Button Pressed: ${input}`);
 
@@ -42,7 +42,7 @@ const ChildViewScreen = ({ navigation }) => {
 
                 <Tab.Screen name="Calendar" component={CalendarComponent} options={{
                     tabBarIcon:({color}) =>(
-                        <Entypo name="calendar" size={24} color={color} />
+                        <Entypo name="calendar" size={24} color={color}/>
                     ),
                     tabBarItemStyle:{borderRightColor:"#ffffff", borderRightWidth:1}
                 }}/>
