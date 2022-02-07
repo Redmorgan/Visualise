@@ -6,13 +6,10 @@ import { StatusBar } from 'expo-status-bar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Screens
-import ForgotPasswordScreen from "./ForgotPasswordScreen.js";
+import CalendarComponent from "../Components/CalendarComponent.js";
 import LoginHelpScreen from './LoginHelpScreen.js';
 
 const Tab = createBottomTabNavigator();
- 
-// Images
-import MainBackgroundImage from '../Images/MainBackground.png'
 
 //Icons
 import { Entypo } from '@expo/vector-icons'
@@ -39,11 +36,11 @@ const ChildViewScreen = ({ navigation }) => {
                 tabBarActiveBackgroundColor:"#8A84FF",
                 tabBarInactiveBackgroundColor:"#8A84FF",
                 tabBarActiveTintColor:"#ffffff",
-                tabBarInactiveTintColor:"#dedede",
+                tabBarInactiveTintColor:"#ffffffb3",
                 tabBarLabelStyle:{fontSize:24},
                 tabBarStyle:{height:65}}}>
 
-                <Tab.Screen name="Calendar" component={ForgotPasswordScreen} options={{
+                <Tab.Screen name="Calendar" component={CalendarComponent} options={{
                     tabBarIcon:({color}) =>(
                         <Entypo name="calendar" size={24} color={color} />
                     ),
