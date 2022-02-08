@@ -10,6 +10,7 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 // Components
 import TimeOfDayComponent from "./TimeOfDayComponent";
 import TimeTableTasksComponent from "./TimeTableTasksComponent";
+import TaskOverviewComponent from "./TaskOverviewComponent";
 
 
 const TodayComponent = ({  }) => {
@@ -27,6 +28,8 @@ const TodayComponent = ({  }) => {
         <StatusBar backgroundColor="transparent"/>
 
         <TodayBackground source={MainBackgroundImage}>
+
+            <TaskOverviewComponent view="Adult"/>
 {/* 
             <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
 
