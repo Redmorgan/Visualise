@@ -1,5 +1,5 @@
 
- import React, {useRef, useEffect} from "react";
+ import React, {useRef, useState} from "react";
  import { Vibration, Alert } from "react-native";
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
@@ -19,6 +19,8 @@ const TodayComponent = ({  }) => {
 
     const scollPosition = 630
 
+    const[taskOverviewState, setTaskOverviewState]=useState(false)
+
     //scrollRef.current.scrollTo({y:scollPosition, animated: false})
 
     return (
@@ -29,7 +31,7 @@ const TodayComponent = ({  }) => {
 
         <TodayBackground source={MainBackgroundImage}>
 
-            <TaskOverviewComponent view="Adult"/>
+            <TaskOverviewComponent view="Adult" state={taskOverviewState} taskOverviewTouchable={()=>{setTaskOverviewState(false)}}/>
 {/* 
             <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
 
@@ -54,6 +56,8 @@ const TodayComponent = ({  }) => {
 
                         <TimeTableScrollBody>
 
+                            <TimeIndicator style={{top:900}}/>
+
                             <TimeOfDayContainer>
 
                                 <TimeOfDayComponent/>
@@ -62,7 +66,7 @@ const TodayComponent = ({  }) => {
 
                             <TimeTableTasksContainer>
 
-                                <TimeTableTasksComponent/>
+                                <TimeTableTasksComponent openTaskOverView={()=>{setTaskOverviewState(true)}}/>
 
                             </TimeTableTasksContainer>
 
@@ -167,6 +171,17 @@ const TimeTableScrollBody = styled.View`
     width:100%
     height:1680px
     flex-direction:row
+
+`
+
+const TimeIndicator = styled.View`
+
+    width:281px
+    height:3px
+    background-color:#8A84FF
+    position:absolute
+    right:0
+    z-index:10
 
 `
 

@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import { Ionicons } from '@expo/vector-icons';
 
 
-const TaskComponent = ({length, name, colour, type }) => {
+const TaskComponent = ({length, name, colour, type, openTaskOverView }) => {
 
 
    return (
@@ -18,13 +18,15 @@ const TaskComponent = ({length, name, colour, type }) => {
 
         </TaskLabelWrapper>
 
-        
+        <TaskOverviewTouchable onPress={()=>{openTaskOverView()}}>
 
-        <TaskIcon style={{backgroundColor:colour}}>
+            <TaskIcon style={{backgroundColor:colour}}>
 
-            <Ionicons name={type} size={45} color="white" />
+                <Ionicons name={type} size={45} color="white" />
 
-        </TaskIcon>
+            </TaskIcon>
+
+        </TaskOverviewTouchable>
 
         <TaskLength style={{backgroundColor:colour, height:length-20}}/>       
 
@@ -40,17 +42,25 @@ const TaskBody = styled.View`
 
 `
 
-const TaskIcon = styled.View`
+const TaskOverviewTouchable = styled.TouchableHighlight`
 
     width:70px
     height:70px
     border-radius:90px
     position:absolute
     right:25px
+    z-index:2
+
+`
+
+const TaskIcon = styled.View`
+
+    width:100%
+    height:100%
+    border-radius:90px
     display:flex
     align-items:center
     justify-content:center
-    z-index:2
 
 `
 

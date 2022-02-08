@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import TaskComponent from "./TaskComponent";
 
 
-const TimeTableTasksComponent = ({  }) => {
+const TimeTableTasksComponent = ({ openTaskOverView }) => {
 
    return (
 
@@ -13,13 +13,13 @@ const TimeTableTasksComponent = ({  }) => {
 
         <TaskComponent length={700}/>
 
-        <TaskComponent length={140} colour={"#EA4458"} name={"School Starts"} type="school"/>
+        <TaskComponent length={140} colour={"#EA4458"} name={"School Starts"} type="school" openTaskOverView={openTaskOverView}/>
 
-        <TaskComponent length={140} colour={"#64E84E"} name={"Biology Class"} type="bug-sharp"/>
+        <TaskComponent length={140} colour={"#64E84E"} name={"Biology Class"} type="bug-sharp" openTaskOverView={openTaskOverView}/>
 
         <TaskComponent length={70}/>
 
-        <TaskComponent length={0} colour={"#E8E14E"} name={"School Ends"} type="school"/>
+        <TaskComponent length={0} colour={"#E8E14E"} name={"School Ends"} type="school" openTaskOverView={openTaskOverView}/>
 
    </TTT_Body>
 

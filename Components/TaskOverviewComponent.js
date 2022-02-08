@@ -5,12 +5,12 @@ import styled from "styled-components/native";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const TaskOverviewComponent = ({ view }) => {
+const TaskOverviewComponent = ({ view, state, taskOverviewTouchable }) => {
 
    return (
 
    <TaskOverviewModal
-        visible={false}
+        visible={state}
         animationType='fade'
         transparent={true}>
 
@@ -25,7 +25,7 @@ const TaskOverviewComponent = ({ view }) => {
 
                 </EditButton>:null}
 
-                <CloseButton>
+                <CloseButton onPress={()=>{taskOverviewTouchable()}} underlayColor={'#00000033'} activeOpacity={1}>
 
                     <AntDesign name="close" size={35} color="black" />
 
@@ -88,6 +88,7 @@ const CloseButton = styled.TouchableHighlight`
     position:absolute
     right:11px
     top:11px
+    border-radius:90px
 
 `
 
