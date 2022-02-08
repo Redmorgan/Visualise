@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Screens
 import CalendarComponent from "../Components/CalendarComponent.js";
-import LoginHelpScreen from './LoginHelpScreen.js';
+import TodayComponent from "../Components/TodayComponent.js";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +38,9 @@ const ChildViewScreen = ({ navigation }) => {
                 tabBarActiveTintColor:"#ffffff",
                 tabBarInactiveTintColor:"#ffffffb3",
                 tabBarLabelStyle:{fontSize:24},
-                tabBarStyle:{height:65}}}>
+                tabBarStyle:{
+                    height:65}
+                }}>
 
                 <Tab.Screen name="Calendar" component={CalendarComponent} options={{
                     tabBarIcon:({color}) =>(
@@ -46,7 +48,7 @@ const ChildViewScreen = ({ navigation }) => {
                     ),
                     tabBarItemStyle:{borderRightColor:"#ffffff", borderRightWidth:1}
                 }}/>
-                <Tab.Screen name="Today" component={LoginHelpScreen} options={{
+                <Tab.Screen name="Today" component={TodayComponent} options={{
                     tabBarIcon:({color}) =>(
                         <AntDesign name="clockcircle" size={24} color={color} />
                     ),
