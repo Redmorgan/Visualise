@@ -10,6 +10,7 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 // Components
 import TaskManagerItemComponent from "./TaskManagerItemComponent";
 import DeleteTaskComponent from "./DeleteTaskComponent";
+import EditTaskComponent from "./EditTaskComponent";
 
 // Icons
 import { Feather } from '@expo/vector-icons';
@@ -42,6 +43,8 @@ const TaskManagerComponent = ({ navigation }) => {
             </SearchBarContainer>
 
             <DeleteTaskComponent state={deleteTaskState} closeDelete={()=>{setDeleteTaskState(false)}}/>
+
+            <EditTaskComponent/>
 
             <TaskListContainer>
 

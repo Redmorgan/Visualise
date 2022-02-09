@@ -9,14 +9,14 @@ const DeleteTaskComponent = ({ state, closeDelete }) => {
 
    return (
 
-   <TaskOverviewModal
+   <DeleteTaskModal
         visible={state}
         animationType='fade'
         transparent={true}>
 
-        <TaskOverviewContainer>
+        <DeleteTaskContainer>
             
-            <TaskOverviewBody>
+            <DeleteTaskBody>
 
                 <MaterialIcons name="error" size={100} color="red" style={{marginTop:20}}/>
 
@@ -38,19 +38,19 @@ const DeleteTaskComponent = ({ state, closeDelete }) => {
 
                 </DeleteControlsContainer>
 
-            </TaskOverviewBody>
+            </DeleteTaskBody>
             
-        </TaskOverviewContainer>
+        </DeleteTaskContainer>
 
-   </TaskOverviewModal>
+   </DeleteTaskModal>
 
    );
 }
 
-const TaskOverviewModal = styled.Modal`
+const DeleteTaskModal = styled.Modal`
 `
 
-const TaskOverviewContainer = styled.View`
+const DeleteTaskContainer = styled.View`
 
     flex:1
     justify-content:center;
@@ -59,7 +59,7 @@ const TaskOverviewContainer = styled.View`
 
 `
 
-const TaskOverviewBody = styled.View`
+const DeleteTaskBody = styled.View`
 
     width:350px;
     height:300px;
