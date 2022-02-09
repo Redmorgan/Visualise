@@ -33,11 +33,13 @@ const ViewPickScreen = ({ navigation }) => {
         if(viewSelected == "Adult"){
 
             Vibration.vibrate(5)
-            Alert.alert("Adult View opened");
+            global.View = "Adult"
+            navigation.push("AdultView")
 
         }else if(viewSelected == "Child"){
 
             Vibration.vibrate(5)
+            global.View = "Child"
             navigation.push("ChildView")
 
         }

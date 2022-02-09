@@ -31,7 +31,7 @@ const TodayComponent = ({  }) => {
 
         <TodayBackground source={MainBackgroundImage}>
 
-            <TaskOverviewComponent view="Adult" state={taskOverviewState} taskOverviewTouchable={()=>{setTaskOverviewState(false)}}/>
+            <TaskOverviewComponent view={global.View} state={taskOverviewState} taskOverviewTouchable={()=>{setTaskOverviewState(false)}}/>
 {/* 
             <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
 
