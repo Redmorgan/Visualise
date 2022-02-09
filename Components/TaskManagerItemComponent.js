@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const TaskManagerItemComponent = ({ taskName, taskRepeat }) => {
+const TaskManagerItemComponent = ({ taskName, taskRepeat, openDelete }) => {
 
    return (
 
@@ -21,13 +21,13 @@ const TaskManagerItemComponent = ({ taskName, taskRepeat }) => {
 
         <TaskControlsContainer>
 
-            <EditButton>
+            <EditButton underlayColor={'#00000033'} activeOpacity={1}>
 
                 <FontAwesome5 name="pen" size={30} color="black" />
 
             </EditButton>
 
-            <DeleteButton>
+            <DeleteButton underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openDelete()}}>
 
                 <AntDesign name="close" size={35} color="black" />
 
@@ -103,6 +103,7 @@ const DeleteButton = styled.TouchableHighlight`
 
     width:35px
     height:35px
+    border-radius:90px
 
 `
 

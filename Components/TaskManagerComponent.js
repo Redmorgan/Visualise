@@ -9,6 +9,7 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 
 // Components
 import TaskManagerItemComponent from "./TaskManagerItemComponent";
+import DeleteTaskComponent from "./DeleteTaskComponent";
 
 // Icons
 import { Feather } from '@expo/vector-icons';
@@ -18,6 +19,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
     const[dropDownState, setDropdownState] = useState(false)
     const[dropDownSelection, setDropdownSelection] = useState("All Tasks")
+    const[deleteTaskState, setDeleteTaskState] = useState(false)
 
     return (
  
@@ -39,11 +41,13 @@ const TaskManagerComponent = ({ navigation }) => {
 
             </SearchBarContainer>
 
+            <DeleteTaskComponent state={deleteTaskState} closeDelete={()=>{setDeleteTaskState(false)}}/>
+
             <TaskListContainer>
 
-                <TaskManagerItemComponent taskName="Biology" taskRepeat="Repeating"/>
-                <TaskManagerItemComponent taskName="Lunch Time" taskRepeat="Repeating"/>
-                <TaskManagerItemComponent taskName="Dentist" taskRepeat="15:30 - 14/02/2022"/>
+                <TaskManagerItemComponent taskName="Biology" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}}/>
+                <TaskManagerItemComponent taskName="Lunch Time" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}}/>
+                <TaskManagerItemComponent taskName="Dentist" taskRepeat="15:30 - 14/02/2022" openDelete={()=>{setDeleteTaskState(true)}}/>
 
             </TaskListContainer>
 
