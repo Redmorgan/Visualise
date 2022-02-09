@@ -7,6 +7,9 @@
  // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
 
+// Components
+import TaskManagerItemComponent from "./TaskManagerItemComponent";
+
 // Icons
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -36,6 +39,14 @@ const TaskManagerComponent = ({ navigation }) => {
 
             </SearchBarContainer>
 
+            <TaskListContainer>
+
+                <TaskManagerItemComponent taskName="Biology" taskRepeat="Repeating"/>
+                <TaskManagerItemComponent taskName="Lunch Time" taskRepeat="Repeating"/>
+                <TaskManagerItemComponent taskName="Dentist" taskRepeat="15:30 - 14/02/2022"/>
+
+            </TaskListContainer>
+
             <DropDownContainer>
 
                 <DropDownHeaderTouchable onPress={()=>{setDropdownState(!dropDownState)}}>
@@ -53,7 +64,7 @@ const TaskManagerComponent = ({ navigation }) => {
                 {(dropDownState == true)?
                 <DropDownBody>
 
-                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("All Tasks")}}>
+                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("All Tasks");setDropdownState(!dropDownState);}} style={{borderTopWidth:1, borderTopColor:"#ECECEC"}}>
 
                         <DropDownOption>
 
@@ -63,7 +74,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
                     </DropDownOptionTouchable>
 
-                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("One Off")}}>
+                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("One Off");setDropdownState(!dropDownState);}}>
 
                         <DropDownOption>
 
@@ -73,7 +84,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
                     </DropDownOptionTouchable>
 
-                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("Repeating")}}>
+                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("Repeating");setDropdownState(!dropDownState);}}>
 
                         <DropDownOption>
 
@@ -86,8 +97,6 @@ const TaskManagerComponent = ({ navigation }) => {
                 </DropDownBody>:null}
 
             </DropDownContainer>
-
-            
 
         </TaskManagerBackground>
 
@@ -151,11 +160,14 @@ const SearchIconToucable = styled.TouchableHighlight`
 const DropDownContainer = styled.View`
 
     width:150px
-    z-index:10
+    elevation:6
     display:flex
     align-items:center
     margin-top:10px
     margin-left:200px
+    position:absolute
+    top:93px
+    right:32px
 
 `
 
@@ -223,6 +235,13 @@ const DropDownOptionLabel = styled.Text`
 
 `
 
+const TaskListContainer = styled.View`
+
+    width:350px
+    height:75%
+    margin-top:15%
+
+`
 
 
 export default TaskManagerComponent;
