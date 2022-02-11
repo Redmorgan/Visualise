@@ -58,11 +58,14 @@ const AdultViewScreen = ({ navigation }) => {
                     tabBarItemStyle:{borderColor:"#ffffff", borderLeftWidth:1, borderRightWidth:1}
                 }}/>
 
-                <Tab.Screen name="Settings" component={TaskManagerComponent} options={{
-                    tabBarIcon:({color}) =>(
-                        <FontAwesome name="cog" size={24} color={color} />
-                    ),
-                    tabBarItemStyle:{borderLeftColor:"#ffffff", borderLeftWidth:1}
+                <Tab.Screen
+                    name="Settings"
+                    component={TaskManagerComponent}
+                    options={{
+                        tabBarIcon:({color}) =>(
+                            <FontAwesome name="cog" size={24} color={color} />
+                        ),
+                        tabBarItemStyle:{borderLeftColor:"#ffffff", borderLeftWidth:1}
                 }}/>
 
             </Tab.Navigator>
