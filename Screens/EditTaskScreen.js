@@ -16,45 +16,43 @@ import { Entypo } from '@expo/vector-icons';
 const EditTaskScreen = ({ navigation }) => {
 
     const [date, setDate] = useState(new Date())
-    const [mode, setMode] = useState('date')
-    const [show, setShow] = useState(false)
+    const [showDate, setShowDate] = useState(false)
+    const [showTime, setShowTime] = useState(false)
 
     const [selectedDays, setSelectedDays] = useState([])
     const [refreshState, setRefreshing] = useState(false)
     const [selectedDaysString, setSelectedDaysString] = useState()
 
     const [selected, setSelected] = useState()
-    const [startTime, setStartTime] = useState("00:00")
-    const [endTime, setEndTime] = useState("00:00")
+    const [startTime, setStartTime] = useState(new Date())
+    const [endTime, setEndTime] = useState(moment(new Date()).add(1, 'h').toDate())
 
 
     function onDateChange(event, selectedDate){
 
         const currentDate = selectedDate || date
 
-        if(selected == "start" || selected == "end"){
+        setDate(currentDate)
+        setShowDate(false)
+        //setSelectedDays([])
 
-            var formattedTime = moment(selectedDate).format("HH:mm")
+    }
 
-            if(selected == "start"){
+    function onTimeChange(event, selectedDate){
 
-                setStartTime(formattedTime)
+        const currentDate = selectedDate || date
 
-            }else if(selected == "end"){
+        if(selected == "start"){
 
-                setEndTime(formattedTime)
+            setStartTime(currentDate)
 
-            }
+        }else if(selected == "end"){
 
-        }else{
-
-            setDate(currentDate)
-            setShow(false)
-            setSelectedDays([])
+            setEndTime(currentDate)
 
         }
 
-        setShow(false)
+        setShowTime(false)
 
     }
 
@@ -68,27 +66,24 @@ const EditTaskScreen = ({ navigation }) => {
     function openDatePicker(){
 
         Vibration.vibrate(5)
-        setMode("date")
         setSelected("date")
-        setShow(true)
+        setShowDate(true)
 
     }
 
     function openStartTime(){
 
         Vibration.vibrate(5)
-        setMode("time")
         setSelected("start")
-        setShow(true)
+        setShowTime(true)
 
     }
 
     function openEndTime(){
 
         Vibration.vibrate(5)
-        setMode("time")
         setSelected("end")
-        setShow(true)
+        setShowTime(true)
 
     }
 
@@ -197,10 +192,10 @@ const EditTaskScreen = ({ navigation }) => {
                         editable={selectedDays.length == 0 ? true:false}
                         value={selectedDays.length == 0 ? moment(date).format("DD/MM/YYYY"): selectedDaysString}/>
 
-                    {(show == true)?
+                    {(showDate == true)?
                     <DateTimePicker 
                         value={ date }
-                        mode={mode}
+                        mode={'date'}
                         display='default'
                         onChange={onDateChange}
                     />:null}
@@ -298,7 +293,7 @@ const EditTaskScreen = ({ navigation }) => {
 
                             <TimeInput
                                 editable={false}
-                                value={startTime}/>
+                                value={moment(startTime).format("HH:mm")}/>
 
                             <ClockTouchable onPress={()=>{openStartTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
 
@@ -317,7 +312,7 @@ const EditTaskScreen = ({ navigation }) => {
                         <TaskTimeWrapper>
 
                             <TimeInput
-                                value={endTime}
+                                value={moment(endTime).format("HH:mm")}
                                 editable={false}/>
 
                             <ClockTouchable onPress={()=>{openEndTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
@@ -329,6 +324,14 @@ const EditTaskScreen = ({ navigation }) => {
                         </TaskTimeWrapper>
 
                     </TaskTimeContainer>
+
+                    {(showTime == true)?
+                    <DateTimePicker 
+                        value={ date }
+                        mode={'time'}
+                        display='default'
+                        onChange={onTimeChange}
+                    />:null}
                 
                 </TimeContainer>
 
