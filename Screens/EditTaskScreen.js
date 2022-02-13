@@ -48,7 +48,6 @@ const EditTaskScreen = ({ navigation }) => {
 
         }else{
 
-            //setSelectedDays([])
             setDate(currentDate)
             setShow(false)
             setSelectedDays([])
@@ -139,6 +138,20 @@ const EditTaskScreen = ({ navigation }) => {
         setSelectedDaysString(selectedDaysStringUpdated)
 
         setRefreshing(!refreshState)
+
+    }
+
+    function cancelTask(){
+
+        Vibration.vibrate(5)
+        navigation.pop()
+
+    }
+
+    function saveTask(){
+
+        Vibration.vibrate(5)
+        navigation.pop()
 
     }
 
@@ -318,6 +331,22 @@ const EditTaskScreen = ({ navigation }) => {
                     </TaskTimeContainer>
                 
                 </TimeContainer>
+
+                <TaskButtonsContainer>
+
+                    <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+
+                        <SaveTaskLabel>Save</SaveTaskLabel>
+
+                    </SaveTaskButton>
+
+                    <CancelTaskButton onPress={()=>{cancelTask()}} underlayColor={'#00000033'} activeOpacity={1}>
+
+                        <CancelTaskLabel>Cancel</CancelTaskLabel>
+
+                    </CancelTaskButton>
+
+                </TaskButtonsContainer>
 
             </EditTaskBody>
 
@@ -566,6 +595,58 @@ const ClockTouchable = styled.TouchableHighlight`
     border-radius:90px
 
 `
+
+const TaskButtonsContainer = styled.View`
+
+    width:100%
+    height:53px
+    margin-top:40px
+    display:flex
+    flex-direction:row
+    justify-content:space-between
+
+`
+
+const SaveTaskButton = styled.TouchableHighlight`
+
+    width:45%
+    height:100%
+    border-radius:10px
+    background-color:#8A84FF
+    display:flex
+    justify-content:center
+    align-items:center
+
+`
+
+const CancelTaskButton = styled.TouchableHighlight`
+
+    width:45%
+    height:100%
+    border-radius:10px
+    background-color:#ffffff
+    display:flex
+    justify-content:center
+    align-items:center
+
+`
+
+const SaveTaskLabel = styled.Text`
+
+    font-family:BarlowSemi
+    font-size:24px
+    color:#ffffff
+
+`
+
+const CancelTaskLabel = styled.Text`
+
+    font-family:BarlowSemi
+    font-size:24px
+    color:#8A84FF
+
+`
+
 
 export default EditTaskScreen;
  
