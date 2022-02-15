@@ -12,8 +12,11 @@ import TimeOfDayComponent from "./TimeOfDayComponent";
 import TimeTableTasksComponent from "./TimeTableTasksComponent";
 import TaskOverviewComponent from "./TaskOverviewComponent";
 
+// Icons
+import { FontAwesome } from '@expo/vector-icons'
 
-const TodayComponent = ({  }) => {
+
+const TodayComponent = ({ navigation }) => {
 
     const scrollRef = useRef();
 
@@ -23,6 +26,15 @@ const TodayComponent = ({  }) => {
 
     //scrollRef.current.scrollTo({y:scollPosition, animated: false})
 
+    //const navigation = useNavigation();
+
+    function openSettings(){
+
+        Vibration.vibrate(5)
+        navigation.push("Settings")
+
+    }
+
     return (
  
     <MainView>
@@ -30,6 +42,12 @@ const TodayComponent = ({  }) => {
         <StatusBar backgroundColor="transparent"/>
 
         <TodayBackground source={MainBackgroundImage}>
+
+            <SettingsTouchable onPress={()=>{openSettings()}} underlayColor={'#00000033'} activeOpacity={1}>
+
+                <FontAwesome name="cog" size={40} color={"#8A84FF"} />
+
+            </SettingsTouchable>
 
             <TaskOverviewComponent view={global.View} state={taskOverviewState} taskOverviewTouchable={()=>{setTaskOverviewState(false)}}/>
 {/* 
@@ -102,15 +120,17 @@ const TodayBackground = styled.ImageBackground`
  
 `
 
-const BackArrowTouchable = styled.TouchableHighlight`
+const SettingsTouchable = styled.TouchableHighlight`
 
     width:40px
     height:40px
-    margin-left:30px
-    margin-top: 30px
-    border-radius:90px
-    align-items:center
+    position:absolute
+    right:25px
+    top:30px
+    display:flex
     justify-content:center
+    align-items:center
+    border-radius:10px
 
 `
 

@@ -59,7 +59,7 @@ const AdultViewScreen = ({ navigation }) => {
                 }}/>
 
                 <Tab.Screen
-                    name="Settings"
+                    name="Tasks"
                     component={TaskManagerComponent}
                     options={{
                         tabBarIcon:({color}) =>(

@@ -11,16 +11,17 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 import WeekDayComponent from "./WeekDayComponent";
 import CalendarGridComponent from "./CalendarGridComponent";
 
+// Icons
+import { FontAwesome } from '@expo/vector-icons'
+
 const CalendarComponent = ({ navigation }) => {
 
-    
-    function backToLogin(){
+    function openSettings(){
 
         Vibration.vibrate(5)
-        navigation.pop()
-    
-    }
+        navigation.push("Settings")
 
+    }
 
     return (
  
@@ -29,12 +30,12 @@ const CalendarComponent = ({ navigation }) => {
         <StatusBar backgroundColor="transparent"/>
 
         <CalendarBackground source={MainBackgroundImage}>
-{/* 
-            <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
 
-                <AntDesign name="arrowleft" size={40} color="#8A84FF" />
+            <SettingsTouchable onPress={()=>{openSettings()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-            </BackArrowTouchable> */}
+                <FontAwesome name="cog" size={40} color={"#8A84FF"} />
+
+            </SettingsTouchable>
 
             <CalendarContainer>
 
@@ -94,15 +95,17 @@ const CalendarBackground = styled.ImageBackground`
  
 `
 
-const BackArrowTouchable = styled.TouchableHighlight`
+const SettingsTouchable = styled.TouchableHighlight`
 
     width:40px
     height:40px
-    margin-left:30px
-    margin-top: 30px
-    border-radius:90px
-    align-items:center
+    position:absolute
+    right:25px
+    top:30px
+    display:flex
     justify-content:center
+    align-items:center
+    border-radius:10px
 
 `
 
