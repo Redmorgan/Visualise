@@ -32,15 +32,17 @@ const EditTaskScreen = ({ navigation }) => {
 
         const currentDate = selectedDate || date
 
-        setDate(currentDate)
         setShowDate(false)
-        //setSelectedDays([])
+        setDate(currentDate)
+        setSelectedDays([])
 
     }
 
     function onTimeChange(event, selectedDate){
 
         const currentDate = selectedDate || date
+
+        setShowTime(false)
 
         if(selected == "start"){
 
@@ -51,8 +53,6 @@ const EditTaskScreen = ({ navigation }) => {
             setEndTime(currentDate)
 
         }
-
-        setShowTime(false)
 
     }
 
@@ -189,7 +189,7 @@ const EditTaskScreen = ({ navigation }) => {
                 <TaskDateContainer>
 
                     <TaskDateInput
-                        editable={selectedDays.length == 0 ? true:false}
+                        editable={false}
                         value={selectedDays.length == 0 ? moment(date).format("DD/MM/YYYY"): selectedDaysString}/>
 
                     {(showDate == true)?
