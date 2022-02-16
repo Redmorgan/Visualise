@@ -24,9 +24,8 @@ const TodayComponent = ({ navigation }) => {
 
     const[taskOverviewState, setTaskOverviewState]=useState(false)
 
+    // Scrolls screen to exact point in scroll view, 1 hour = 70px
     //scrollRef.current.scrollTo({y:scollPosition, animated: false})
-
-    //const navigation = useNavigation();
 
     function openSettings(){
 
@@ -50,12 +49,6 @@ const TodayComponent = ({ navigation }) => {
             </SettingsTouchable>
 
             <TaskOverviewComponent view={global.View} state={taskOverviewState} taskOverviewTouchable={()=>{setTaskOverviewState(false)}}/>
-{/* 
-            <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
-
-                <AntDesign name="arrowleft" size={40} color="#8A84FF" />
-
-            </BackArrowTouchable> */}
 
             <TodayContainer>
 

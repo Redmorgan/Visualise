@@ -9,13 +9,37 @@
 
  // Icons
 import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const SettingsScreen = ({ navigation }) => {
+
+    const [vibrationEnabled, setVibrationEnabled] = useState(false);
+    const toggleSwitch = () => setVibrationEnabled(previousState => !previousState);
 
     function goBack(){
 
         Vibration.vibrate(5)
         navigation.pop()
+
+    }
+
+    function returnToLogin(){
+
+        Vibration.vibrate(5)
+        navigation.reset({
+            index:0,
+            routes: [{ name: 'Login' }]
+        })
+
+    }
+
+    function returnToViewSelect(){
+
+        Vibration.vibrate(5)
+        navigation.reset({
+            index:0,
+            routes: [{ name: 'ViewPick' }]
+        })
 
     }
 
@@ -25,7 +49,7 @@ const SettingsScreen = ({ navigation }) => {
 
         <StatusBar backgroundColor="transparent"/>
 
-        <EditTaskBackground source={MainBackgroundImage}>
+        <SettingsBackground source={MainBackgroundImage}>
 
             <HeaderBar>
 
@@ -39,7 +63,84 @@ const SettingsScreen = ({ navigation }) => {
 
             </HeaderBar>
 
-        </EditTaskBackground>
+            <SettingsBody>
+
+                <SettingsScrollView>
+
+                    <BackgroundSettings>
+
+                        <BackgroundSettingsWrapper>
+
+                            <SettingTitleLabel>Background</SettingTitleLabel>
+
+                            <BackgroundSettingDesc>Customise your background by uploading your own image.</BackgroundSettingDesc>
+
+                            <BackgroundSettingControls>
+
+                                <UploadButton>
+
+                                    <UploadButtonWrapper>
+
+                                        <ButtonLabel>UPLOAD</ButtonLabel>
+
+                                        <Feather name="upload" size={24} color="#ffffff"/>
+
+                                    </UploadButtonWrapper>
+
+                                </UploadButton>
+
+                                <ResetButton>
+
+                                    <ButtonLabel>RESET</ButtonLabel>
+
+                                </ResetButton>
+
+                            </BackgroundSettingControls>
+
+                        </BackgroundSettingsWrapper>
+
+                    </BackgroundSettings>
+
+                    <VibrationSettings>
+
+                        <VibrationSettingsWrapper>
+
+                            <SettingTitleLabel>Vibrations</SettingTitleLabel>
+
+                            <VibrationSettingDesc>Disable vibrations across the app.</VibrationSettingDesc>
+
+                            <VibrationSwitch
+                                trackColor={{ false: "#767577", true: "#b4b0ff" }}
+                                thumbColor={vibrationEnabled ? "#8A84FF" : "#f4f3f4"}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={toggleSwitch}
+                                value={vibrationEnabled}/>
+
+                        </VibrationSettingsWrapper>
+
+                    </VibrationSettings>
+
+                </SettingsScrollView>
+
+            </SettingsBody>
+
+            <ControlButtonContainer>
+
+                <SwitchViewButton onPress={()=>{returnToViewSelect()}} underlayColor={'#00000033'} activeOpacity={1}>
+
+                    <SwitchViewLabel>SWITCH VIEWS</SwitchViewLabel>
+
+                </SwitchViewButton>
+
+                <LogoutButton onPress={()=>{returnToLogin()}} underlayColor={'#6964c4'} activeOpacity={1}>
+
+                    <LogoutLabel>LOGOUT</LogoutLabel>
+
+                </LogoutButton>
+
+            </ControlButtonContainer>
+
+        </SettingsBackground>
 
     </MainView>
  
@@ -55,7 +156,7 @@ const MainView = styled.View`
  
 `
  
-const EditTaskBackground = styled.ImageBackground`
+const SettingsBackground = styled.ImageBackground`
  
     width:100%;
     height:100%;
@@ -93,6 +194,201 @@ const BackArrowTouchable = styled.TouchableHighlight`
     position:absolute
     left:17px
     top:40px
+
+`
+
+const SettingsBody = styled.View`
+
+    width:350px
+    height:67.5%
+    margin-top:15px
+
+`
+
+const SettingsScrollView = styled.ScrollView`
+
+    width:100%
+
+`
+
+const BackgroundSettings = styled.View`
+
+    width:100%
+    height:163px
+    background-color:#ffffff
+    border-radius:10px
+    display:flex
+    justify-content:center
+    align-items:center
+
+`
+
+const BackgroundSettingsWrapper = styled.View`
+
+    width:95%
+    height:90%
+
+`
+
+const SettingTitleLabel = styled.Text`
+
+    font-family:Barlow
+    font-size:24px
+    color:#000000
+`
+
+const BackgroundSettingDesc = styled.Text`
+
+    width:100%
+    font-family:Barlow
+    font-size:20px
+    color:#514F4F
+
+`
+
+const BackgroundSettingControls = styled.View`
+
+    width:100%
+    height:53px
+    display:flex
+    flex-direction:row
+    justify-content:space-between
+    margin-top:10px
+
+`
+
+const UploadButton = styled.TouchableHighlight`
+
+    width:145px
+    height:100%
+    background-color:#8A84FF
+    border-radius:10px
+    display:flex
+    justify-content:center
+    align-items:center
+    
+`
+
+const UploadButtonWrapper = styled.View`
+
+    width:90%
+    height:100%
+    display:flex
+    justify-content:space-around
+    align-items:center
+    flex-direction:row
+
+`
+
+const ButtonLabel = styled.Text`
+
+    font-family:BarlowSemi 
+    font-size:24px
+    color:#ffffff
+
+`
+
+const ResetButton = styled.TouchableHighlight`
+
+    width:145px
+    height:100%
+    background-color:#8A84FF
+    border-radius:10px
+    display:flex
+    justify-content:center
+    align-items:center
+    
+
+`
+
+const VibrationSettings = styled.View`
+
+    width:100%
+    height:101px
+    background-color:#ffffff
+    border-radius:10px
+    display:flex
+    justify-content:center
+    align-items:center
+    margin-top:20px
+
+`
+
+const VibrationSettingsWrapper = styled.View`
+
+    width:95%
+    height:90%
+
+`
+
+const VibrationSettingDesc = styled.Text`
+
+    width:70%
+    font-family:Barlow
+    font-size:20px
+    color:#514F4F
+
+`
+
+const VibrationSwitch = styled.Switch`
+
+    position:absolute
+    right:5px
+    top:35px
+
+`
+
+
+
+
+
+
+const ControlButtonContainer = styled.View`
+
+    width:350px
+    height:15%
+    margin-top:15px
+    justify-content:space-between
+
+`
+
+const SwitchViewButton = styled.TouchableHighlight`
+
+    width:100%
+    height:53px
+    border-radius:10px
+    background-color:#ffffff
+    display:flex
+    justify-content:center
+    align-items:center
+
+`
+
+const SwitchViewLabel = styled.Text`
+
+    font-family:BarlowSemi 
+    font-size:24px
+    color:#8A84FF
+
+`
+
+const LogoutButton = styled.TouchableHighlight`
+
+    width:100%
+    height:53px
+    border-radius:10px
+    background-color:#8A84FF
+    display:flex
+    justify-content:center
+    align-items:center
+
+`
+
+const LogoutLabel = styled.Text`
+
+    font-family:BarlowSemi 
+    font-size:24px
+    color:#ffffff
 
 `
 
