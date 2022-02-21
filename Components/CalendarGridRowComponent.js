@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 
 
-const CalendarGridRowComponent = ({ month }) => {
+const CalendarGridRowComponent = ({ dates }) => {
 
    return (
 
@@ -10,43 +10,43 @@ const CalendarGridRowComponent = ({ month }) => {
 
         <CalendarDayContainer style={{borderRightWidth:1}}>
 
-            <DateLabel>1st</DateLabel>
+            <DateLabel>{dates[0]}</DateLabel>
 
         </CalendarDayContainer>
 
         <CalendarDayContainer style={{borderRightWidth:1}}>
 
-            <DateLabel>1st</DateLabel>
+            <DateLabel>{dates[1]}</DateLabel>
 
         </CalendarDayContainer>
 
         <CalendarDayContainer style={{borderRightWidth:1}}>
 
-            <DateLabel>1st</DateLabel>
+            <DateLabel>{dates[2]}</DateLabel>
 
         </CalendarDayContainer>
 
         <CalendarDayContainer style={{borderRightWidth:1}}>
 
-            <DateLabel>1st</DateLabel>
+            <DateLabel>{dates[3]}</DateLabel>
 
         </CalendarDayContainer>
 
         <CalendarDayContainer style={{borderRightWidth:1}}>
 
-            <DateLabel>1st</DateLabel>
+            <DateLabel>{dates[4]}</DateLabel>
 
         </CalendarDayContainer>
 
         <CalendarDayContainer style={{borderRightWidth:1}}>
 
-            <DateLabel>1st</DateLabel>
+            <DateLabel>{dates[5]}</DateLabel>
 
         </CalendarDayContainer>
 
         <CalendarDayContainer>
 
-            <DateLabel>1st</DateLabel>
+            <DateLabel>{dates[6]}</DateLabel>
 
         </CalendarDayContainer>
 

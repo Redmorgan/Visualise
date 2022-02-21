@@ -1,5 +1,5 @@
 
- import React from "react";
+ import React, {useState, useEffect} from "react";
  import { Vibration, Alert } from "react-native";
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
@@ -13,13 +13,150 @@ import CalendarGridComponent from "./CalendarGridComponent";
 
 // Icons
 import { FontAwesome } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons';
 
 const CalendarComponent = ({ navigation }) => {
+
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    const[year, setYear] = useState(new Date().getFullYear())
+    const[month, setMonth] = useState(new Date().getMonth()+1)
+    const[isRefreshing, setRefreshing] = useState(false)
+
+    var daysInMonth= getDaysInMonth(month)
+    var firstDay = getFirstDay(month)
+    var dates = setUpCalendar()
 
     function openSettings(){
 
         Vibration.vibrate(5)
         navigation.push("Settings")
+
+    }
+
+    function setUpCalendar(){
+
+        var dates = []
+
+        if(firstDay == 0){
+
+            firstDay = 7
+
+        }
+
+        for(let i = 1; i < firstDay; i++){
+
+            dates.push("X")
+
+        }
+        
+        for(let i = 1; i<= daysInMonth; i++){
+
+            var suffix = ""
+
+            if(i == 1 || i == 21 || i == 31){
+
+                suffix = "st"
+
+            }else if(i == 2 || i == 22){
+
+                suffix = "nd"
+
+            }else if (i == 3 || i == 23){
+
+                suffix = "rd"
+
+            }else{
+
+                suffix = "th"
+
+            }
+
+            dates.push(i + suffix)
+
+        }
+
+        for(let i = 1; i<= (42-daysInMonth); i++){
+
+            dates.push("X")
+
+        }
+
+        return dates
+        
+    }
+
+    function getFirstDay(setMonth){
+
+        return new Date(year, setMonth-1, 1).getDay()
+
+    }
+
+    function getDaysInMonth(setMonth){
+
+        return new Date(year, setMonth, 0).getDate()
+
+    }
+
+    function nextMonth(){
+
+        Vibration.vibrate(5)
+
+        var nextMonth
+
+        if(month != 12){
+
+            nextMonth = month + 1
+
+            setMonth(nextMonth)
+
+            setRefreshing(!isRefreshing)
+
+
+        }else{
+
+            var nextYear = year + 1
+
+            setYear(nextYear)
+
+            nextMonth = 1
+
+            setMonth(nextMonth)
+
+            setRefreshing(!isRefreshing)
+
+        }
+
+    }
+
+    function previousMonth(){
+
+        Vibration.vibrate(5)
+
+        var previousMonth
+
+        if(month != 1){
+
+            previousMonth = month -1
+
+            setMonth(previousMonth)
+
+            setRefreshing(!isRefreshing)
+
+
+        }else{
+
+            var previousYear = year - 1
+
+            setYear(previousYear)
+
+            previousMonth = 12
+
+            setMonth(previousMonth)
+
+            setRefreshing(!isRefreshing)
+
+        }
 
     }
 
@@ -43,7 +180,19 @@ const CalendarComponent = ({ navigation }) => {
 
                     <CalendarHeader>
 
-                        <HeaderLabel>January 2022</HeaderLabel>
+                        <PreviousMonthTouchable onPress={()=>{previousMonth()}} underlayColor={'#00000033'} activeOpacity={1}>
+
+                            <AntDesign name="left" size={40} color="black" style/>
+
+                        </PreviousMonthTouchable>
+
+                        <HeaderLabel>{months[month-1]} {year}</HeaderLabel>
+
+                        <NextMonthTouchable onPress={()=>{nextMonth()}} underlayColor={'#00000033'} activeOpacity={1}>
+
+                            <AntDesign name="right" size={40} color="black" />
+
+                        </NextMonthTouchable>
 
                     </CalendarHeader>
 
@@ -65,7 +214,7 @@ const CalendarComponent = ({ navigation }) => {
 
                     </WeekDayHeader>
 
-                    <CalendarGridComponent month="January"/>
+                    <CalendarGridComponent dates={dates}/>
 
                 </CalendarBody>
 
@@ -147,6 +296,30 @@ const HeaderLabel = styled.Text`
     font-family:BarlowSemi
     font-size:24px
     color:#000000
+    width:70%
+    text-align:center
+
+`
+
+const PreviousMonthTouchable = styled.TouchableHighlight`
+
+    width:45px
+    height:50px
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    border-radius:20px
+
+`
+
+const NextMonthTouchable = styled.TouchableHighlight`
+
+    width:45px
+    height:50px
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    border-radius:20px
 
 `
 

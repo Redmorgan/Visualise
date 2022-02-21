@@ -48,7 +48,7 @@ export default function App() {
 
     <AppLoading/>
 
-      <Stack.Navigator initialRouteName="AdultView" screenOptions={{ headerShown:false }}>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown:false }}>
 
         <Stack.Screen name="Login"component={LoginScreen}/>
         <Stack.Screen name="CreateAccount"component={CreateAccountScreen}/>
