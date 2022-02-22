@@ -1,6 +1,6 @@
 
  import React from "react";
- import { Vibration, Alert } from "react-native";
+ import { Vibration, Alert, Dimensions } from "react-native";
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
  
@@ -8,7 +8,6 @@
 import LoginBackgroundImage from '../Images/LoginBackground.png'
 
 const LoginScreen = ({ navigation }) => {
-
     
     const showMessage = (input) => {
 
@@ -91,8 +90,7 @@ const LoginScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
-    display: flex;
+    flex:1
     align-items: center;
     justify-content:center;
  
@@ -111,8 +109,8 @@ const LoginHeader = styled.Text`
     font-family:BarlowBold
     font-size:48px
     color:#000000
-    margin-left:30px
-    margin-top:185px
+    margin-left:7.5%
+    margin-top:40%
     width:132px
     height:62px
 
@@ -131,11 +129,11 @@ const LoginSubtext = styled.Text`
 
 const LoginInput = styled.TextInput`
 
-    width:350px
-    height:53px
+    width:85%
+    height:6.4%
     border-radius:10px
-    margin-left:30px
-    margin-top:20px
+    margin-left:7.5%
+    margin-top:5%
     font-family:Barlow
     font-size:24px
     background-color:#ffffff
@@ -151,19 +149,19 @@ const ForgottenPasswordLabel = styled.Text`
     font-family:BarlowSemi
     font-size:18px
     color:#8A84FF
-    margin-top:5px
-    margin-left:222px
+    margin-top:0.6%
+    margin-left:53.5%
 
 `
 
 const LoginButton = styled.TouchableHighlight`
 
-    width:151px
-    height:53px
+    width:36.7%
+    height:6.4%
     border-radius:20px
     background-color: #8A84FF
-    margin-top:17px
-    margin-left:229px
+    margin-top:4%
+    margin-left:55.66%
     justify-content:center
     align-items:center
 
@@ -179,10 +177,10 @@ const LoginButtonLabel = styled.Text`
 
 const AccountSignUpContainer = styled.View`
 
-    width:350px
-    height:25px
-    margin-top:45px
-    margin-left:30px
+    width:85%
+    height:3%
+    margin-top:5.4%
+    margin-left:7.3%
     display:flex
     flex-direction:row
     justify-content:center
@@ -202,20 +200,19 @@ const SignUpLabel = styled.Text`
     font-family:BarlowSemi
     font-size:18px
     color:#8A84FF
-    margin-left:10px
+    margin-left:2.4%
 
 `
 
 const ContactUsContainer = styled.View`
 
     width:100%
-    height:30px
+    height:3.6%
     display:flex
     flex-direction:row
     justify-content:center
     margin-top:10px
     
-
 `
 
 const ContactUsLabel = styled.Text`

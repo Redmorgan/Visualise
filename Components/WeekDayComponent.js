@@ -18,7 +18,7 @@ const WeekDayComponent = ({ day }) => {
 const DayBody = styled.View`
  
     height:100%
-    width:50px
+    width:${100/7}%
     display: flex;
     align-items: center;
     justify-content:center;

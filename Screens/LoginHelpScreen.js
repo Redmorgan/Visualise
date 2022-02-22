@@ -74,7 +74,7 @@ const LoginHelpScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
+    flex:1
     display: flex;
     align-items: center;
     justify-content:center;
@@ -91,10 +91,10 @@ const LoginBackground = styled.ImageBackground`
 
 const BackArrowTouchable = styled.TouchableHighlight`
 
-    width:40px
-    height:40px
-    margin-left:30px
-    margin-top: 30px
+    width:9.7%
+    height:6%
+    margin-left:7.3%
+    margin-top: 7.3%
     border-radius:90px
     align-items:center
     justify-content:center
@@ -106,8 +106,8 @@ const LoginHeader = styled.Text`
     font-family:BarlowBold
     font-size:48px
     color:#000000
-    margin-left:30px
-    margin-top:185px
+    margin-left:7.3%
+    margin-top:45%
     width:132px
     height:62px
 
@@ -118,7 +118,7 @@ const LoginSubtext = styled.Text`
     font-family:Barlow
     font-size:24px
     color:#514F4F
-    margin-left:30px
+    margin-left:7.3%
     width:330px
     height:49px
 
@@ -126,19 +126,19 @@ const LoginSubtext = styled.Text`
 
 const ContactContainer = styled.View`
 
-    height:141px
+    height:16.97%
     width:100%
     display:flex
     flex-direction:row
     justify-content:space-around
-    margin-top:36px
+    margin-top:8.5%
 
 `
 
 const ContactTypeContainer = styled.View`
 
-    width:162px
-    height:141px
+    width:43%
+    height:100%
     display:flex
     align-items:center
 
@@ -162,7 +162,9 @@ const ContactInfoLabel = styled.Text`
 
     font-family:Barlow
     font-size:15px
-    margin-top:5px
+    margin-top:2%
+    width:100%
+    text-align:center
 
 `
 

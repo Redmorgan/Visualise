@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Dimensions } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Font from 'expo-font';
@@ -41,6 +42,9 @@ export default function App() {
     );
 
   }
+
+  global.deviceWidth = Dimensions.get("window").width;
+  global.deviceHeight = Dimensions.get("window").height;
 
   return (
 

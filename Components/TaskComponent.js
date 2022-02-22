@@ -48,7 +48,7 @@ const TaskOverviewTouchable = styled.TouchableHighlight`
     height:70px
     border-radius:90px
     position:absolute
-    right:25px
+    right:5%
     z-index:2
 
 `
@@ -68,7 +68,7 @@ const TaskLength = styled.View`
 
     width:18px
     position:absolute
-    right:51px
+    right:16%
     bottom:0
     border-radius:10px
 
@@ -76,10 +76,10 @@ const TaskLength = styled.View`
 
 const TaskLabelWrapper = styled.View`
 
-    width:185px
+    width:100%
     height:70px
-    align-items:center
     justify-content:center
+    padding-left:5%
 
 `
 

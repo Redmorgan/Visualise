@@ -18,7 +18,7 @@ const DeleteTaskComponent = ({ state, closeDelete }) => {
             
             <DeleteTaskBody>
 
-                <MaterialIcons name="error" size={100} color="red" style={{marginTop:20}}/>
+                <MaterialIcons name="error" size={80} color="red" style={{marginTop:20}}/>
 
                 <DeleteInfoLabel>Are you sure you want to delete this task?</DeleteInfoLabel>
 
@@ -61,8 +61,8 @@ const DeleteTaskContainer = styled.View`
 
 const DeleteTaskBody = styled.View`
 
-    width:350px;
-    height:300px;
+    width:85%
+    height:36.10%
     background-color:#ffffff;
     border-radius:10px;
     align-items:center;
@@ -76,7 +76,7 @@ const DeleteInfoLabel = styled.Text`
     font-size:24px
     width:80%
     text-align:center
-    margin-top:10px
+    margin-top:1.2%
 
 `
 
@@ -84,7 +84,7 @@ const DeleteControlsContainer = styled.View`
 
     width:80%
     height:50px
-    margin-top:20px
+    margin-top:2.4%
     flex-direction:row
     justify-content:space-around
 

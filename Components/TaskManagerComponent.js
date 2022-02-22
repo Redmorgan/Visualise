@@ -130,8 +130,8 @@ const TaskManagerBackground = styled.ImageBackground`
 
 const SearchBarContainer = styled.View`
 
-    width:350px
-    height:53px
+    width:85%
+    height:8%
     background-color:#ffffff
     border-radius:10px
     margin-top:40px
@@ -164,15 +164,15 @@ const SearchIconToucable = styled.TouchableHighlight`
 
 const DropDownContainer = styled.View`
 
-    width:150px
+    width:36.46%
     elevation:6
     display:flex
     align-items:center
-    margin-top:10px
-    margin-left:200px
+    margin-top:4%
+    margin-left:48.61%
     position:absolute
-    top:93px
-    right:32px
+    top:14%
+    right:8%
 
 `
 
@@ -208,7 +208,7 @@ const DropDownHeaderLabel = styled.Text`
 
 const DropDownBody = styled.View`
 
-    width:130px
+    width:90%
     height:95px
     background-color:#ffffff
     border-bottom-right-radius:5px
@@ -242,9 +242,9 @@ const DropDownOptionLabel = styled.Text`
 
 const TaskListContainer = styled.View`
 
-    width:350px
+    width:85%
     height:75%
-    margin-top:15%
+    margin-top:19%
 
 `
 

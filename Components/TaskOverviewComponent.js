@@ -37,7 +37,15 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable }) => {
 
                 <TaskTimeLabel>1-2pm</TaskTimeLabel>
 
-                <TaskDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non massa at neque suscipit varius non sed dolor. Suspendisse cursus faucibus varius. Morbi et bibendum ligula. Nullam pulvinar odio neque, vitae tempor metus bibendum placerat.</TaskDescription>
+                <TaskDescriptionWrapper>
+
+                    <TaskDescriptionScroll>
+
+                        <TaskDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non massa at neque suscipit varius non sed dolor. Suspendisse cursus faucibus varius. Morbi et bibendum ligula. Nullam pulvinar odio neque, vitae tempor metus bibendum placerat.</TaskDescription>
+
+                    </TaskDescriptionScroll>
+
+                </TaskDescriptionWrapper>
 
             </TaskOverviewBody>
             
@@ -62,8 +70,8 @@ const TaskOverviewContainer = styled.View`
 
 const TaskOverviewBody = styled.View`
 
-    width:350px;
-    height:419px;
+    width:85%;
+    height:50.55%;
     background-color:#ffffff;
     border-radius:10px;
     align-items:center;
@@ -94,11 +102,11 @@ const CloseButton = styled.TouchableHighlight`
 
 const TaskIcon = styled.View`
 
-    width:128px
-    height:128px
+    width:120px
+    height:120px
     border-radius:90px
     background-color:red
-    margin-top:27px
+    margin-top:3.2%
 
 
 `
@@ -121,12 +129,25 @@ const TaskTimeLabel = styled.Text`
 
 `
 
-const TaskDescription = styled.Text`
+const TaskDescriptionWrapper = styled.View`
 
     width:90%
+    height:30%
+    margin-top:1.2%
+
+`
+
+const TaskDescriptionScroll = styled.ScrollView`
+
+    width:100%
+
+`
+
+const TaskDescription = styled.Text`
+
+    width:100%
     font-family:Barlow
     font-size:18px
-    margin-top:10px
 
 `
 

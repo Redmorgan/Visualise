@@ -178,178 +178,182 @@ const EditTaskScreen = ({ navigation }) => {
 
             <EditTaskBody>
 
-                <TaskDataLabel>Task Name</TaskDataLabel>
-                <TaskNameInput/>
+                <EditTaskScroll>
 
-                <TaskDataLabel>Description</TaskDataLabel>
-                <TaskDescInput multiline={true} numberOfLines={4} style={{textAlignVertical: 'top'}}/>
+                    <TaskDataLabel>Task Name</TaskDataLabel>
+                    <TaskNameInput/>
 
-                <TaskDataLabel>Task Date</TaskDataLabel>
+                    <TaskDataLabel>Description</TaskDataLabel>
+                    <TaskDescInput multiline={true} numberOfLines={4} style={{textAlignVertical: 'top'}}/>
 
-                <TaskDateContainer>
+                    <TaskDataLabel>Task Date</TaskDataLabel>
 
-                    <TaskDateInput
-                        editable={false}
-                        value={selectedDays.length == 0 ? moment(date).format("DD/MM/YYYY"): selectedDaysString}/>
+                    <TaskDateContainer>
 
-                    {(showDate == true)?
-                    <DateTimePicker 
-                        value={ date }
-                        mode={'date'}
-                        display='default'
-                        onChange={onDateChange}
-                    />:null}
+                        <TaskDateInput
+                            editable={false}
+                            value={selectedDays.length == 0 ? moment(date).format("DD/MM/YYYY"): selectedDaysString}/>
 
-                    <TaskDateTouchable onPress={()=>{openDatePicker()}} underlayColor={'#00000033'} activeOpacity={1}>
+                        {(showDate == true)?
+                        <DateTimePicker 
+                            value={ date }
+                            mode={'date'}
+                            display='default'
+                            onChange={onDateChange}
+                        />:null}
 
-                        <Entypo name="calendar" size={50} color="#8A84FF" />
+                        <TaskDateTouchable onPress={()=>{openDatePicker()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                    </TaskDateTouchable>
+                            <Entypo name="calendar" size={45} color="#8A84FF" />
 
-                </TaskDateContainer>
+                        </TaskDateTouchable>
 
-                
-                <DaysOfWeekContainer>
+                    </TaskDateContainer>
 
-                    <DayIconTouchable onPress={()=>{setDay("Monday")}}>
+                    
+                    <DaysOfWeekContainer>
 
-                        <DayIcon style={{borderWidth:selectedDays.includes("Monday")?2:0}}>
+                        <DayIconTouchable onPress={()=>{setDay("Monday")}}>
 
-                            <DayLabel>M</DayLabel>
+                            <DayIcon style={{borderWidth:selectedDays.includes("Monday")?2:0}}>
 
-                        </DayIcon>
+                                <DayLabel>M</DayLabel>
 
-                    </DayIconTouchable>
+                            </DayIcon>
 
-                    <DayIconTouchable onPress={()=>{setDay("Tuesday")}}>
+                        </DayIconTouchable>
 
-                        <DayIcon style={{borderWidth:selectedDays.includes("Tuesday")?2:0}}>
+                        <DayIconTouchable onPress={()=>{setDay("Tuesday")}}>
 
-                            <DayLabel>T</DayLabel>
+                            <DayIcon style={{borderWidth:selectedDays.includes("Tuesday")?2:0}}>
 
-                        </DayIcon>
+                                <DayLabel>T</DayLabel>
 
-                    </DayIconTouchable>
+                            </DayIcon>
 
-                    <DayIconTouchable onPress={()=>{setDay("Wednesday")}}>
+                        </DayIconTouchable>
 
-                        <DayIcon style={{borderWidth:selectedDays.includes("Wednesday")?2:0}}>
+                        <DayIconTouchable onPress={()=>{setDay("Wednesday")}}>
 
-                            <DayLabel>W</DayLabel>
+                            <DayIcon style={{borderWidth:selectedDays.includes("Wednesday")?2:0}}>
 
-                        </DayIcon>
+                                <DayLabel>W</DayLabel>
 
-                    </DayIconTouchable>
+                            </DayIcon>
 
-                    <DayIconTouchable onPress={()=>{setDay("Thursday")}}>
+                        </DayIconTouchable>
 
-                        <DayIcon style={{borderWidth:selectedDays.includes("Thursday")?2:0}}>
+                        <DayIconTouchable onPress={()=>{setDay("Thursday")}}>
 
-                            <DayLabel>T</DayLabel>
+                            <DayIcon style={{borderWidth:selectedDays.includes("Thursday")?2:0}}>
 
-                        </DayIcon>
+                                <DayLabel>T</DayLabel>
 
-                    </DayIconTouchable>
+                            </DayIcon>
 
-                    <DayIconTouchable onPress={()=>{setDay("Friday")}}>
+                        </DayIconTouchable>
 
-                        <DayIcon style={{borderWidth:selectedDays.includes("Friday")?2:0}}>
+                        <DayIconTouchable onPress={()=>{setDay("Friday")}}>
 
-                            <DayLabel>F</DayLabel>
+                            <DayIcon style={{borderWidth:selectedDays.includes("Friday")?2:0}}>
 
-                        </DayIcon>
+                                <DayLabel>F</DayLabel>
 
-                    </DayIconTouchable>
+                            </DayIcon>
 
-                    <DayIconTouchable onPress={()=>{setDay("Saturday")}}>
+                        </DayIconTouchable>
 
-                        <DayIcon style={{borderWidth:selectedDays.includes("Saturday")?2:0}}>
+                        <DayIconTouchable onPress={()=>{setDay("Saturday")}}>
 
-                            <DayLabel>S</DayLabel>
+                            <DayIcon style={{borderWidth:selectedDays.includes("Saturday")?2:0}}>
 
-                        </DayIcon>
+                                <DayLabel>S</DayLabel>
 
-                    </DayIconTouchable>
+                            </DayIcon>
 
-                    <DayIconTouchable onPress={()=>{setDay("Sunday")}}>
+                        </DayIconTouchable>
 
-                        <DayIcon style={{borderWidth:selectedDays.includes("Sunday")?2:0}}>
+                        <DayIconTouchable onPress={()=>{setDay("Sunday")}}>
 
-                            <DayLabel>S</DayLabel>
+                            <DayIcon style={{borderWidth:selectedDays.includes("Sunday")?2:0}}>
 
-                        </DayIcon>
+                                <DayLabel>S</DayLabel>
 
-                    </DayIconTouchable>
+                            </DayIcon>
 
-                </DaysOfWeekContainer>
+                        </DayIconTouchable>
 
-                <TimeContainer>
+                    </DaysOfWeekContainer>
 
-                    <TaskTimeContainer>
+                    <TimeContainer>
 
-                        <TaskDataLabel>Start Time</TaskDataLabel>
-                        
-                        <TaskTimeWrapper>
+                        <TaskTimeContainer>
 
-                            <TimeInput
-                                editable={false}
-                                value={moment(startTime).format("HH:mm")}/>
+                            <TaskDataLabel>Start Time</TaskDataLabel>
+                            
+                            <TaskTimeWrapper>
 
-                            <ClockTouchable onPress={()=>{openStartTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
+                                <TimeInput
+                                    editable={false}
+                                    value={moment(startTime).format("HH:mm")}/>
 
-                                <AntDesign name="clockcircle" size={50} color="#8A84FF" />
+                                <ClockTouchable onPress={()=>{openStartTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
 
-                            </ClockTouchable>
+                                    <AntDesign name="clockcircle" size={40} color="#8A84FF" />
 
-                        </TaskTimeWrapper>
+                                </ClockTouchable>
 
-                    </TaskTimeContainer>
+                            </TaskTimeWrapper>
 
-                    <TaskTimeContainer style={{marginLeft:"5%"}}>
+                        </TaskTimeContainer>
 
-                        <TaskDataLabel>End Time</TaskDataLabel>
-                        
-                        <TaskTimeWrapper>
+                        <TaskTimeContainer style={{marginLeft:"5%"}}>
 
-                            <TimeInput
-                                value={moment(endTime).format("HH:mm")}
-                                editable={false}/>
+                            <TaskDataLabel>End Time</TaskDataLabel>
+                            
+                            <TaskTimeWrapper>
 
-                            <ClockTouchable onPress={()=>{openEndTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
+                                <TimeInput
+                                    value={moment(endTime).format("HH:mm")}
+                                    editable={false}/>
 
-                                <AntDesign name="clockcircle" size={50} color="#8A84FF" />
+                                <ClockTouchable onPress={()=>{openEndTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
 
-                            </ClockTouchable>
+                                    <AntDesign name="clockcircle" size={40} color="#8A84FF" />
 
-                        </TaskTimeWrapper>
+                                </ClockTouchable>
 
-                    </TaskTimeContainer>
+                            </TaskTimeWrapper>
 
-                    {(showTime == true)?
-                    <DateTimePicker 
-                        value={ date }
-                        mode={'time'}
-                        display='default'
-                        onChange={onTimeChange}
-                    />:null}
-                
-                </TimeContainer>
+                        </TaskTimeContainer>
 
-                <TaskButtonsContainer>
+                        {(showTime == true)?
+                        <DateTimePicker 
+                            value={ date }
+                            mode={'time'}
+                            display='default'
+                            onChange={onTimeChange}
+                        />:null}
+                    
+                    </TimeContainer>
 
-                    <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                    <TaskButtonsContainer>
 
-                        <SaveTaskLabel>Save</SaveTaskLabel>
+                        <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
 
-                    </SaveTaskButton>
+                            <SaveTaskLabel>Save</SaveTaskLabel>
 
-                    <CancelTaskButton onPress={()=>{cancelTask()}} underlayColor={'#00000033'} activeOpacity={1}>
+                        </SaveTaskButton>
 
-                        <CancelTaskLabel>Cancel</CancelTaskLabel>
+                        <CancelTaskButton onPress={()=>{cancelTask()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                    </CancelTaskButton>
+                            <CancelTaskLabel>Cancel</CancelTaskLabel>
 
-                </TaskButtonsContainer>
+                        </CancelTaskButton>
+
+                    </TaskButtonsContainer>
+
+                </EditTaskScroll>
 
             </EditTaskBody>
 
@@ -362,7 +366,7 @@ const EditTaskScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
+    flex:1
     display: flex;
     align-items: center;
     justify-content:center;
@@ -381,7 +385,7 @@ const EditTaskBackground = styled.ImageBackground`
 const HeaderBar = styled.View`
 
     width:100%
-    height:100px
+    height:12.4%
     background-color:#8A84FF
     align-items:center
     justify-content:center
@@ -406,23 +410,32 @@ const BackArrowTouchable = styled.TouchableHighlight`
     justify-content:center
     position:absolute
     left:17px
-    top:40px
+    top:37%
 
 `
 
 const EditTaskBody = styled.View`
 
-    width:350px
+    width:85.07%
+    height:64%
+    margin-top:2%
+
+`
+
+const EditTaskScroll = styled.ScrollView`
+
+    width:100%
+    height:80%
 
 `
 
 const TaskIcon = styled.View`
 
-    width:128px
-    height:128px
+    width:31.11%
+    height:18%
     background-color:#ffffff
     border-radius:90px
-    margin-top:19px
+    margin-top:4.6%
     display:flex
     justify-content:center
     align-items:center
@@ -442,42 +455,42 @@ const TaskDataLabel = styled.Text`
     font-family:Barlow
     font-size:24px
     color:#514F4F
-    margin-bottom:7px
+    margin-bottom:1.6%
 
 `
 
 const TaskNameInput = styled.TextInput`
 
-    width:350px
-    height:53px
+    width:100%
+    height:8%
     border-radius:10px
     font-family:Barlow
     font-size:24px
     background-color:#ffffff
     padding-left:10px
     elevation:5
-    margin-bottom:10px
+    margin-bottom:1.6%
 
 `
 
 const TaskDescInput = styled.TextInput`
 
-    width:350px
-    height:80px
+    width:100%
+    height:12.08%
     border-radius:10px
     font-family:Barlow
     font-size:24px
     background-color:#ffffff
     padding:10px
     elevation:5
-    margin-bottom:10px
+    margin-bottom:1.6%
 
 `
 
 const TaskDateContainer = styled.View`
 
-    width:350px
-    height:53px
+    width:100%
+    height:8%
     display:flex
     flex-direction:row
 
@@ -485,22 +498,22 @@ const TaskDateContainer = styled.View`
 
 const TaskDateInput = styled.TextInput`
 
-    width:290px
-    height:53px
+    width:82.86%
+    height:100%
     border-radius:10px
     font-family:Barlow
     font-size:24px
     background-color:#ffffff
     padding-left:10px
     elevation:5
-    margin-bottom:14px
+    margin-bottom:1.6%
 
 `
 
 const TaskDateTouchable = styled.TouchableHighlight`
 
-    width:53px
-    height:53px
+    width:15.14%
+    height:100%
     margin-left:7px
     display:flex
     justify-content:center
@@ -551,7 +564,7 @@ const DayLabel = styled.Text`
 const TimeContainer = styled.View`
 
     width:100%
-    height:80px
+    height:8%
     display:flex
     flex-direction:row
     margin-top:7px
@@ -568,7 +581,7 @@ const TaskTimeContainer = styled.View`
 const TaskTimeWrapper = styled.View`
 
     width:100%
-    height:53px
+    height:100%
     display:flex
     flex-direction:row
 
@@ -602,8 +615,8 @@ const ClockTouchable = styled.TouchableHighlight`
 const TaskButtonsContainer = styled.View`
 
     width:100%
-    height:53px
-    margin-top:40px
+    height:8%
+    margin-top:18%
     display:flex
     flex-direction:row
     justify-content:space-between

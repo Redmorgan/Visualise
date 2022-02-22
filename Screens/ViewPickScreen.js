@@ -108,7 +108,8 @@ const ViewPickScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
+width:360px
+height:640px
     display: flex;
     align-items: center;
     justify-content:center;
@@ -125,10 +126,10 @@ const LoginBackground = styled.ImageBackground`
 
 const BackArrowTouchable = styled.TouchableHighlight`
 
-    width:40px
-    height:40px
-    margin-left:30px
-    margin-top: 30px
+    width:9.7%
+    height:6%
+    margin-left:7.3%
+    margin-top: 7.3%
     border-radius:90px
     align-items:center
     justify-content:center
@@ -141,7 +142,7 @@ const LoginHeader = styled.Text`
     font-size:48px
     color:#000000
     margin-left:30px
-    margin-top:103px
+    margin-top:12.4%
     width:330px
     height:120px
 
@@ -204,7 +205,6 @@ const ConfirmButtonWrapper = styled.View`
     height:53px
     margin-top:17px
     align-items:center
-    
 
 `
 

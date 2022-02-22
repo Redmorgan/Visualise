@@ -149,7 +149,7 @@ const SettingsScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
+    flex:1
     display: flex;
     align-items: center;
     justify-content:center;
@@ -168,7 +168,7 @@ const SettingsBackground = styled.ImageBackground`
 const HeaderBar = styled.View`
 
     width:100%
-    height:100px
+    height:12.04%
     background-color:#8A84FF
     align-items:center
     justify-content:center
@@ -193,13 +193,13 @@ const BackArrowTouchable = styled.TouchableHighlight`
     justify-content:center
     position:absolute
     left:17px
-    top:40px
+    top:37%
 
 `
 
 const SettingsBody = styled.View`
 
-    width:350px
+    width:85.07%
     height:67.5%
     margin-top:15px
 
@@ -345,9 +345,9 @@ const VibrationSwitch = styled.Switch`
 
 const ControlButtonContainer = styled.View`
 
-    width:350px
+    width:85.07%
     height:15%
-    margin-top:15px
+    margin-top:3%
     justify-content:space-between
 
 `
@@ -355,7 +355,7 @@ const ControlButtonContainer = styled.View`
 const SwitchViewButton = styled.TouchableHighlight`
 
     width:100%
-    height:53px
+    height:45%
     border-radius:10px
     background-color:#ffffff
     display:flex
@@ -375,7 +375,7 @@ const SwitchViewLabel = styled.Text`
 const LogoutButton = styled.TouchableHighlight`
 
     width:100%
-    height:53px
+    height:45%
     border-radius:10px
     background-color:#8A84FF
     display:flex

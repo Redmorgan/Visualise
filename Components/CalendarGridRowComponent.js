@@ -57,8 +57,8 @@ const CalendarGridRowComponent = ({ dates }) => {
 
 const CalendarGridRowContainer = styled.View`
 
-   height:50px
-   width:350px
+   height:${100/6}%
+   width:100%
    display:flex
    flex-wrap:wrap
    flex-direction:row
@@ -67,8 +67,8 @@ const CalendarGridRowContainer = styled.View`
 
 const CalendarDayContainer = styled.View`
 
-    width:50px
-    height:50px
+    width:${100/7}%
+    height:100%
     border-bottom-width:1px
     border-color:black
     justify-content:center

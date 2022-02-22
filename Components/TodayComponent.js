@@ -118,8 +118,8 @@ const SettingsTouchable = styled.TouchableHighlight`
     width:40px
     height:40px
     position:absolute
-    right:25px
-    top:30px
+    right:6%
+    top:6%
     display:flex
     justify-content:center
     align-items:center
@@ -139,8 +139,8 @@ const TodayContainer = styled.View`
 
 const TodayBody = styled.View`
 
-    width:350px
-    height:672px
+    width:85%
+    height:80.88%
     background-color:#ffffff
     border-radius:10px
     elevation:5
@@ -169,8 +169,7 @@ const HeaderLabel = styled.Text`
 
 const TimeTableScroll = styled.ScrollView`
 
-    width:350px
-    height:612px
+    width:100%
     display:flex
     border-bottom-left-radius:10px
     border-bottom-right-radius:10px
@@ -182,14 +181,14 @@ const TimeTableScroll = styled.ScrollView`
 const TimeTableScrollBody = styled.View`
 
     width:100%
-    height:1680px
+    height:202%
     flex-direction:row
 
 `
 
 const TimeIndicator = styled.View`
 
-    width:281px
+    width:80%
     height:3px
     background-color:#8A84FF
     position:absolute
@@ -200,7 +199,7 @@ const TimeIndicator = styled.View`
 
 const TimeOfDayContainer = styled.View`
 
-    width:70px
+    width:20%
     height:100%
     border-color:#000000
     border-right-width:1px
@@ -209,7 +208,7 @@ const TimeOfDayContainer = styled.View`
 
 const TimeTableTasksContainer = styled.View`
 
-    width:280px
+    width:80%
     height:100%
     border-bottom-right-radius:10px
 

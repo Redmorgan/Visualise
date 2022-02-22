@@ -68,7 +68,7 @@ const TaskContainer = styled.View`
 const TaskInfoContainer = styled.View`
 
     height:100%
-    width:230px
+    width:60%
     padding-left:22px
     display:flex
     justify-content:center
@@ -94,7 +94,7 @@ const TaskSubLabel = styled.Text`
 
 const TaskControlsContainer = styled.View`
 
-    width:120px
+    width:40%
     height:100%
     display:flex
     flex-direction:row

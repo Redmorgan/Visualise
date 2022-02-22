@@ -249,8 +249,8 @@ const SettingsTouchable = styled.TouchableHighlight`
     width:40px
     height:40px
     position:absolute
-    right:25px
-    top:30px
+    right:6%
+    top:6%
     display:flex
     justify-content:center
     align-items:center
@@ -270,8 +270,8 @@ const CalendarContainer = styled.View`
 
 const CalendarBody = styled.View`
 
-    width:350px
-    height:672px
+    width:85%
+    height:80.88%
     background-color:#ffffff
     border-radius:10px
     elevation:5

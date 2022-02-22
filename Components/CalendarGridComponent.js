@@ -29,29 +29,12 @@ const CalendarGridComponent = ({ dates }) => {
 
 const CalendarGridContainer = styled.View`
 
-   height:350px
-   width:350px
+   height:48.4%
+   width:100%
    display:flex
    flex-wrap:wrap
    flex-direction:row
-
-`
-
-const CalendarDayContainer = styled.View`
-
-    width:50px
-    height:50px
-    border-bottom-width:1px
-    border-color:black
-    justify-content:center
-    align-items:center
-
-`
-
-const DateLabel = styled.Text`
-
-    font-family:Barlow
-    font-size:18px
+   background-color:red
 
 `
 

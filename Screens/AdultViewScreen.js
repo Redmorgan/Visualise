@@ -79,7 +79,8 @@ const AdultViewScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
+    width:360px
+    height:640px
     display: flex;
     align-items: center;
     justify-content:center;

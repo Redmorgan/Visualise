@@ -56,7 +56,7 @@ const CreateAccountScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
+    flex:1
     display: flex;
     align-items: center;
     justify-content:center;
@@ -73,10 +73,10 @@ const LoginBackground = styled.ImageBackground`
 
 const BackArrowTouchable = styled.TouchableHighlight`
 
-    width:40px
-    height:40px
-    margin-left:30px
-    margin-top: 30px
+    width:9.7%
+    height:6%
+    margin-left:7.3%
+    margin-top: 7.3%
     border-radius:90px
     align-items:center
     justify-content:center
@@ -88,7 +88,7 @@ const LoginHeader = styled.Text`
     font-family:BarlowBold
     font-size:48px
     color:#000000
-    margin-left:30px
+    margin-left:7.5%
     margin-top:59px
     width:300px
     height:130px
@@ -97,10 +97,10 @@ const LoginHeader = styled.Text`
 
 const LoginInput = styled.TextInput`
 
-    width:350px
-    height:53px
+    width:85%
+    height:6.4%
     border-radius:10px
-    margin-left:30px
+    margin-left:7.5%
     margin-top:20px
     font-family:Barlow
     font-size:24px
@@ -112,12 +112,12 @@ const LoginInput = styled.TextInput`
 
 const SignUpButton = styled.TouchableHighlight`
 
-    width:151px
-    height:53px
+    width:36.7%
+    height:6.4%
     border-radius:20px
     background-color: #8A84FF
     margin-top:31px
-    margin-left:229px
+    margin-left:55.67%
     justify-content:center
     align-items:center
 
