@@ -78,6 +78,8 @@ const CalendarDayContainer = styled.View`
 
 const DateLabel = styled.Text`
 
+    width:100%
+    text-align:center
     font-family:Barlow
     font-size:18px
 

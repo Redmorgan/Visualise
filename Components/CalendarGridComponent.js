@@ -34,7 +34,6 @@ const CalendarGridContainer = styled.View`
    display:flex
    flex-wrap:wrap
    flex-direction:row
-   background-color:red
 
 `
 

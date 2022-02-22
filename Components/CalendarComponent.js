@@ -270,7 +270,7 @@ const CalendarContainer = styled.View`
 
 const CalendarBody = styled.View`
 
-    width:85%
+    width:86%
     height:80.88%
     background-color:#ffffff
     border-radius:10px

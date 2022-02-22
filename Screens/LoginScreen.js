@@ -51,11 +51,19 @@ const LoginScreen = ({ navigation }) => {
 
         <LoginBackground source={LoginBackgroundImage}>
 
+            {(global.newAccount == true)?
+            <NewAccountNotification>
+
+                <NotificationLabel>Account Created</NotificationLabel>
+
+            </NewAccountNotification>:null}
+
             <LoginHeader>Login</LoginHeader>
 
             <LoginSubtext>Sign in to continue.</LoginSubtext>
 
-            <LoginInput placeholder="Email"/>
+            <LoginInput placeholder="Email"
+            value={global.email}/>
 
             <LoginInput placeholder="Password" secureTextEntry={true}/>
 
@@ -224,7 +232,28 @@ const ContactUsLabel = styled.Text`
 
 `
 
+const NewAccountNotification = styled.View`
 
+    width:40%
+    height:5%
+    margin-left:30%
+    margin-top:10%
+    position:absolute
+    top:0
+    background-color:green
+    border-radius:20px
+    align-items: center;
+    justify-content:center;
+
+`
+
+const NotificationLabel = styled.Text`
+
+    font-family:BarlowSemi
+    color:#ffffff
+    font-size:23px
+
+`
 
 
 export default LoginScreen;

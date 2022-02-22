@@ -1,9 +1,11 @@
 
- import React from "react";
+ import React, {useState} from "react";
  import { Vibration, Alert } from "react-native";
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
  
+import * as firebaseAuth from '../firebaseConfig.js'
+
  // Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
 
@@ -12,10 +14,48 @@ import { AntDesign } from '@expo/vector-icons';
 
 const CreateAccountScreen = ({ navigation }) => {
 
+    const[email, setEmail] = useState("")
+    const[password, setPassword] = useState("")
+    const[confirmPassword, setConfirmPassword] = useState("")
+
     function backToLogin(){
 
         Vibration.vibrate(5)
         navigation.pop()
+
+    }
+
+    const createAccount = async () => {
+
+        if(password == confirmPassword){
+
+            await firebaseAuth.signup(email, password)
+
+            if(global.loginError != null){
+
+                console.log(global.loginError)
+
+            }else{
+
+                global.newAccount = true
+                global.email = email
+
+                navigation.push("Login")
+
+            }
+
+        }else{
+
+            console.log("Passwords do not match.")
+
+        }
+
+    }
+
+    async function signUpOnPress(){
+
+
+
 
     }
 
@@ -35,13 +75,16 @@ const CreateAccountScreen = ({ navigation }) => {
 
             <LoginHeader>Create an{"\n"}Account</LoginHeader>
 
-            <LoginInput placeholder="Email"/>
+            <LoginInput placeholder="Email"
+                onChangeText={text => setEmail(text)}/>
 
-            <LoginInput placeholder="Password"/>
+            <LoginInput placeholder="Password"
+                onChangeText={text => setPassword(text)}/>
 
-            <LoginInput placeholder="Confirm Password"/>
+            <LoginInput placeholder="Confirm Password"
+                onChangeText={text => setConfirmPassword(text)}/>
 
-            <SignUpButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{backToLogin()}}>
+            <SignUpButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{createAccount()}}>
 
                 <SignUpButtonLabel>SIGN UP</SignUpButtonLabel>
 

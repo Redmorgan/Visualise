@@ -108,8 +108,7 @@ const ViewPickScreen = ({ navigation }) => {
  
 const MainView = styled.View`
  
-width:360px
-height:640px
+    flex:1
     display: flex;
     align-items: center;
     justify-content:center;
