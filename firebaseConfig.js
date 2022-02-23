@@ -28,6 +28,9 @@ export const login = async (email, password) => {
 
     const auth = firebase.auth();
 
+    global.UID = null
+    global.loginError = null
+
     await auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             
@@ -39,6 +42,24 @@ export const login = async (email, password) => {
         .catch((error) => {
 
             const errorMessage = error.message;
+            global.loginError = errorMessage
+
+        });
+}
+
+export const checkPassword = async (password) => {
+
+    const auth = firebase.auth();
+    global.loginError = null
+
+    await auth.signInWithEmailAndPassword(global.email, password)
+        .then((userCredential) => {
+
+        })
+        .catch((error) => {
+
+            const errorMessage = error.message;
+            global.loginError = errorMessage
 
         });
 }
@@ -58,9 +79,6 @@ export const signup = async (email, password) => {
         await auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
 
-                const user = userCredential.user;
-
-                global.UID = user['uid']
                 global.loginError = null
 
             })
@@ -68,7 +86,6 @@ export const signup = async (email, password) => {
 
                 const errorMessage = error.message;
                 global.loginError = errorMessage
-                global.UID = null
 
             });
 
@@ -80,13 +97,14 @@ export const signup = async (email, password) => {
 
 }
 
-// /** 
-//  * @summary Logs the user out of the system and resets the pages cookies for the user.
-// */
-// function logout() {
+/** 
+ * @summary Logs the user out of the system and resets the pages cookies for the user.
+*/
+export async function logout() {
 
-//     const auth = firebase.auth();
-//     auth.signOut();
+    const auth = firebase.auth();
+    auth.signOut();
+    global.UID = null
 
 
-// }
+}

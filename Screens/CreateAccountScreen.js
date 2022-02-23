@@ -1,8 +1,8 @@
 
- import React, {useState} from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
+import React, {useState} from "react";
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
  
 import * as firebaseAuth from '../firebaseConfig.js'
 

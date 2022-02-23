@@ -1,18 +1,25 @@
 
- import React, {useState} from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
- 
- // Images
- import MainBackgroundImage from '../Images/MainBackground.png'
+import React, {useState} from "react";
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
 
- // Icons
+// Images
+import MainBackgroundImage from '../Images/MainBackground.png'
+
+// Firebase Config
+import * as firebaseAuth from '../firebaseConfig.js'
+
+// Components
+import EnterPasswordComponent from "../Components/EnterPasswordComponent";
+
+// Icons
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 const SettingsScreen = ({ navigation }) => {
 
+    const[passwordState, setPasswordState] = useState(false)
     const [vibrationEnabled, setVibrationEnabled] = useState(false);
     const toggleSwitch = () => setVibrationEnabled(previousState => !previousState);
 
@@ -23,9 +30,12 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
-    function returnToLogin(){
+    async function returnToLogin(){
 
         Vibration.vibrate(5)
+
+        await firebaseAuth.logout()
+
         navigation.reset({
             index:0,
             routes: [{ name: 'Login' }]
@@ -36,10 +46,34 @@ const SettingsScreen = ({ navigation }) => {
     function returnToViewSelect(){
 
         Vibration.vibrate(5)
-        navigation.reset({
-            index:0,
-            routes: [{ name: 'ViewPick' }]
-        })
+
+        if(global.View == "Adult"){
+
+            navigation.reset({
+                index:0,
+                routes: [{ name: 'ViewPick' }]
+            })
+
+        }else if(global.View == "Child"){
+
+            setPasswordState(true)
+
+        }
+
+    }
+
+    async function checkPassword(){
+
+        await firebaseAuth.checkPassword(password)
+
+        if(global.loginError == null){
+
+            navigation.reset({
+                index:0,
+                routes: [{ name: 'ViewPick' }]
+            })
+
+        }
 
     }
 
@@ -123,6 +157,11 @@ const SettingsScreen = ({ navigation }) => {
                 </SettingsScrollView>
 
             </SettingsBody>
+
+            <EnterPasswordComponent
+                state={passwordState}
+                closePassword={()=>{setPasswordState(false)}}
+                checkPassword={()=>{checkPassword()}}/>
 
             <ControlButtonContainer>
 

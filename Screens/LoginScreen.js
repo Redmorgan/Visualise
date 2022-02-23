@@ -1,14 +1,19 @@
 
- import React from "react";
- import { Vibration, Alert, Dimensions } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
- 
- // Images
+import React, {useState} from "react";
+import { Vibration, Alert, Dimensions } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
+
+import * as firebaseAuth from '../firebaseConfig.js'
+
+// Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
 
 const LoginScreen = ({ navigation }) => {
     
+    const[email, setEmail] = useState("")
+    const[password, setPassword] = useState("")
+
     const showMessage = (input) => {
 
         Alert.alert(`Button Pressed: ${input}`);
@@ -36,10 +41,20 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
-    function openViewPick(){
+    async function openViewPick(){
 
         Vibration.vibrate(5)
-        navigation.push("ViewPick")
+
+        global.newAccount = false
+
+        await firebaseAuth.login(email, password)
+
+        if(global.UID != null){
+
+            global.email = email
+            navigation.push("ViewPick")
+
+        } 
 
     }
 
@@ -63,9 +78,11 @@ const LoginScreen = ({ navigation }) => {
             <LoginSubtext>Sign in to continue.</LoginSubtext>
 
             <LoginInput placeholder="Email"
-            value={global.email}/>
+                onChangeText={text => setEmail(text)}/>
 
-            <LoginInput placeholder="Password" secureTextEntry={true}/>
+            <LoginInput placeholder="Password"
+                secureTextEntry={true}
+                onChangeText={text => setPassword(text)}/>
 
             <ForgottenPasswordLabel onPress={()=>{openForgotPassword()}}>Forgotten Password</ForgottenPasswordLabel>
 
