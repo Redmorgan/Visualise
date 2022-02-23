@@ -7,7 +7,7 @@ import * as firebaseAuth from '../firebaseConfig.js'
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
-const EnterPasswordComponent = ({ state, closePassword, checkPassword }) => {
+const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
 
     const[password, setPassword] = useState("")
 
@@ -15,6 +15,21 @@ const EnterPasswordComponent = ({ state, closePassword, checkPassword }) => {
 
         Vibration.vibrate(5)
         closePassword()
+
+    }
+
+    async function switchView(){
+
+        await firebaseAuth.checkPassword(password)
+
+        if(global.loginError == null){
+            
+            navigation.reset({
+                index:0,
+                routes: [{ name: 'ViewPick' }]
+            })
+
+        }
 
     }
 
@@ -43,7 +58,7 @@ const EnterPasswordComponent = ({ state, closePassword, checkPassword }) => {
                         secureTextEntry={true}
                         onChangeText={text => setPassword(text)}/>
 
-                    <SwitchViewButton onPress={()=>{checkPassword(password)}} underlayColor={'#6964c4'} activeOpacity={1}>
+                    <SwitchViewButton onPress={()=>{switchView()}} underlayColor={'#6964c4'} activeOpacity={1}>
 
                         <SwitchViewButtonLabel>SWITCH</SwitchViewButtonLabel>
 

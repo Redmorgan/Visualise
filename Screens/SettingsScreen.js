@@ -62,21 +62,6 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
-    async function checkPassword(){
-
-        await firebaseAuth.checkPassword(password)
-
-        if(global.loginError == null){
-
-            navigation.reset({
-                index:0,
-                routes: [{ name: 'ViewPick' }]
-            })
-
-        }
-
-    }
-
     return (
  
     <MainView>
@@ -161,7 +146,7 @@ const SettingsScreen = ({ navigation }) => {
             <EnterPasswordComponent
                 state={passwordState}
                 closePassword={()=>{setPasswordState(false)}}
-                checkPassword={()=>{checkPassword()}}/>
+                navigation={navigation}/>
 
             <ControlButtonContainer>
 
