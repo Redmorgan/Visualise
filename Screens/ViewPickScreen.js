@@ -3,6 +3,7 @@ import React, {useState} from 'react';
  import { Vibration, Alert } from "react-native";
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
+ import AsyncStorage from '@react-native-async-storage/async-storage';
  
  // Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
@@ -28,18 +29,20 @@ const ViewPickScreen = ({ navigation }) => {
 
     }
 
-    function openMainApp(){
+    async function openMainApp(){
 
         if(viewSelected == "Adult"){
 
             Vibration.vibrate(5)
             global.View = "Adult"
+            await AsyncStorage.setItem("view", JSON.stringify("Adult"))
             navigation.push("AdultView")
 
         }else if(viewSelected == "Child"){
 
             Vibration.vibrate(5)
             global.View = "Child"
+            await AsyncStorage.setItem("view", JSON.stringify("Child"))
             navigation.push("ChildView")
 
         }

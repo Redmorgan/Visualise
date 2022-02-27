@@ -1,18 +1,25 @@
 
 import React, {useState} from "react";
-import { Vibration, Alert, Dimensions } from "react-native";
+import { Vibration, Alert } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as firebaseAuth from '../firebaseConfig.js'
+
+// Icons
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 // Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
 
 const LoginScreen = ({ navigation }) => {
-    
+    //AsyncStorage.clear()
+    const [isLoaded, setLoading] = useState(false)
     const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
+    const[rememberMeState, setRememberMeState] = useState()
 
     const showMessage = (input) => {
 
@@ -51,10 +58,108 @@ const LoginScreen = ({ navigation }) => {
 
         if(global.UID != null){
 
+            if(rememberMeState){
+
+                saveLoginDetails(email, password)
+
+            }else{
+
+                saveLoginDetails("none","none")
+
+            }
+
             global.email = email
             navigation.push("ViewPick")
 
         } 
+
+    }
+
+    function onPressRememberMe(){
+
+        Vibration.vibrate(5)
+        setRememberMeState(!rememberMeState)
+        saveRememberMeState()
+
+    }
+
+    const saveRememberMeState = async () => {
+
+        await AsyncStorage.setItem("rememberMe", JSON.stringify(!rememberMeState))
+
+    }
+
+    const saveLoginDetails = async (userEmail, userPassword) => {
+
+
+
+        await AsyncStorage.setItem("email", JSON.stringify(userEmail))
+        await AsyncStorage.setItem("password", JSON.stringify(userPassword))
+
+    }
+
+    const loadLoginDetails = async () => {
+
+        var rememberMe = ""
+
+        try {
+
+            rememberMe = await AsyncStorage.getItem("rememberMe")
+
+        } catch(e) {
+
+            console.log("Error collecting rememberMe state.")
+      
+        }
+
+        if(rememberMe == "true"){
+
+            setRememberMeState(true)
+
+            const savedEmail = await AsyncStorage.getItem("email")
+
+            const savedPassword = await AsyncStorage.getItem("password")
+
+            await autoLogin(savedEmail, savedPassword)
+
+        }else{
+
+            setRememberMeState(false)
+
+        }
+    }
+
+    async function autoLogin(email, password){
+
+        await firebaseAuth.login(email.replace(/"/g,''), password.replace(/"/g,''))
+
+        if(global.UID != null){
+
+            var view = await AsyncStorage.getItem("view")
+
+            view = view.replace(/"/g,'')
+
+            global.email = email
+
+            if(view == "Child"){
+
+                navigation.push("ChildView")
+
+            }else if(view == "Adult"){
+
+                navigation.push("AdultView")
+
+            }
+
+        }
+
+    }
+    
+    if(isLoaded == false){
+
+        loadLoginDetails()
+
+        setLoading(true)
 
     }
 
@@ -78,19 +183,45 @@ const LoginScreen = ({ navigation }) => {
             <LoginSubtext>Sign in to continue.</LoginSubtext>
 
             <LoginInput placeholder="Email"
-                onChangeText={text => setEmail(text)}/>
+            onChangeText={text => setEmail(text)}/>
 
             <LoginInput placeholder="Password"
-                secureTextEntry={true}
-                onChangeText={text => setPassword(text)}/>
+            secureTextEntry={true}
+            onChangeText={text => setPassword(text)}/>
+            
+            
+            <HorizontalContainer>
 
-            <ForgottenPasswordLabel onPress={()=>{openForgotPassword()}}>Forgotten Password</ForgottenPasswordLabel>
+                <RememberMeContainer>
+
+                    <RememberMeButton onPress={()=>{onPressRememberMe()}} underlayColor={"transparent"}>
+
+                        <RememberMeButtonWrapper>
+
+                            {(rememberMeState)?
+                            <Ionicons name="ios-checkbox" size={24} color="#8A84FF" />
+                            :<MaterialIcons name="check-box-outline-blank" size={24} color="#8A84FF" />}
+
+                        </RememberMeButtonWrapper>
+
+                    </RememberMeButton>
+
+                    <RememberMeLabel>Auto Login</RememberMeLabel>
+
+                </RememberMeContainer>
+
+                <ForgottenPasswordLabel onPress={()=>{openForgotPassword()}}>Forgotten Password</ForgottenPasswordLabel>
+
+            </HorizontalContainer>
+
 
             <LoginButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{openViewPick()}}>
 
                 <LoginButtonLabel>LOGIN</LoginButtonLabel>
 
             </LoginButton>
+
+
 
             <AccountSignUpContainer>
 
@@ -135,7 +266,7 @@ const LoginHeader = styled.Text`
     font-size:48px
     color:#000000
     margin-left:7.5%
-    margin-top:40%
+    margin-top:35%
     width:132px
     height:62px
 
@@ -167,17 +298,65 @@ const LoginInput = styled.TextInput`
 
 `
 
-const ForgottenPasswordLabel = styled.Text`
+const HorizontalContainer = styled.View`
 
-    width:165px
-    height:25px
+    display:flex
+    flex-direction:row
+    width:85%
+    height:4.5%
+    margin-left:7.5%
+    margin-top:1.5%
+
+`
+
+const RememberMeContainer = styled.View`
+
+    height:100%
+    display:flex
+    flex-direction:row
+
+`
+
+const RememberMeButton = styled.TouchableHighlight`
+
+    height:80%
+    width:15%
+    border-radius:5px
+
+`
+
+const RememberMeButtonWrapper = styled.View`
+
+    width:100%
+    height:100%
+    display:flex
+    align-items:center
+    justify-content:center
+    border-radius:5px
+
+`
+
+const RememberMeLabel = styled.Text`
+
     font-family:BarlowSemi
     font-size:18px
     color:#8A84FF
-    margin-top:0.6%
-    margin-left:53.5%
+    margin-left:2%
 
 `
+
+const ForgottenPasswordLabel = styled.Text`
+
+    height:100%
+    font-family:BarlowSemi
+    font-size:18px
+    color:#8A84FF
+    position:absolute
+    right:0
+    text-align:right
+
+`
+
 
 const LoginButton = styled.TouchableHighlight`
 
@@ -203,7 +382,7 @@ const LoginButtonLabel = styled.Text`
 const AccountSignUpContainer = styled.View`
 
     width:85%
-    height:3%
+    height:3.7%
     margin-top:5.4%
     margin-left:7.3%
     display:flex

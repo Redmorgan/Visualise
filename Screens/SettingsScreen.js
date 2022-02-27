@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import { Vibration, Alert } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
@@ -33,6 +34,9 @@ const SettingsScreen = ({ navigation }) => {
     async function returnToLogin(){
 
         Vibration.vibrate(5)
+
+        await AsyncStorage.setItem("password", JSON.stringify("none"))
+        await AsyncStorage.setItem("rememberMe", JSON.stringify(false))
 
         await firebaseAuth.logout()
 
