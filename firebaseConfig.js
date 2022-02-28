@@ -1,5 +1,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
+import { LogBox } from 'react-native';
 
 
 // Your app's Firebase configuration
@@ -22,7 +25,7 @@ if (firebase.apps.length === 0) {
   app = firebase.app();
 }
 
-
+LogBox.ignoreLogs(['Setting a timer']);
 
 export const login = async (email, password) => {
 
@@ -100,9 +103,73 @@ export const signup = async (email, password) => {
 */
 export async function logout() {
 
-    const auth = firebase.auth();
+    const auth = firebase.auth()
     auth.signOut();
     global.UID = null
 
+}
+
+export async function sendPasswordReset(email) {
+
+    const auth = firebase.auth()
+
+    await auth.sendPasswordResetEmail(email)
+        .then(() => {
+
+            global.reset = true
+
+        })
+        .catch((error) => {
+
+            const errorMessage = error.message
+            global.reset = false
+
+        })
+
+}
+
+export async function createTask(taskName, taskDesc, days, date, timeStart, timeEnd){
+
+    const db = firebase.firestore()
+
+    var repeating;
+
+    if(JSON.stringify(days) == "[]"){
+
+        repeating = false
+
+    }else{
+
+        repeating = true
+
+    }
+
+    db.collection("Timetable").add({
+        Date:date,
+        Days:days,
+        Repeating:repeating,
+        TaskDesc:taskDesc,
+        TaskName:taskName,
+        TimeEnd:timeEnd,
+        TimeStart:timeStart,
+        _UID:global.UID
+    })
+
+    // db.collection("Timetable").doc("Test").set({
+    //     name: "Los Angeles",
+    //     state: "CA",
+    //     country: "USA"
+    // })
+
+    // const firestore = getFirestore()
+
+    // const newId = db.createId();
+
+    // await setDoc(doc(firestore, "Timetable", newId), {
+    //     employment: "plumber",
+    //     outfitColor: "red",
+    //     specialAttack: "fireball",
+    //     test:"test"
+    // });
 
 }

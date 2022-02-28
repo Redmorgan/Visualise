@@ -1,15 +1,17 @@
 
- import React, {useState} from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
- import DateTimePicker from '@react-native-community/datetimepicker';
- import moment from 'moment';
- 
- // Images
- import MainBackgroundImage from '../Images/MainBackground.png'
+import React, {useState} from "react";
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
- // Icons
+import * as firebaseAuth from '../firebaseConfig.js'
+
+// Images
+import MainBackgroundImage from '../Images/MainBackground.png'
+
+// Icons
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
@@ -26,6 +28,9 @@ const EditTaskScreen = ({ navigation }) => {
     const [selected, setSelected] = useState()
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(moment(new Date()).add(1, 'h').toDate())
+
+    const [taskName, setTaskName] = useState()
+    const [taskDesc, setTaskDesc] = useState()
 
 
     function onDateChange(event, selectedDate){
@@ -146,6 +151,9 @@ const EditTaskScreen = ({ navigation }) => {
     function saveTask(){
 
         Vibration.vibrate(5)
+
+        firebaseAuth.createTask(taskName, taskDesc, selectedDays, date, startTime, endTime)
+
         navigation.pop()
 
     }
@@ -181,10 +189,15 @@ const EditTaskScreen = ({ navigation }) => {
                 <EditTaskScroll>
 
                     <TaskDataLabel>Task Name</TaskDataLabel>
-                    <TaskNameInput/>
+                    <TaskNameInput
+                    onChangeText={text => setTaskName(text)}/>
 
                     <TaskDataLabel>Description</TaskDataLabel>
-                    <TaskDescInput multiline={true} numberOfLines={4} style={{textAlignVertical: 'top'}}/>
+                    <TaskDescInput
+                    multiline={true}
+                    numberOfLines={4}
+                    style={{textAlignVertical:'top'}}
+                    onChangeText={text => setTaskDesc(text)}/>
 
                     <TaskDataLabel>Task Date</TaskDataLabel>
 
