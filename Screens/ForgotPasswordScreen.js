@@ -1,23 +1,52 @@
 
- import React from "react";
+ import React, { useState } from "react";
  import { Vibration, Alert } from "react-native";
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
+
+ import * as firebaseAuth from '../firebaseConfig.js'
  
  // Images
-import LoginBackgroundImage from '../Images/LoginBackground.png'
+import ResetBackgroundImage from '../Images/LoginBackground.png'
 
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   
-    function backToLogin(){
+    const[email, setEmail] = useState("")
+    const [isEmpty, setEmpty] = useState(false)
+    const [isReset, setReset] = useState(false)
+
+    function backToReset(){
 
         Vibration.vibrate(5)
         navigation.pop()
     
     }
+
+    async function resetPassword(){
+
+        if(email != ""){
+
+            setEmpty(false)
+
+            await firebaseAuth.sendPasswordReset(email)
+
+            if(global.reset == true){
+
+                setReset(true)
+
+            }
+
+        }else{
+
+            setEmpty(true)
+
+        }
+
+    }
+    
 
 
     return (
@@ -26,27 +55,34 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
         <StatusBar backgroundColor="transparent"/>
 
-        <LoginBackground source={LoginBackgroundImage}>
+        <ResetBackground source={ResetBackgroundImage}>
 
-            <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
+            <BackArrowTouchable onPress={()=>{backToReset()}} underlayColor={"transparent"}>
 
                 <AntDesign name="arrowleft" size={40} color="#8A84FF" />
 
             </BackArrowTouchable>
 
-            <LoginHeader>Forgotten{"\n"}Password</LoginHeader>
+            <ResetHeader>Forgotten{"\n"}Password</ResetHeader>
 
-            <LoginSubtext>Enter email of existing account.</LoginSubtext>
+            <ResetSubtext>Enter email address.</ResetSubtext>
 
-            <LoginInput placeholder="Email"/>
+            <ResetInput placeholder="Email"
+            onChangeText={text => setEmail(text)}/>
 
-            <LoginButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{backToLogin()}}>
+            <ResetButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{resetPassword()}}>
 
-                <LoginButtonLabel>RESET</LoginButtonLabel>
+                <ResetButtonLabel>RESET</ResetButtonLabel>
 
-            </LoginButton>
+            </ResetButton>
 
-        </LoginBackground>
+            {(isEmpty == true)?
+            <ResetMessage>No email entered</ResetMessage>:null}
+
+            {(isReset == true)?
+            <ResetMessage>Reset email sent</ResetMessage>:null}
+
+        </ResetBackground>
 
     </MainView>
  
@@ -62,7 +98,7 @@ const MainView = styled.View`
  
 `
  
-const LoginBackground = styled.ImageBackground`
+const ResetBackground = styled.ImageBackground`
  
     width:100%;
     height:100%;
@@ -82,7 +118,7 @@ const BackArrowTouchable = styled.TouchableHighlight`
 
 `
 
-const LoginHeader = styled.Text`
+const ResetHeader = styled.Text`
 
     font-family:BarlowBold
     font-size:48px
@@ -94,7 +130,7 @@ const LoginHeader = styled.Text`
 
 `
 
-const LoginSubtext = styled.Text`
+const ResetSubtext = styled.Text`
 
     font-family:Barlow
     font-size:24px
@@ -105,7 +141,7 @@ const LoginSubtext = styled.Text`
 
 `
 
-const LoginInput = styled.TextInput`
+const ResetInput = styled.TextInput`
 
     width:85%
     height:6.4%
@@ -120,7 +156,7 @@ const LoginInput = styled.TextInput`
 
 `
 
-const LoginButton = styled.TouchableHighlight`
+const ResetButton = styled.TouchableHighlight`
 
     width:36.7%
     height:6.4%
@@ -133,11 +169,22 @@ const LoginButton = styled.TouchableHighlight`
 
 `
 
-const LoginButtonLabel = styled.Text`
+const ResetButtonLabel = styled.Text`
 
     font-family:BarlowSemi
     font-size:24px
     color:#ffffff
+
+`
+
+const ResetMessage = styled.Text`
+
+    width:100%
+    font-family:Barlow
+    font-size:24px
+    color:#514F4F
+    text-align:center
+    margin-top:2%
 
 `
 

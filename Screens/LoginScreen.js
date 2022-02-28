@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation }) => {
     function openForgotPassword(){
 
         Vibration.vibrate(5)
+        global.reset = false
         navigation.push("ForgotPassword")
 
     }
@@ -90,8 +91,6 @@ const LoginScreen = ({ navigation }) => {
     }
 
     const saveLoginDetails = async (userEmail, userPassword) => {
-
-
 
         await AsyncStorage.setItem("email", JSON.stringify(userEmail))
         await AsyncStorage.setItem("password", JSON.stringify(userPassword))
