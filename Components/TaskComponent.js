@@ -85,7 +85,7 @@ const TaskLabelWrapper = styled.View`
 
 const TaskLabel = styled.Text`
 
-    font-family:Barlow
+    font-family:BarlowBold
     font-size:20px
 
 `

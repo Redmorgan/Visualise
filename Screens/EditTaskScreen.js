@@ -15,7 +15,7 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
-const EditTaskScreen = ({ navigation }) => {
+const EditTaskScreen = ({ navigation, route }) => {
 
     const [date, setDate] = useState(new Date())
     const [showDate, setShowDate] = useState(false)
@@ -351,16 +351,23 @@ const EditTaskScreen = ({ navigation }) => {
                     </TimeContainer>
 
                     <TaskButtonsContainer>
-
+                        
+                        {(route.params.type == "edit")?
                         <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
 
-                            <SaveTaskLabel>Save</SaveTaskLabel>
+                            <SaveTaskLabel>UPDATE</SaveTaskLabel>
 
                         </SaveTaskButton>
+                        :
+                        <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+
+                            <SaveTaskLabel>SAVE</SaveTaskLabel>
+
+                        </SaveTaskButton>}
 
                         <CancelTaskButton onPress={()=>{cancelTask()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                            <CancelTaskLabel>Cancel</CancelTaskLabel>
+                            <CancelTaskLabel>CANCEL</CancelTaskLabel>
 
                         </CancelTaskButton>
 

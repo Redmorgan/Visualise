@@ -1,10 +1,13 @@
 
- import React, {useState} from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
- 
- // Images
+import React, {useState, useEffect} from "react";
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+// Images
 import MainBackgroundImage from '../Images/MainBackground.png'
 
 // Components
@@ -21,6 +24,55 @@ const TaskManagerComponent = ({ navigation }) => {
     const[dropDownState, setDropdownState] = useState(false)
     const[dropDownSelection, setDropdownSelection] = useState("All Tasks")
     const[deleteTaskState, setDeleteTaskState] = useState(false)
+    const[taskList, setTasks] = useState()
+
+    useEffect(()=>{
+        (async () => {
+    
+            const tasks = await getTasks()
+    
+        })()
+    },[])
+
+    async function getTasks(){
+
+        const db = firebase.firestore()
+    
+        const taskList = db.collection("Timetable")
+    
+        const userTasks = []
+    
+        taskList.where("_UID","==", global.UID)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    userTasks.push(doc.data())
+                });
+    
+                global.tasks = userTasks
+                setTasks(userTasks)
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+    
+    }
+
+    function openTaskEditor(){
+
+        Vibration.vibrate(5)
+        navigation.push("EditTask",{type:"edit"})
+
+    }
+
+    function openNewTask(){
+
+        console.log(taskList)
+        Vibration.vibrate(5)
+        navigation.push("EditTask",{type:"new"})
+
+    }
 
     return (
  
@@ -46,11 +98,28 @@ const TaskManagerComponent = ({ navigation }) => {
 
             <TaskListContainer>
 
-                <TaskManagerItemComponent taskName="Biology" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}}/>
-                <TaskManagerItemComponent taskName="Lunch Time" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}}/>
-                <TaskManagerItemComponent taskName="Dentist" taskRepeat="15:30 - 14/02/2022" openDelete={()=>{setDeleteTaskState(true)}}/>
+                <TaskListScroll
+                data = {taskList}
+                keyExtractor={(item) => item.key}
+                nestedScrollEnabled
+                renderItem={({ item }) => (<TaskManagerItemComponent taskName={item['TaskName']} date={item['Date']['seconds']} taskRepeat={item['Repeating']} startTime={item['TimeStart']['seconds']} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/>)}
+                contentContainerStyle={{paddingBottom:10}}/>
+{/* 
+                <TaskManagerItemComponent taskName="Biology" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/>
+                <TaskManagerItemComponent taskName="Lunch Time" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/>
+                <TaskManagerItemComponent taskName="Dentist" taskRepeat="15:30 - 14/02/2022" openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/> */}
 
             </TaskListContainer>
+
+            <ControlButtonContainer>
+
+                <NewTaskButton onPress={()=>{openNewTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+
+                    <NewTaskLabel>NEW TASK</NewTaskLabel>
+
+                </NewTaskButton>
+
+            </ControlButtonContainer>
 
             <DropDownContainer>
 
@@ -243,8 +312,44 @@ const DropDownOptionLabel = styled.Text`
 const TaskListContainer = styled.View`
 
     width:85%
-    height:75%
+    height:60%
     margin-top:19%
+
+`
+
+const TaskListScroll = styled.FlatList`
+
+    width:100%
+
+`
+
+const ControlButtonContainer = styled.View`
+
+    width:85%
+    height:8%
+    margin-top:4%
+
+`
+
+const NewTaskButton = styled.TouchableHighlight`
+
+    width:40%
+    height:100%
+    position:absolute
+    right:0
+    display:flex
+    align-items:center
+    justify-content:center
+    background-color: #8A84FF
+    border-radius:20px
+
+`
+
+const NewTaskLabel = styled.Text`
+
+    font-family:BarlowSemi
+    font-size:24px
+    color:#ffffff
 
 `
 

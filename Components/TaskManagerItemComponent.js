@@ -1,32 +1,42 @@
-import React from "react";
-import { Vibration } from "react-native";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components/native";
-import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 
 // Icons
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const TaskManagerItemComponent = ({  taskName, taskRepeat, openDelete }) => {
+const TaskManagerItemComponent = ({  taskName, taskRepeat, date, startTime, openDelete, openTaskEditor }) => {
 
-    const navigation = useNavigation();
+    const[timingState, setTiming] = useState()
 
-    function openTaskEditor(){
+    useEffect(()=>{
+        (async () => {
+    
+            if(taskRepeat == true){
 
-        Vibration.vibrate(5)
-        navigation.push("EditTask")
+                setTiming("Repeating")
+        
+            }else{
+        
+                var timingString = moment.utc(startTime*1000).format('HH:mm') + " - " + moment.utc(date*1000).format('DD/MM/YYYY')
 
-    }
+                setTiming(timingString)
+        
+            }
+    
+        })()
+    },[])
 
-   return (
+    return (
 
-   <TaskContainer>
+    <TaskContainer>
 
         <TaskInfoContainer>
 
             <TaskLabel>{taskName}</TaskLabel>
 
-            <TaskSubLabel>{taskRepeat}</TaskSubLabel>
+            <TaskSubLabel>{timingState}</TaskSubLabel>
 
         </TaskInfoContainer>
 
@@ -47,9 +57,9 @@ const TaskManagerItemComponent = ({  taskName, taskRepeat, openDelete }) => {
 
         </TaskControlsContainer>
 
-   </TaskContainer>
+    </TaskContainer>
 
-   );
+    );
 }
 
 const TaskContainer = styled.View`
