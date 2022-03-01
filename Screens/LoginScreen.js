@@ -119,17 +119,11 @@ const LoginScreen = ({ navigation }) => {
 
             setAuto(true)
 
-            setRememberMeState(true)
-
             const savedEmail = await AsyncStorage.getItem("email")
 
             const savedPassword = await AsyncStorage.getItem("password")
 
             await autoLogin(savedEmail, savedPassword)
-
-        }else{
-
-            setRememberMeState(false)
 
         }
     }
@@ -175,7 +169,11 @@ const LoginScreen = ({ navigation }) => {
         <StatusBar backgroundColor="transparent"/>
 
         {(isAuto == true)?
-        <LoadingComponent message={"Logging In"}/>
+        <LoadingBackground source={LoginBackgroundImage}>
+
+            <LoadingComponent message={"Logging In"}/>
+
+        </LoadingBackground>
         :
         <LoginBackground source={LoginBackgroundImage}>
 
@@ -459,6 +457,15 @@ const NotificationLabel = styled.Text`
 
 `
 
+const LoadingBackground = styled.ImageBackground`
+ 
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items:center
+    justify-content:center
+
+`
 
 export default LoginScreen;
  
