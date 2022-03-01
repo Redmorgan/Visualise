@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
 import LoginScreen from './Screens/LoginScreen.js'
@@ -21,30 +22,29 @@ const Stack = createNativeStackNavigator();
 export default function App() {
 
   // Loads the custom fonts that are used all throughout the application.
-  const fetchFonts = () => {
-    return Font.loadAsync({
-      Barlow: require('../Timetable/assets/Barlow-Regular.ttf'),
-      BarlowBold: require('../Timetable/assets/Barlow-Bold.ttf'),
-      BarlowSemi: require('../Timetable/assets/Barlow-SemiBold.ttf')
-    });
-  };
+    const fetchFonts = () => {
+        return Font.loadAsync({
+            Barlow: require('../Timetable/assets/Barlow-Regular.ttf'),
+            BarlowBold: require('../Timetable/assets/Barlow-Bold.ttf'),
+            BarlowSemi: require('../Timetable/assets/Barlow-SemiBold.ttf')
+        });
+    };
 
   const [fontLoaded, setFontLoaded] = useState(false);
 
-  if(!fontLoaded) {
-    return (
+    if(!fontLoaded) {
+        return (
 
-      <AppLoading
-        startAsync = {fetchFonts}
-        onFinish={() => setFontLoaded(true)}
-        onError={console.warn}/>
+            <AppLoading
+            startAsync = {fetchFonts}
+            onFinish={() => setFontLoaded(true)}
+            onError={console.warn}/>
 
-    );
+        );
+    }
 
-  }
-
-  global.deviceWidth = Dimensions.get("window").width;
-  global.deviceHeight = Dimensions.get("window").height;
+    global.deviceWidth = Dimensions.get("window").width;
+    global.deviceHeight = Dimensions.get("window").height;
 
   return (
 

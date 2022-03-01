@@ -29,7 +29,11 @@ const CalendarComponent = ({ navigation }) => {
 
     function openSettings(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         navigation.push("Settings")
 
     }
@@ -100,7 +104,11 @@ const CalendarComponent = ({ navigation }) => {
 
     function nextMonth(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
 
         var nextMonth
 
@@ -131,7 +139,11 @@ const CalendarComponent = ({ navigation }) => {
 
     function previousMonth(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
 
         var previousMonth
 

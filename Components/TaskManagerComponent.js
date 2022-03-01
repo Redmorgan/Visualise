@@ -130,14 +130,22 @@ const TaskManagerComponent = ({ navigation }) => {
 
     function openTaskEditor(taskData){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         navigation.push("EditTask",{type:"edit", taskData:taskData})
 
     }
 
     function openNewTask(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         navigation.push("EditTask",{type:"new"})
 
     }

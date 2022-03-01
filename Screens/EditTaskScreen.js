@@ -81,14 +81,22 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     function goBack(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         navigation.pop()
 
     }
 
     function openDatePicker(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         setSelected("date")
         setShowDate(true)
 
@@ -96,7 +104,11 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     function openStartTime(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         setSelected("start")
         setShowTime(true)
 
@@ -104,7 +116,11 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     function openEndTime(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         setSelected("end")
         setShowTime(true)
 
@@ -112,7 +128,11 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     function setDay(day){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
 
         var selectedDaysUpdated = selectedDays
 
@@ -161,14 +181,23 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     function cancelTask(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
         navigation.pop()
 
     }
 
     function saveTask(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
 
         firebaseAuth.createTask(taskName, taskDesc, selectedDays, date, startTime, endTime)
 
@@ -178,7 +207,11 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     function updateTask(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
 
         firebaseAuth.updateTask(taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
 

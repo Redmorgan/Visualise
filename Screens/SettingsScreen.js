@@ -1,5 +1,5 @@
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Vibration, Alert } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
@@ -22,18 +22,34 @@ const SettingsScreen = ({ navigation }) => {
 
     const[passwordState, setPasswordState] = useState(false)
     const [vibrationEnabled, setVibrationEnabled] = useState(false);
-    const toggleSwitch = () => setVibrationEnabled(previousState => !previousState);
+    const toggleSwitch = () => toggleVibrate();
+
+    useEffect(()=>{
+        (async () => {
+    
+            await loadSettings()
+    
+        })()
+    },[])
 
     function goBack(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         navigation.pop()
 
     }
 
     async function returnToLogin(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
 
         await AsyncStorage.setItem("password", JSON.stringify("none"))
         await AsyncStorage.setItem("rememberMe", JSON.stringify(false))
@@ -49,7 +65,11 @@ const SettingsScreen = ({ navigation }) => {
 
     function returnToViewSelect(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
 
         if(global.View == "Adult"){
 
@@ -66,6 +86,45 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    async function toggleVibrate(){
+
+        await AsyncStorage.setItem("vibration", JSON.stringify("none"))
+
+        setVibrationEnabled(!vibrationEnabled)
+
+        if(vibrationEnabled == false){
+
+            global.vibe = 5
+
+            await AsyncStorage.setItem("vibration", JSON.stringify("true"))
+
+        }else if(vibrationEnabled){
+
+            global.vibe = 0
+
+            await AsyncStorage.setItem("vibration", JSON.stringify("false"))
+
+        }
+
+    }
+
+    async function loadSettings(){
+
+        const vibrationState = await AsyncStorage.getItem("vibration")
+
+        if(vibrationState.replace(/"/g,'') == "true"){
+
+            setVibrationEnabled(true)
+
+        }else if(vibrationState.replace(/"/g,'') == "false"){
+            setVibrationEnabled(false)
+
+        }
+
+        
+
+    }
+    
     return (
  
     <MainView>

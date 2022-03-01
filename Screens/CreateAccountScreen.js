@@ -20,7 +20,11 @@ const CreateAccountScreen = ({ navigation }) => {
 
     function backToLogin(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         navigation.pop()
 
     }

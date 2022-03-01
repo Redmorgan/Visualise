@@ -13,7 +13,16 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
 
     function closePasswordPopup(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            if(global.vibe != 0){
+
+                Vibration.vibrate(5)
+    
+            }
+
+        }
+        
         closePassword()
 
     }

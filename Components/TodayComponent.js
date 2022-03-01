@@ -29,7 +29,11 @@ const TodayComponent = ({ navigation }) => {
 
     function openSettings(){
 
-        Vibration.vibrate(5)
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
         navigation.push("Settings")
 
     }

@@ -158,7 +158,37 @@ const LoginScreen = ({ navigation }) => {
 
         loadLoginDetails()
 
+        loadSettings()
+
         setLoading(true)
+
+    }
+
+    async function loadSettings(){
+
+        console.log("yo")
+
+        const vibrationState = await AsyncStorage.getItem("vibration")
+
+        if(vibrationState == null){
+
+            await AsyncStorage.setItem("vibration", JSON.stringify("true"))
+
+            global.vibe = 5
+
+        }else{
+
+            if(vibrationState.replace(/"/g,'') == "true"){
+
+                global.vibe = 5
+
+            }else if(vibrationState.replace(/"/g,'') == "false"){
+
+                global.vibe = 0
+
+            }
+
+        }
 
     }
 
