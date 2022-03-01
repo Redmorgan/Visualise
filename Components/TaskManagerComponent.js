@@ -14,11 +14,11 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 // Components
 import TaskManagerItemComponent from "./TaskManagerItemComponent";
 import DeleteTaskComponent from "./DeleteTaskComponent";
+import LoadingComponent from "./LoadingComponent";
 
 // Icons
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import { TabRouter } from "@react-navigation/native";
 
 const TaskManagerComponent = ({ navigation }) => {
 
@@ -29,7 +29,6 @@ const TaskManagerComponent = ({ navigation }) => {
     const[searchString, setSearchString] = useState("")
     const[currentFilter, setCurrentFilter] = useState()
     const isFocused = useIsFocused();
-
 
     useEffect(()=>{
         (async () => {
@@ -177,12 +176,15 @@ const TaskManagerComponent = ({ navigation }) => {
 
             <TaskListContainer>
 
+                {(taskList == null)?
+                <LoadingComponent message={"Loading"}/>
+                :
                 <TaskListScroll
                 data = {taskList}
                 keyExtractor={(item) => item.docID}
                 nestedScrollEnabled
                 renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={openTaskEditor}/>)}
-                contentContainerStyle={{paddingBottom:10}}/>
+                contentContainerStyle={{paddingBottom:10}}/>}
 
             </TaskListContainer>
 

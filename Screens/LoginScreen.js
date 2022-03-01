@@ -14,12 +14,16 @@ import { MaterialIcons } from '@expo/vector-icons';
 // Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
 
+//Componenets
+import LoadingComponent from "../Components/LoadingComponent.js";
+
 const LoginScreen = ({ navigation }) => {
     //AsyncStorage.clear()
     const [isLoaded, setLoading] = useState(false)
     const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
     const[rememberMeState, setRememberMeState] = useState()
+    const[isAuto, setAuto] = useState(false)
 
     const showMessage = (input) => {
 
@@ -113,6 +117,8 @@ const LoginScreen = ({ navigation }) => {
 
         if(rememberMe == "true"){
 
+            setAuto(true)
+
             setRememberMeState(true)
 
             const savedEmail = await AsyncStorage.getItem("email")
@@ -168,6 +174,9 @@ const LoginScreen = ({ navigation }) => {
 
         <StatusBar backgroundColor="transparent"/>
 
+        {(isAuto == true)?
+        <LoadingComponent message={"Logging In"}/>
+        :
         <LoginBackground source={LoginBackgroundImage}>
 
             {(global.newAccount == true)?
@@ -236,7 +245,7 @@ const LoginScreen = ({ navigation }) => {
 
             </ContactUsContainer>
 
-        </LoginBackground>
+        </LoginBackground>}
 
     </MainView>
  
