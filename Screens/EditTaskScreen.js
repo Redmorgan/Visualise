@@ -21,7 +21,7 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [showDate, setShowDate] = useState(false)
     const [showTime, setShowTime] = useState(false)
 
-    const [selectedDays, setSelectedDays] = useState(route.params.taskData['Days'])
+    const [selectedDays, setSelectedDays] = useState([])
     const [refreshState, setRefreshing] = useState(false)
     const [selectedDaysString, setSelectedDaysString] = useState()
 
@@ -29,8 +29,27 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(moment(new Date()).add(1, 'h').toDate())
 
-    const [taskName, setTaskName] = useState(route.params.taskData['TaskName'])
-    const [taskDesc, setTaskDesc] = useState(route.params.taskData['TaskDesc'])
+    const [taskName, setTaskName] = useState()
+    const [taskDesc, setTaskDesc] = useState()
+
+    const[isLoaded, setLoading] = useState(false)
+
+    if(isLoaded == false){
+
+        if(route.params.type == "edit"){
+
+            setTaskName(route.params.taskData['TaskName'])
+            setTaskDesc(route.params.taskData['TaskDesc'])
+            setDate(new Date(route.params.taskData['Date']['seconds'] * 1000))
+            setSelected(route.params.taskData['Days'])
+            setStartTime(new Date(route.params.taskData['TimeStart']['seconds'] * 1000))
+            setEndTime(new Date(route.params.taskData['TimeEnd']['seconds'] * 1000))
+
+        }        
+
+        setLoading(true)
+
+    }
 
     function onDateChange(event, selectedDate){
 
@@ -164,14 +183,6 @@ const EditTaskScreen = ({ navigation, route }) => {
         firebaseAuth.updateTask(taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
 
         navigation.pop()
-
-        // navigation.navigate(
-        //     'AdultView',
-        //     {
-        //         screen: 'EditTask',
-        //         initial:false
-        //     }
-        // )
 
     }
 
@@ -459,22 +470,21 @@ const BackArrowTouchable = styled.TouchableHighlight`
 const EditTaskBody = styled.View`
 
     width:85.07%
-    height:64%
-    margin-top:2%
+    height:65%
+    margin-top:5%
 
 `
 
 const EditTaskScroll = styled.ScrollView`
 
     width:100%
-    height:80%
 
 `
 
 const TaskIcon = styled.View`
 
-    width:31.11%
-    height:18%
+    width:100px
+    height:100px
     background-color:#ffffff
     border-radius:90px
     margin-top:4.6%
@@ -606,7 +616,7 @@ const DayLabel = styled.Text`
 const TimeContainer = styled.View`
 
     width:100%
-    height:8%
+    height:15%
     display:flex
     flex-direction:row
     margin-top:7px
@@ -632,7 +642,7 @@ const TaskTimeWrapper = styled.View`
 const TimeInput = styled.TextInput`
 
     width:60%
-    height:100%
+    height:55%
     border-radius:10px
     background-color:#ffffff
     font-family:Barlow
@@ -658,7 +668,7 @@ const TaskButtonsContainer = styled.View`
 
     width:100%
     height:8%
-    margin-top:18%
+    margin-top:10%
     display:flex
     flex-direction:row
     justify-content:space-between
