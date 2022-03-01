@@ -179,7 +179,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
                 <TaskListScroll
                 data = {taskList}
-                keyExtractor={(item) => item.key}
+                keyExtractor={(item) => item.docID}
                 nestedScrollEnabled
                 renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={openTaskEditor}/>)}
                 contentContainerStyle={{paddingBottom:10}}/>
