@@ -154,22 +154,38 @@ export async function createTask(taskName, taskDesc, days, date, timeStart, time
         _UID:global.UID
     })
 
-    // db.collection("Timetable").doc("Test").set({
-    //     name: "Los Angeles",
-    //     state: "CA",
-    //     country: "USA"
-    // })
+}
 
-    // const firestore = getFirestore()
+export async function updateTask(taskName, taskDesc, days, date, timeStart, timeEnd, docID){
 
-    // const newId = db.createId();
+    const db = firebase.firestore()
 
-    // await setDoc(doc(firestore, "Timetable", newId), {
-    //     employment: "plumber",
-    //     outfitColor: "red",
-    //     specialAttack: "fireball",
-    //     test:"test"
-    // });
+    var repeating;
+
+    if(JSON.stringify(days) == "[]"){
+
+        repeating = false
+
+    }else{
+
+        repeating = true
+
+    }
+
+    console.log(docID)
+
+    db.collection("Timetable").doc(docID).update({
+        Date:date,
+        Days:days,
+        Repeating:repeating,
+        TaskDesc:taskDesc,
+        TaskName:taskName,
+        TimeEnd:timeEnd,
+        TimeStart:timeStart,
+        _UID:global.UID
+    })
+
+    global.rnd = Math.floor(Math.random() * 10)
 
 }
 

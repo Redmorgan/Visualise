@@ -1,6 +1,7 @@
 
 import React, {useState, useEffect} from "react";
 import { Vibration, Alert } from "react-native";
+import {useIsFocused} from '@react-navigation/native';
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import firebase from 'firebase/compat/app';
@@ -27,6 +28,8 @@ const TaskManagerComponent = ({ navigation }) => {
     const[taskList, setTasks] = useState()
     const[searchString, setSearchString] = useState("")
     const[currentFilter, setCurrentFilter] = useState()
+    const isFocused = useIsFocused();
+
 
     useEffect(()=>{
         (async () => {
@@ -34,7 +37,7 @@ const TaskManagerComponent = ({ navigation }) => {
             const tasks = await getTasks()
     
         })()
-    },[])
+    },[isFocused])
 
     async function getTasks(){
 
@@ -53,7 +56,9 @@ const TaskManagerComponent = ({ navigation }) => {
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     // doc.data() is never undefined for query doc snapshots
-                    userTasks.push(doc.data())
+                    var task = doc.data()
+                    task.docID = doc.id
+                    userTasks.push(task)
                 });
     
                 setTasks(userTasks)
@@ -98,7 +103,14 @@ const TaskManagerComponent = ({ navigation }) => {
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                filteredTasks.push(doc.data())
+
+
+                
+
+                var task = doc.data()
+                task.id = doc.id
+                filteredTasks.push(task)
+
             });
 
             userTasks = filteredTasks.filter(function (task){
@@ -117,16 +129,15 @@ const TaskManagerComponent = ({ navigation }) => {
     }
 
 
-    function openTaskEditor(){
+    function openTaskEditor(taskData){
 
         Vibration.vibrate(5)
-        navigation.push("EditTask",{type:"edit"})
+        navigation.push("EditTask",{type:"edit", taskData:taskData})
 
     }
 
     function openNewTask(){
 
-        console.log(taskList)
         Vibration.vibrate(5)
         navigation.push("EditTask",{type:"new"})
 
@@ -170,12 +181,8 @@ const TaskManagerComponent = ({ navigation }) => {
                 data = {taskList}
                 keyExtractor={(item) => item.key}
                 nestedScrollEnabled
-                renderItem={({ item }) => (<TaskManagerItemComponent taskName={item['TaskName']} date={item['Date']['seconds']} taskRepeat={item['Repeating']} startTime={item['TimeStart']['seconds']} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/>)}
+                renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={openTaskEditor}/>)}
                 contentContainerStyle={{paddingBottom:10}}/>
-{/* 
-                <TaskManagerItemComponent taskName="Biology" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/>
-                <TaskManagerItemComponent taskName="Lunch Time" taskRepeat="Repeating" openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/>
-                <TaskManagerItemComponent taskName="Dentist" taskRepeat="15:30 - 14/02/2022" openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={()=>{openTaskEditor()}}/> */}
 
             </TaskListContainer>
 

@@ -21,7 +21,7 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [showDate, setShowDate] = useState(false)
     const [showTime, setShowTime] = useState(false)
 
-    const [selectedDays, setSelectedDays] = useState([])
+    const [selectedDays, setSelectedDays] = useState(route.params.taskData['Days'])
     const [refreshState, setRefreshing] = useState(false)
     const [selectedDaysString, setSelectedDaysString] = useState()
 
@@ -29,9 +29,8 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(moment(new Date()).add(1, 'h').toDate())
 
-    const [taskName, setTaskName] = useState()
-    const [taskDesc, setTaskDesc] = useState()
-
+    const [taskName, setTaskName] = useState(route.params.taskData['TaskName'])
+    const [taskDesc, setTaskDesc] = useState(route.params.taskData['TaskDesc'])
 
     function onDateChange(event, selectedDate){
 
@@ -158,6 +157,24 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    function updateTask(){
+
+        Vibration.vibrate(5)
+
+        firebaseAuth.updateTask(taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
+
+        navigation.pop()
+
+        // navigation.navigate(
+        //     'AdultView',
+        //     {
+        //         screen: 'EditTask',
+        //         initial:false
+        //     }
+        // )
+
+    }
+
     return (
  
     <MainView>
@@ -174,7 +191,10 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                 </BackArrowTouchable>
 
-                <HeaderLabel>Create new Task</HeaderLabel>
+                {(route.params.type == "edit")?
+                <HeaderLabel>Update Task</HeaderLabel>
+                :
+                <HeaderLabel>Create New Task</HeaderLabel>}
 
             </HeaderBar>
 
@@ -190,6 +210,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                     <TaskDataLabel>Task Name</TaskDataLabel>
                     <TaskNameInput
+                    value={taskName}
                     onChangeText={text => setTaskName(text)}/>
 
                     <TaskDataLabel>Description</TaskDataLabel>
@@ -197,6 +218,7 @@ const EditTaskScreen = ({ navigation, route }) => {
                     multiline={true}
                     numberOfLines={4}
                     style={{textAlignVertical:'top'}}
+                    value={taskDesc}
                     onChangeText={text => setTaskDesc(text)}/>
 
                     <TaskDataLabel>Task Date</TaskDataLabel>
@@ -353,7 +375,7 @@ const EditTaskScreen = ({ navigation, route }) => {
                     <TaskButtonsContainer>
                         
                         {(route.params.type == "edit")?
-                        <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                        <SaveTaskButton onPress={()=>{updateTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
 
                             <SaveTaskLabel>UPDATE</SaveTaskLabel>
 

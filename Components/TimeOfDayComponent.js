@@ -171,7 +171,7 @@ const SingleHourContainer = styled.View`
     display:flex
     align-items:center
     justify-content:center
-    border-color:#000000    
+    border-color:#000000
 
 `
 

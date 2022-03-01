@@ -6,27 +6,27 @@ import moment from 'moment';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const TaskManagerItemComponent = ({  taskName, taskRepeat, date, startTime, openDelete, openTaskEditor }) => {
+const TaskManagerItemComponent = ({  taskData, openDelete, openTaskEditor }) => {
 
     const[timingState, setTiming] = useState()
 
     useEffect(()=>{
         (async () => {
     
-            if(taskRepeat == true){
+            if(taskData["Repeating"] == true){
 
                 setTiming("Repeating")
         
             }else{
         
-                var timingString = moment.utc(startTime*1000).format('HH:mm') + " - " + moment.utc(date*1000).format('DD/MM/YYYY')
+                var timingString = moment.utc(taskData['TimeStart']['seconds']*1000).format('HH:mm') + " - " + moment.utc(taskData['Date']['seconds']*1000).format('DD/MM/YYYY')
 
                 setTiming(timingString)
         
             }
     
         })()
-    },[taskRepeat])
+    },[taskData])
 
     return (
 
@@ -34,7 +34,7 @@ const TaskManagerItemComponent = ({  taskName, taskRepeat, date, startTime, open
 
         <TaskInfoContainer>
 
-            <TaskLabel>{taskName}</TaskLabel>
+            <TaskLabel>{taskData["TaskName"]}</TaskLabel>
 
             <TaskSubLabel>{timingState}</TaskSubLabel>
 
@@ -42,7 +42,7 @@ const TaskManagerItemComponent = ({  taskName, taskRepeat, date, startTime, open
 
         <TaskControlsContainer>
 
-            <EditButton underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTaskEditor()}}>
+            <EditButton underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTaskEditor(taskData)}}>
 
                 <FontAwesome5 name="pen" size={30} color="black" />
 

@@ -139,7 +139,7 @@ const TodayContainer = styled.View`
 
 const TodayBody = styled.View`
 
-    width:85%
+    width:86%
     height:80.88%
     background-color:#ffffff
     border-radius:10px
