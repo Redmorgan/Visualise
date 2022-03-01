@@ -166,8 +166,6 @@ const LoginScreen = ({ navigation }) => {
 
     async function loadSettings(){
 
-        console.log("yo")
-
         const vibrationState = await AsyncStorage.getItem("vibration")
 
         if(vibrationState == null){

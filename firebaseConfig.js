@@ -172,8 +172,6 @@ export async function updateTask(taskName, taskDesc, days, date, timeStart, time
 
     }
 
-    console.log(docID)
-
     db.collection("Timetable").doc(docID).update({
         Date:date,
         Days:days,

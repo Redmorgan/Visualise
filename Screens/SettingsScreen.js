@@ -121,8 +121,6 @@ const SettingsScreen = ({ navigation }) => {
 
         }
 
-        
-
     }
     
     return (
