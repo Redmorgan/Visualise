@@ -44,19 +44,28 @@ const AdultViewScreen = ({ navigation }) => {
                     height:65}
                 }}>
 
-                <Tab.Screen name="Calendar" component={CalendarComponent} options={{
-                    tabBarIcon:({color}) =>(
-                        <Entypo name="calendar" size={24} color={color}/>
-                    ),
-                    tabBarItemStyle:{borderRightColor:"#ffffff", borderRightWidth:1}
-                }}/>
+                <Tab.Screen
+                    name="Calendar"
+                    component={CalendarComponent}
+                    options={{
+                        tabBarIcon:({color}) =>(
+                            <Entypo name="calendar" size={24} color={color}/>
+                        ),
+                        tabBarItemStyle:{borderRightColor:"#ffffff", borderRightWidth:1}
+                    }}
+                />
 
-                <Tab.Screen name="Today" component={TodayComponent} options={{
-                    tabBarIcon:({color}) =>(
-                        <AntDesign name="clockcircle" size={24} color={color} />
-                    ),
-                    tabBarItemStyle:{borderColor:"#ffffff", borderLeftWidth:1, borderRightWidth:1}
-                }}/>
+                <Tab.Screen
+                    name="Today"
+                    component={TodayComponent}
+                    options={{
+                        unmountOnBlur:true,
+                        tabBarIcon:({color}) =>(
+                            <AntDesign name="clockcircle" size={24} color={color} />
+                        ),
+                        tabBarItemStyle:{borderColor:"#ffffff", borderLeftWidth:1, borderRightWidth:1}
+                    }}
+                />
 
                 <Tab.Screen
                     name="Tasks"
@@ -66,7 +75,8 @@ const AdultViewScreen = ({ navigation }) => {
                             <FontAwesome name="cog" size={24} color={color} />
                         ),
                         tabBarItemStyle:{borderLeftColor:"#ffffff", borderLeftWidth:1}
-                }}/>
+                    }}
+                />
 
             </Tab.Navigator>
 
