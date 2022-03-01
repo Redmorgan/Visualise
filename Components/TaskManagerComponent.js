@@ -25,6 +25,8 @@ const TaskManagerComponent = ({ navigation }) => {
     const[dropDownSelection, setDropdownSelection] = useState("All Tasks")
     const[deleteTaskState, setDeleteTaskState] = useState(false)
     const[taskList, setTasks] = useState()
+    const[searchString, setSearchString] = useState("")
+    const[currentFilter, setCurrentFilter] = useState()
 
     useEffect(()=>{
         (async () => {
@@ -38,11 +40,15 @@ const TaskManagerComponent = ({ navigation }) => {
 
         const db = firebase.firestore()
     
-        const taskList = db.collection("Timetable")
+        const TimetableCollection = db.collection("Timetable")
     
-        const userTasks = []
+        var filteredTasks = []
+
+        var userTasks = []
     
-        taskList.where("_UID","==", global.UID)
+        filteredTasks = TimetableCollection.where("_UID","==", global.UID)
+
+        filteredTasks
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -50,7 +56,6 @@ const TaskManagerComponent = ({ navigation }) => {
                     userTasks.push(doc.data())
                 });
     
-                global.tasks = userTasks
                 setTasks(userTasks)
             })
             .catch((error) => {
@@ -58,6 +63,59 @@ const TaskManagerComponent = ({ navigation }) => {
             });
     
     }
+
+    async function searchTasks(searchString, filter){
+
+        setSearchString(searchString)
+
+        const db = firebase.firestore()
+    
+        const TimetableCollection = db.collection("Timetable")
+    
+        var collection = []
+
+        var filteredTasks = []
+
+        var userTasks = []
+
+        if(filter == "All Tasks"){
+
+            collection = TimetableCollection.where("_UID","==", global.UID)
+
+        }else if(filter == "One Off"){
+
+
+            collection = TimetableCollection.where("_UID","==", global.UID).where("Repeating","==",false)
+
+
+        }else if(filter == "Repeating"){
+
+            collection = TimetableCollection.where("_UID","==", global.UID).where("Repeating","==",true)
+
+        }
+
+        collection
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                filteredTasks.push(doc.data())
+            });
+
+            userTasks = filteredTasks.filter(function (task){
+
+                return task.TaskName.includes(searchString)
+    
+            })
+
+            setTasks(userTasks)
+
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
+
+    }
+
 
     function openTaskEditor(){
 
@@ -74,6 +132,15 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    function selectFilter(filter){
+
+        setDropdownSelection(filter)
+        setDropdownState(false)
+        setCurrentFilter(filter)
+        searchTasks(searchString, filter)
+
+    }
+
     return (
  
     <MainView>
@@ -84,7 +151,8 @@ const TaskManagerComponent = ({ navigation }) => {
 
             <SearchBarContainer>
 
-                <TaskSearchInput placeholder="Search"/>
+                <TaskSearchInput placeholder="Search"
+                onChangeText={text => searchTasks(text, currentFilter)}/>
 
                 <SearchIconToucable>
 
@@ -138,7 +206,7 @@ const TaskManagerComponent = ({ navigation }) => {
                 {(dropDownState == true)?
                 <DropDownBody>
 
-                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("All Tasks");setDropdownState(!dropDownState);}} style={{borderTopWidth:1, borderTopColor:"#ECECEC"}}>
+                    <DropDownOptionTouchable onPress={()=>{selectFilter("All Tasks")}} style={{borderTopWidth:1, borderTopColor:"#ECECEC"}}>
 
                         <DropDownOption>
 
@@ -148,7 +216,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
                     </DropDownOptionTouchable>
 
-                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("One Off");setDropdownState(!dropDownState);}}>
+                    <DropDownOptionTouchable onPress={()=>{selectFilter("One Off")}}>
 
                         <DropDownOption>
 
@@ -158,7 +226,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
                     </DropDownOptionTouchable>
 
-                    <DropDownOptionTouchable onPress={()=>{setDropdownSelection("Repeating");setDropdownState(!dropDownState);}}>
+                    <DropDownOptionTouchable onPress={()=>{selectFilter("Repeating")}}>
 
                         <DropDownOption>
 

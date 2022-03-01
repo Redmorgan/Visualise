@@ -26,7 +26,7 @@ const TaskManagerItemComponent = ({  taskName, taskRepeat, date, startTime, open
             }
     
         })()
-    },[])
+    },[taskRepeat])
 
     return (
 
@@ -68,10 +68,10 @@ const TaskContainer = styled.View`
    height:90px
    display:flex
    flex-direction:row
-   border-radius:10px
    background-color:#ffffff
    elevation:5
-   margin-bottom:14px
+   border-radius:10px
+   margin-bottom:4%
 
 `
 

@@ -173,27 +173,3 @@ export async function createTask(taskName, taskDesc, days, date, timeStart, time
 
 }
 
-export async function getTasks(){
-
-    const db = firebase.firestore()
-
-    const taskList = db.collection("Timetable")
-
-    const userTasks = []
-
-    taskList.where("_UID","==", global.UID)
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                userTasks.push(doc.data())
-            });
-
-            global.tasks = userTasks
-            return userTasks
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
-
-}
