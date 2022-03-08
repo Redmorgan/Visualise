@@ -30,8 +30,6 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
 
       var task;
 
-      console.log(tasks)
-
       if(tasks != null){
 
          for(let i = 0; i < tasks.length; i++){
@@ -54,10 +52,7 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
 
                // Left off here
                const currentTask = tasks[i]
-               console.log(currentTask)
                const previousTask = tasks[i-1]
-               console.log(previousTask)
-
 
                emptyTime = {length:calculateTaskLength(previousTask['TimeEnd']['seconds'] * 1000, currentTask['TimeStart']['seconds'] * 1000), colour:"", name:"", type:"", docID:currentTask['id']+"1"}
 
@@ -70,8 +65,6 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
             }
 
          }
-
-         console.log(formattedTasks)
 
          setFormattedTasks(formattedTasks)
 

@@ -61,6 +61,7 @@ const TaskManagerComponent = ({ navigation }) => {
                 });
     
                 setTasks(userTasks)
+
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
