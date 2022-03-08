@@ -17,7 +17,7 @@ const TaskComponent = ({length, name, colour, type, openTaskOverView }) => {
             <TaskLabel>{name}</TaskLabel>
 
         </TaskLabelWrapper>
-
+{/* 
         <TaskOverviewTouchable onPress={()=>{openTaskOverView()}}>
 
             <TaskIcon style={{backgroundColor:colour}}>
@@ -26,7 +26,7 @@ const TaskComponent = ({length, name, colour, type, openTaskOverView }) => {
 
             </TaskIcon>
 
-        </TaskOverviewTouchable>
+        </TaskOverviewTouchable> */}
 
         <TaskLength style={{backgroundColor:colour, height:length-20}}/>       
 
@@ -66,18 +66,21 @@ const TaskIcon = styled.View`
 
 const TaskLength = styled.View`
 
-    width:18px
+    width:15%
     position:absolute
-    right:16%
-    bottom:0
-    border-radius:10px
+    right:5%
+    border-top-left-radius:5px
+    border-top-right-radius:5px
+    border-bottom-left-radius:15px
+    border-bottom-right-radius:15px
 
 `
 
 const TaskLabelWrapper = styled.View`
 
     width:100%
-    height:70px
+    height:40px
+    display:flex
     justify-content:center
     padding-left:5%
 
@@ -86,7 +89,7 @@ const TaskLabelWrapper = styled.View`
 const TaskLabel = styled.Text`
 
     font-family:BarlowBold
-    font-size:20px
+    font-size:25px
 
 `
 

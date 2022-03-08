@@ -18,6 +18,7 @@ import { Entypo } from '@expo/vector-icons';
 const EditTaskScreen = ({ navigation, route }) => {
 
     const [date, setDate] = useState(new Date())
+    const [time, setTime] = useState()
     const [showDate, setShowDate] = useState(false)
     const [showTime, setShowTime] = useState(false)
 
@@ -40,7 +41,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             setTaskName(route.params.taskData['TaskName'])
             setTaskDesc(route.params.taskData['TaskDesc'])
-            setDate(new Date(route.params.taskData['Date']))
+            setDate(new Date(route.params.taskData['Date']['seconds'] * 1000))
             setSelected(route.params.taskData['Days'])
             setStartTime(new Date(route.params.taskData['TimeStart']['seconds'] * 1000))
             setEndTime(new Date(route.params.taskData['TimeEnd']['seconds'] * 1000))
@@ -109,6 +110,7 @@ const EditTaskScreen = ({ navigation, route }) => {
             Vibration.vibrate(5)
 
         }
+        setTime(startTime)
         setSelected("start")
         setShowTime(true)
 
@@ -121,6 +123,7 @@ const EditTaskScreen = ({ navigation, route }) => {
             Vibration.vibrate(5)
 
         }
+        setTime(endTime)
         setSelected("end")
         setShowTime(true)
 
@@ -412,7 +415,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                         {(showTime == true)?
                         <DateTimePicker 
-                            value={ date }
+                            value={ time }
                             mode={'time'}
                             display='default'
                             onChange={onTimeChange}

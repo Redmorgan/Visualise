@@ -263,7 +263,7 @@ const TimeTableScrollBody = styled.View`
 
 const TimeIndicator = styled.View`
 
-    width:80%
+    width:80.1%
     height:3px
     background-color:#8A84FF
     position:absolute

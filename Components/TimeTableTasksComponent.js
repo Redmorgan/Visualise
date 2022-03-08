@@ -30,41 +30,58 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
 
       var task;
 
-      for(let i = 0; i < tasks.length; i++){
+      console.log(tasks)
 
-         if(i == 0){
+      if(tasks != null){
 
-            var startTime = tasks[0]['TimeStart']['seconds'] * 1000
+         for(let i = 0; i < tasks.length; i++){
 
-            const newDate = new Date(startTime)
+            if(i == 0){
 
-            emptyTime = {length:convertTimeToHeight(newDate), colour:"", name:"", type:""}
+               var startTime = tasks[0]['TimeStart']['seconds'] * 1000
 
-            console.log(emptyTime)
+               const newDate = new Date(startTime)
 
-            formattedTasks.push(emptyTime)
+               emptyTime = {length:convertTimeToHeight(newDate), colour:"", name:"", type:"", docID:tasks[0]['id']+"1"}
 
-            task = {length:calculateTaskLenght(tasks[0]['TimeStart']['seconds'] * 1000, tasks[0]['TimeEnd']['seconds'] * 1000), colour:"#EA4458", name:tasks[0]['TaskName'], type:""}
+               formattedTasks.push(emptyTime)
 
-            formattedTasks.push(task)
+               task = {length:calculateTaskLength(tasks[0]['TimeStart']['seconds'] * 1000, tasks[0]['TimeEnd']['seconds'] * 1000), colour:"#EA4458", name:tasks[0]['TaskName'], type:"", docID:tasks[0]['id']}
 
-         }else{
+               formattedTasks.push(task)
 
-            // Left off here
+            }else{
+
+               // Left off here
+               const currentTask = tasks[i]
+               console.log(currentTask)
+               const previousTask = tasks[i-1]
+               console.log(previousTask)
+
+
+               emptyTime = {length:calculateTaskLength(previousTask['TimeEnd']['seconds'] * 1000, currentTask['TimeStart']['seconds'] * 1000), colour:"", name:"", type:"", docID:currentTask['id']+"1"}
+
+               formattedTasks.push(emptyTime)
+
+               task = {length:calculateTaskLength(currentTask['TimeStart']['seconds'] * 1000, currentTask['TimeEnd']['seconds'] * 1000), colour:"#EA4458", name:currentTask['TaskName'], type:"", docID:currentTask['id']}
+
+               formattedTasks.push(task)
+
+            }
 
          }
 
-      }
+         console.log(formattedTasks)
 
-      setFormattedTasks(formattedTasks)
+         setFormattedTasks(formattedTasks)
+
+      }
 
    }
 
    function convertTimeToHeight(date){
 
       const timeString = moment(date).format("HH:mm:ss")
-
-      console.log(timeString)
 
       const timeSplit = timeString.split(":")
 
@@ -76,13 +93,11 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
 
    }
 
-   function calculateTaskLenght(startTime, endTime){
+   function calculateTaskLength(startTime, endTime){
 
       var startLength = convertTimeToHeight(startTime)
 
       var endLength = convertTimeToHeight(endTime)
-
-      console.log(endLength - startLength)
 
       return endLength - startLength
 
