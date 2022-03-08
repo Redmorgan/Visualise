@@ -25,6 +25,12 @@ const TodayComponent = ({ navigation }) => {
 
     const[taskOverviewState, setTaskOverviewState] = useState(false)
 
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+    const currentDate = new Date()
+
+    const currentDay = days[currentDate.getDay()]
+
     useEffect(()=>{
         (async () => {
     
@@ -83,9 +89,9 @@ const TodayComponent = ({ navigation }) => {
 
                     <TodayHeader>
 
-                        <HeaderLabel style={{fontFamily:"BarlowSemi"}}>Monday</HeaderLabel>
+                        <HeaderLabel style={{fontFamily:"BarlowSemi"}}>{currentDay}</HeaderLabel>
 
-                        <HeaderLabel style={{fontFamily:"Barlow"}}> - 31/01/2022</HeaderLabel>
+                        <HeaderLabel style={{fontFamily:"Barlow"}}> - {moment(currentDate).format("DD/MM/YYYY")}</HeaderLabel>
 
                     </TodayHeader>
 
