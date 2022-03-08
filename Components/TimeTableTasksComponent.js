@@ -44,9 +44,13 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
 
             formattedTasks.push(emptyTime)
 
+            task = {length:calculateTaskLenght(tasks[0]['TimeStart']['seconds'] * 1000, tasks[0]['TimeEnd']['seconds'] * 1000), colour:"#EA4458", name:tasks[0]['TaskName'], type:""}
+
+            formattedTasks.push(task)
+
          }else{
 
-            
+            // Left off here
 
          }
 
@@ -69,6 +73,18 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
       const secondsInDay = 86400
 
       return (1680/secondsInDay)*seconds
+
+   }
+
+   function calculateTaskLenght(startTime, endTime){
+
+      var startLength = convertTimeToHeight(startTime)
+
+      var endLength = convertTimeToHeight(endTime)
+
+      console.log(endLength - startLength)
+
+      return endLength - startLength
 
    }
 
