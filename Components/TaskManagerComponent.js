@@ -33,7 +33,7 @@ const TaskManagerComponent = ({ navigation }) => {
     useEffect(()=>{
         (async () => {
     
-            const tasks = await getTasks()
+            await getTasks()
     
         })()
     },[isFocused])
@@ -102,9 +102,6 @@ const TaskManagerComponent = ({ navigation }) => {
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-
-
-                
 
                 var task = doc.data()
                 task.id = doc.id
@@ -191,8 +188,7 @@ const TaskManagerComponent = ({ navigation }) => {
                 data = {taskList}
                 keyExtractor={(item) => item.docID}
                 nestedScrollEnabled
-                renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={openTaskEditor}/>)}
-                contentContainerStyle={{paddingBottom:10}}/>}
+                renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={openTaskEditor}/>)}/>}
 
             </TaskListContainer>
 

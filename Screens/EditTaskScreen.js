@@ -40,7 +40,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             setTaskName(route.params.taskData['TaskName'])
             setTaskDesc(route.params.taskData['TaskDesc'])
-            setDate(new Date(route.params.taskData['Date']['seconds'] * 1000))
+            setDate(new Date(route.params.taskData['Date']))
             setSelected(route.params.taskData['Days'])
             setStartTime(new Date(route.params.taskData['TimeStart']['seconds'] * 1000))
             setEndTime(new Date(route.params.taskData['TimeEnd']['seconds'] * 1000))
@@ -199,7 +199,11 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         }
 
-        firebaseAuth.createTask(taskName, taskDesc, selectedDays, date, startTime, endTime)
+        var formattedDate = date.setHours(0,0,0,0)
+
+        var newDate = new Date(formattedDate)
+
+        firebaseAuth.createTask(taskName, taskDesc, selectedDays, newDate, startTime, endTime)
 
         navigation.pop()
 

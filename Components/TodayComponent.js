@@ -4,6 +4,9 @@
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
  import moment from 'moment';
+ import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
  
  // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
@@ -35,6 +38,7 @@ const TodayComponent = ({ navigation }) => {
         (async () => {
     
             getTime()
+            getTasks()
     
         })()
     },[])
@@ -64,6 +68,42 @@ const TodayComponent = ({ navigation }) => {
         var seconds = (+timeSplit[0]) * 60 * 60 + (+timeSplit[1]) * 60 + (+timeSplit[2])
 
         setScrollPosition(((1680/secondsInDay)*seconds)-35)
+
+    }
+
+    async function getTasks(){
+
+        var formattedDate = currentDate.setHours(0,0,0,0)
+
+        var newDate = new Date(formattedDate)
+
+        const db = firebase.firestore()
+    
+        const TimetableCollection = db.collection("Timetable")
+
+        var collection = []
+
+        var filteredTasks = []
+    
+        collection = TimetableCollection.where("_UID","==", global.UID).where("Date","==", newDate)
+
+        collection
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+
+                var task = doc.data()
+                task.id = doc.id
+                filteredTasks.push(task)
+
+            });
+
+            console.log(filteredTasks)
+
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 
     }
 
