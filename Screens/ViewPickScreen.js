@@ -36,14 +36,20 @@ const ViewPickScreen = ({ navigation }) => {
             Vibration.vibrate(5)
             global.View = "Adult"
             await AsyncStorage.setItem("view", JSON.stringify("Adult"))
-            navigation.push("AdultView")
+            navigation.reset({
+                index:0,
+                routes: [{ name: 'AdultView' }]
+            })
 
         }else if(viewSelected == "Child"){
 
             Vibration.vibrate(5)
             global.View = "Child"
             await AsyncStorage.setItem("view", JSON.stringify("Child"))
-            navigation.push("ChildView")
+            navigation.reset({
+                index:0,
+                routes: [{ name: 'ChildView' }]
+            })
 
         }
 

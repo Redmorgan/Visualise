@@ -1,8 +1,9 @@
 
- import React, {useRef, useState} from "react";
+ import React, {useRef, useState, useEffect} from "react";
  import { Vibration, Alert } from "react-native";
  import styled from "styled-components/native";
  import { StatusBar } from 'expo-status-bar';
+ import moment from 'moment';
  
  // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
@@ -20,12 +21,17 @@ const TodayComponent = ({ navigation }) => {
 
     const scrollRef = useRef();
 
-    const scollPosition = 630
+    const [scrollPosition, setScrollPosition] = useState(0)
 
-    const[taskOverviewState, setTaskOverviewState]=useState(false)
+    const[taskOverviewState, setTaskOverviewState] = useState(false)
 
-    // Scrolls screen to exact point in scroll view, 1 hour = 70px
-    //scrollRef.current.scrollTo({y:scollPosition, animated: false})
+    useEffect(()=>{
+        (async () => {
+    
+            getTime()
+    
+        })()
+    },[])
 
     function openSettings(){
 
@@ -34,7 +40,24 @@ const TodayComponent = ({ navigation }) => {
             Vibration.vibrate(5)
 
         }
+
         navigation.push("Settings")
+
+    }
+
+    function getTime(){
+
+        const secondsInDay = 86400
+
+        const currentTime = new Date()
+
+        var timeString = moment(currentTime).format("HH:mm:ss")
+
+        var timeSplit = timeString.split(":")
+
+        var seconds = (+timeSplit[0]) * 60 * 60 + (+timeSplit[1]) * 60 + (+timeSplit[2])
+
+        setScrollPosition(((1680/secondsInDay)*seconds)-35)
 
     }
 
@@ -67,11 +90,11 @@ const TodayComponent = ({ navigation }) => {
                     </TodayHeader>
 
                     
-                    <TimeTableScroll ref={scrollRef} onContentSizeChange={(contentWidth, contentHeight)=> {scrollRef.current.scrollTo({y:scollPosition, animated: false})}}>
+                    <TimeTableScroll ref={scrollRef} onContentSizeChange={(contentWidth, contentHeight)=> {scrollRef.current.scrollTo({y:scrollPosition, animated: false})}}>
 
                         <TimeTableScrollBody>
 
-                            <TimeIndicator style={{top:900}}/>
+                            <TimeIndicator style={{top:scrollPosition+35}}/>
 
                             <TimeOfDayContainer>
 
@@ -185,7 +208,7 @@ const TimeTableScroll = styled.ScrollView`
 const TimeTableScrollBody = styled.View`
 
     width:100%
-    height:202%
+    height:1680px
     flex-direction:row
 
 `
