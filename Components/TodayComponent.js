@@ -1,10 +1,10 @@
 
- import React, {useRef, useState, useEffect} from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
- import moment from 'moment';
- import firebase from 'firebase/compat/app';
+import React, {useRef, useState, useEffect} from "react";
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
+import moment from 'moment';
+import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
  
@@ -26,7 +26,9 @@ const TodayComponent = ({ navigation }) => {
 
     const [scrollPosition, setScrollPosition] = useState(0)
 
-    const[taskOverviewState, setTaskOverviewState] = useState(false)
+    const [taskOverviewState, setTaskOverviewState] = useState(false)
+
+    const [tasks, setTasks] = useState()
 
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -38,7 +40,7 @@ const TodayComponent = ({ navigation }) => {
         (async () => {
     
             getTime()
-            getTasks()
+            await getTasks()
     
         })()
     },[])
@@ -98,7 +100,7 @@ const TodayComponent = ({ navigation }) => {
 
             });
 
-            console.log(filteredTasks)
+            setTasks(filteredTasks)
 
         })
         .catch((error) => {
@@ -150,7 +152,7 @@ const TodayComponent = ({ navigation }) => {
 
                             <TimeTableTasksContainer>
 
-                                <TimeTableTasksComponent openTaskOverView={()=>{setTaskOverviewState(true)}}/>
+                                <TimeTableTasksComponent openTaskOverView={()=>{setTaskOverviewState(true)}} tasks={tasks}/>
 
                             </TimeTableTasksContainer>
 
