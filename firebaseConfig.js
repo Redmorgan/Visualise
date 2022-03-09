@@ -131,28 +131,31 @@ export async function createTask(taskName, taskDesc, days, date, timeStart, time
 
     const db = firebase.firestore()
 
-    var repeating;
-
     if(JSON.stringify(days) == "[]"){
 
-        repeating = false
+        db.collection("Timetable").add({
+            Date:date,
+            Repeating:false,
+            TaskDesc:taskDesc,
+            TaskName:taskName,
+            TimeEnd:timeEnd,
+            TimeStart:timeStart,
+            _UID:global.UID
+        })
 
     }else{
 
-        repeating = true
+        db.collection("Timetable").add({
+            Days:days,
+            Repeating:true,
+            TaskDesc:taskDesc,
+            TaskName:taskName,
+            TimeEnd:timeEnd,
+            TimeStart:timeStart,
+            _UID:global.UID
+        })
 
     }
-
-    db.collection("Timetable").add({
-        Date:date,
-        Days:days,
-        Repeating:repeating,
-        TaskDesc:taskDesc,
-        TaskName:taskName,
-        TimeEnd:timeEnd,
-        TimeStart:timeStart,
-        _UID:global.UID
-    })
 
 }
 

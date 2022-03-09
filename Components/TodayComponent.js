@@ -83,13 +83,17 @@ const TodayComponent = ({ navigation }) => {
     
         const TimetableCollection = db.collection("Timetable")
 
-        var collection = []
+        var collectionSingleTime = []
+
+        var collectionRepeating = []
 
         var filteredTasks = []
     
-        collection = TimetableCollection.where("_UID","==", global.UID).where("Date","==", newDate)
+        collectionSingleTime = TimetableCollection.where("_UID","==", global.UID).where("Date","==", newDate)
 
-        collection
+        collectionRepeating = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains",currentDay)
+
+        collectionSingleTime
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -98,9 +102,28 @@ const TodayComponent = ({ navigation }) => {
                 task.id = doc.id
                 filteredTasks.push(task)
 
-            });
+            })
 
-            setTasks(filteredTasks)
+            console.log("Before")
+            console.log(filteredTasks)
+
+            collectionRepeating
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+    
+                    var task = doc.data()
+                    task.id = doc.id
+                    filteredTasks.push(task)
+    
+                });
+
+                console.log("After")
+                console.log(filteredTasks)
+    
+                setTasks(filteredTasks)
+    
+            })
 
         })
         .catch((error) => {
