@@ -27,7 +27,7 @@ const TaskManagerComponent = ({ navigation }) => {
     const[deleteTaskState, setDeleteTaskState] = useState(false)
     const[taskList, setTasks] = useState()
     const[searchString, setSearchString] = useState("")
-    const[currentFilter, setCurrentFilter] = useState()
+    const[currentFilter, setCurrentFilter] = useState("All Tasks")
     const isFocused = useIsFocused();
 
     useEffect(()=>{
