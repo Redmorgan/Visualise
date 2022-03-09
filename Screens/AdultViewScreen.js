@@ -53,6 +53,15 @@ const AdultViewScreen = ({ navigation }) => {
                         ),
                         tabBarItemStyle:{borderRightColor:"#ffffff", borderRightWidth:1}
                     }}
+                    listeners={() => ({
+                        tabPress: () => {
+                            if(global.vibe != 0){
+
+                                Vibration.vibrate(5)
+                    
+                            }
+                        },
+                    })}
                 />
 
                 <Tab.Screen
@@ -65,17 +74,36 @@ const AdultViewScreen = ({ navigation }) => {
                         ),
                         tabBarItemStyle:{borderColor:"#ffffff", borderLeftWidth:1, borderRightWidth:1}
                     }}
+                    listeners={() => ({
+                        tabPress: () => {
+                            if(global.vibe != 0){
+
+                                Vibration.vibrate(5)
+                    
+                            }
+                        },
+                    })}
                 />
 
                 <Tab.Screen
                     name="Tasks"
                     component={TaskManagerComponent}
+                    
                     options={{
                         tabBarIcon:({color}) =>(
                             <FontAwesome name="cog" size={24} color={color} />
                         ),
                         tabBarItemStyle:{borderLeftColor:"#ffffff", borderLeftWidth:1}
                     }}
+                    listeners={() => ({
+                        tabPress: () => {
+                            if(global.vibe != 0){
+
+                                Vibration.vibrate(5)
+                    
+                            }
+                        },
+                    })}
                 />
 
             </Tab.Navigator>

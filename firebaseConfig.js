@@ -163,28 +163,31 @@ export async function updateTask(taskName, taskDesc, days, date, timeStart, time
 
     const db = firebase.firestore()
 
-    var repeating;
-
     if(JSON.stringify(days) == "[]"){
 
-        repeating = false
+        db.collection("Timetable").doc(docID).update({
+            Date:date,
+            Repeating:false,
+            TaskDesc:taskDesc,
+            TaskName:taskName,
+            TimeEnd:timeEnd,
+            TimeStart:timeStart,
+            _UID:global.UID
+        })
 
     }else{
 
-        repeating = true
+        db.collection("Timetable").doc(docID).update({
+            Days:days,
+            Repeating:true,
+            TaskDesc:taskDesc,
+            TaskName:taskName,
+            TimeEnd:timeEnd,
+            TimeStart:timeStart,
+            _UID:global.UID
+        })
 
     }
-
-    db.collection("Timetable").doc(docID).update({
-        Date:date,
-        Days:days,
-        Repeating:repeating,
-        TaskDesc:taskDesc,
-        TaskName:taskName,
-        TimeEnd:timeEnd,
-        TimeStart:timeStart,
-        _UID:global.UID
-    })
 
     global.rnd = Math.floor(Math.random() * 10)
 

@@ -51,6 +51,15 @@ const ChildViewScreen = ({ navigation }) => {
                         ),
                         tabBarItemStyle:{borderRightColor:"#ffffff", borderRightWidth:1}
                     }}
+                    listeners={() => ({
+                        tabPress: () => {
+                            if(global.vibe != 0){
+
+                                Vibration.vibrate(5)
+                    
+                            }
+                        },
+                    })}
                 />
 
                 <Tab.Screen
@@ -63,6 +72,15 @@ const ChildViewScreen = ({ navigation }) => {
                         ),
                         tabBarItemStyle:{borderColor:"#ffffff", borderLeftWidth:1, borderRightWidth:1}
                     }}
+                    listeners={() => ({
+                        tabPress: () => {
+                            if(global.vibe != 0){
+
+                                Vibration.vibrate(5)
+                    
+                            }
+                        },
+                    })}
                 />
 
             </Tab.Navigator>
