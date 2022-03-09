@@ -83,9 +83,11 @@ const CreateAccountScreen = ({ navigation }) => {
                 onChangeText={text => setEmail(text)}/>
 
             <LoginInput placeholder="Password"
+                secureTextEntry={true}
                 onChangeText={text => setPassword(text)}/>
 
             <LoginInput placeholder="Confirm Password"
+                secureTextEntry={true}
                 onChangeText={text => setConfirmPassword(text)}/>
 
             <SignUpButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{createAccount()}}>
