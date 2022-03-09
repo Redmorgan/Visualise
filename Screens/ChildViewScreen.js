@@ -15,13 +15,7 @@ const Tab = createBottomTabNavigator();
 import { Entypo } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 
-const ChildViewScreen = ({ navigation }) => {
-
-    const onPressVibration = (input) => {
-
-        Alert.alert(`Button Pressed: ${input}`);
-
-    }
+const ChildViewScreen = ({ }) => {
 
     return (
  

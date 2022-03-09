@@ -17,13 +17,7 @@ import { Entypo } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
 
-const AdultViewScreen = ({ navigation }) => {
-
-    const onPressVibration = (input) => {
-
-        Alert.alert(`Button Pressed: ${input}`);
-
-    }
+const AdultViewScreen = ({ }) => {
 
     return (
  
