@@ -67,7 +67,7 @@ const CalendarGridRowContainer = styled.View`
 
 const CalendarDayContainer = styled.View`
 
-    width:${100/7}%
+    width:${(100/7)-0.001}%
     height:100%
     border-bottom-width:1px
     border-color:black
