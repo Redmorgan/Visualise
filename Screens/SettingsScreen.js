@@ -73,10 +73,7 @@ const SettingsScreen = ({ navigation }) => {
 
         if(global.View == "Adult"){
 
-            navigation.reset({
-                index:0,
-                routes: [{ name: 'ViewPick' }]
-            })
+            navigation.push("ViewPick")
 
         }else if(global.View == "Child"){
 
