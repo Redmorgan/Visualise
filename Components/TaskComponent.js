@@ -1,44 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
+import { Vibration } from "react-native";
 
-// Icons
-import { Ionicons } from '@expo/vector-icons';
+import TaskOverviewComponent from "./TaskOverviewComponent";
 
+const TaskComponent = ({task}) => {
 
-const TaskComponent = ({length, name, colour, type, openTaskOverView }) => {
+    const [overviewState, setOverviewState] = useState(false)
 
+    function openTaskDesc(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        setOverviewState(true)
+
+    }
 
    return (
 
-   <TaskBody style={{height:length}}>
+   <TaskBody style={{height:task['length']+5}} onPress={()=>{openTaskDesc()}} underlayColor={'transparent'} activeOpacity={1}>
 
-        <TaskLabelWrapper>
+        <TaskWrapper>
 
-            <TaskLabel>{name}</TaskLabel>
+            <TaskLabelWrapper>
 
-        </TaskLabelWrapper>
-{/* 
-        <TaskOverviewTouchable onPress={()=>{openTaskOverView()}}>
+                <TaskLabel>{task['name']}</TaskLabel>
 
-            <TaskIcon style={{backgroundColor:colour}}>
+            </TaskLabelWrapper>
 
-                <Ionicons name={type} size={45} color="white" />
+            <TaskLength style={{backgroundColor:task['colour'], height:task['length']}}/>
 
-            </TaskIcon>
+            <TaskOverviewComponent view={global.View} state={overviewState} taskOverviewTouchable={()=>{setOverviewState(false)}} name={task['name']} desc={task['desc']} start={task['start']} end={task['end']}/>
 
-        </TaskOverviewTouchable> */}
-
-        <TaskLength style={{backgroundColor:colour, height:length-20}}/>       
+        </TaskWrapper>
 
    </TaskBody>
 
    );
 }
 
-const TaskBody = styled.View`
+const TaskBody = styled.TouchableHighlight`
 
    width:100%
    display: flex;
+
+`
+
+const TaskWrapper = styled.View`
+
+    width:100%
+    height:100%
 
 `
 
@@ -79,7 +94,6 @@ const TaskLength = styled.View`
 const TaskLabelWrapper = styled.View`
 
     width:100%
-    height:40px
     display:flex
     justify-content:center
     padding-left:5%
@@ -90,6 +104,7 @@ const TaskLabel = styled.Text`
 
     font-family:BarlowBold
     font-size:25px
+    line-height: 22px
 
 `
 
