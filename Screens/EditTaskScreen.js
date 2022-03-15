@@ -735,7 +735,7 @@ const ClockTouchable = styled.TouchableHighlight`
 const TaskButtonsContainer = styled.View`
 
     width:100%
-    height:8%
+    height:10%
     margin-top:10%
     display:flex
     flex-direction:row

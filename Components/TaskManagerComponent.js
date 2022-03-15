@@ -13,7 +13,6 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 
 // Components
 import TaskManagerItemComponent from "./TaskManagerItemComponent";
-import DeleteTaskComponent from "./DeleteTaskComponent";
 import LoadingComponent from "./LoadingComponent";
 
 // Icons
@@ -133,6 +132,7 @@ const TaskManagerComponent = ({ navigation }) => {
             Vibration.vibrate(5)
 
         }
+
         navigation.push("EditTask",{type:"edit", taskData:taskData})
 
     }
@@ -144,6 +144,7 @@ const TaskManagerComponent = ({ navigation }) => {
             Vibration.vibrate(5)
 
         }
+
         navigation.push("EditTask",{type:"new"})
 
     }
@@ -178,8 +179,6 @@ const TaskManagerComponent = ({ navigation }) => {
 
             </SearchBarContainer>
 
-            <DeleteTaskComponent state={deleteTaskState} closeDelete={()=>{setDeleteTaskState(false)}}/>
-
             <TaskListContainer>
 
                 {(taskList == null)?
@@ -189,7 +188,7 @@ const TaskManagerComponent = ({ navigation }) => {
                 data = {taskList}
                 keyExtractor={(item) => item.docID}
                 nestedScrollEnabled
-                renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openDelete={()=>{setDeleteTaskState(true)}} openTaskEditor={openTaskEditor}/>)}/>}
+                renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openTaskEditor={openTaskEditor} refreshTasks={getTasks}/>)}/>}
 
             </TaskListContainer>
 

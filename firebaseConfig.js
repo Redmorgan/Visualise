@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { LogBox } from 'react-native';
+import DeleteTaskComponent from './Components/DeleteTaskComponent';
 
 
 // Your app's Firebase configuration
@@ -191,6 +192,18 @@ export async function updateTask(taskName, taskDesc, days, date, timeStart, time
     }
 
     global.rnd = Math.floor(Math.random() * 10)
+
+}
+
+export async function deleteTask(docID){
+
+    const db = firebase.firestore()
+
+    db.collection("Timetable").doc(docID).delete().then(() => {
+
+    }).catch((error) => {
+        console.error("Error removing document: ", error);
+    });
 
 }
 

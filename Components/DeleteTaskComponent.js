@@ -1,11 +1,42 @@
 import React from "react";
 import styled from "styled-components/native";
+import { Vibration } from "react-native";
+import * as firebase from '../firebaseConfig.js'
 
 // Icons
 import { MaterialIcons } from '@expo/vector-icons'
 import { Entypo } from '@expo/vector-icons'
 
-const DeleteTaskComponent = ({ state, closeDelete }) => {
+const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
+
+
+    function cancelDelete(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        closeDelete()
+
+    }
+
+    async function confirmDelete(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        firebase.deleteTask(taskID)
+
+        closeDelete()
+
+        refreshTasks()
+
+    }
 
    return (
 
@@ -24,13 +55,13 @@ const DeleteTaskComponent = ({ state, closeDelete }) => {
 
                 <DeleteControlsContainer>
 
-                    <ConfirmDeleteButton underlayColor={'#00000033'} activeOpacity={1}>
+                    <ConfirmDeleteButton underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{confirmDelete()}}>
 
                         <Entypo name="check" size={50} color="black" />
 
                     </ConfirmDeleteButton>
 
-                    <CancelDeleteButton underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{closeDelete()}}>
+                    <CancelDeleteButton underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{cancelDelete()}}>
 
                         <Entypo name="cross" size={50} color="black" /> 
 

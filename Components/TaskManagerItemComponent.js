@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components/native";
 import moment from 'moment';
+import { Vibration } from "react-native";
 
 // Icons
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const TaskManagerItemComponent = ({  taskData, openDelete, openTaskEditor }) => {
+// Components
+import DeleteTaskComponent from "./DeleteTaskComponent";
+
+const TaskManagerItemComponent = ({  taskData, openTaskEditor, refreshTasks }) => {
 
     const[timingState, setTiming] = useState()
+    const[deleteState, setDeleteState] = useState(false)
 
     useEffect(()=>{
         (async () => {
@@ -27,6 +32,18 @@ const TaskManagerItemComponent = ({  taskData, openDelete, openTaskEditor }) => 
     
         })()
     },[taskData])
+
+    function openDelete(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        setDeleteState(true)
+
+    }
 
     return (
 
@@ -54,8 +71,9 @@ const TaskManagerItemComponent = ({  taskData, openDelete, openTaskEditor }) => 
 
             </DeleteButton>
 
-
         </TaskControlsContainer>
+
+        <DeleteTaskComponent state={deleteState} closeDelete={()=>{setDeleteState(false)}} taskID={taskData['docID']} refreshTasks={refreshTasks}/>
 
     </TaskContainer>
 

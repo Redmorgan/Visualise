@@ -32,12 +32,12 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc,
             
             <TaskOverviewBody>
 
-                {(view == "Adult")?
+                {/* {(view == "Adult")?
                 <EditButton>
 
                     <FontAwesome5 name="pen" size={30} color="black" />
 
-                </EditButton>:null}
+                </EditButton>:null} */}
 
                 <CloseButton onPress={()=>{closeOverview()}} underlayColor={'#00000033'} activeOpacity={1}>
 
@@ -122,7 +122,6 @@ const TaskIcon = styled.View`
     background-color:red
     margin-top:3.2%
 
-
 `
 
 const TaskHeaderLabel = styled.Text`
@@ -162,6 +161,7 @@ const TaskDescription = styled.Text`
     width:100%
     font-family:Barlow
     font-size:18px
+    text-align: justify
 
 `
 
