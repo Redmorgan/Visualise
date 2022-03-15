@@ -1,11 +1,25 @@
 import React from "react";
 import styled from "styled-components/native";
+import { Vibration } from "react-native";
+import moment from 'moment';
 
 // Icons
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const TaskOverviewComponent = ({ view, state, taskOverviewTouchable }) => {
+const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc, start, end }) => {
+
+    function closeOverview(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        taskOverviewTouchable()
+
+    }
 
    return (
 
@@ -25,7 +39,7 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable }) => {
 
                 </EditButton>:null}
 
-                <CloseButton onPress={()=>{taskOverviewTouchable()}} underlayColor={'#00000033'} activeOpacity={1}>
+                <CloseButton onPress={()=>{closeOverview()}} underlayColor={'#00000033'} activeOpacity={1}>
 
                     <AntDesign name="close" size={35} color="black" />
 
@@ -33,15 +47,15 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable }) => {
 
                 <TaskIcon></TaskIcon>
 
-                <TaskHeaderLabel>Task</TaskHeaderLabel>
+                <TaskHeaderLabel>{name}</TaskHeaderLabel>
 
-                <TaskTimeLabel>1-2pm</TaskTimeLabel>
+                <TaskTimeLabel>{moment(new Date(start)).format("HH:mm")}-{moment(new Date(end)).format("HH:mm")}</TaskTimeLabel>
 
                 <TaskDescriptionWrapper>
 
                     <TaskDescriptionScroll>
 
-                        <TaskDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non massa at neque suscipit varius non sed dolor. Suspendisse cursus faucibus varius. Morbi et bibendum ligula. Nullam pulvinar odio neque, vitae tempor metus bibendum placerat.</TaskDescription>
+                        <TaskDescription>{desc}</TaskDescription>
 
                     </TaskDescriptionScroll>
 

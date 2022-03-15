@@ -14,7 +14,6 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 // Components
 import TimeOfDayComponent from "./TimeOfDayComponent";
 import TimeTableTasksComponent from "./TimeTableTasksComponent";
-import TaskOverviewComponent from "./TaskOverviewComponent";
 
 // Icons
 import { FontAwesome } from '@expo/vector-icons'
@@ -25,8 +24,6 @@ const TodayComponent = ({ navigation }) => {
     const scrollRef = useRef();
 
     const [scrollPosition, setScrollPosition] = useState(0)
-
-    const [taskOverviewState, setTaskOverviewState] = useState(false)
 
     const [tasks, setTasks] = useState()
 
@@ -146,8 +143,6 @@ const TodayComponent = ({ navigation }) => {
 
             </SettingsTouchable>
 
-            <TaskOverviewComponent view={global.View} state={taskOverviewState} taskOverviewTouchable={()=>{setTaskOverviewState(false)}}/>
-
             <TodayContainer>
 
                 <TodayBody>
@@ -175,7 +170,7 @@ const TodayComponent = ({ navigation }) => {
 
                             <TimeTableTasksContainer>
 
-                                <TimeTableTasksComponent openTaskOverView={()=>{setTaskOverviewState(true)}} tasks={tasks}/>
+                                <TimeTableTasksComponent tasks={tasks}/>
 
                             </TimeTableTasksContainer>
 

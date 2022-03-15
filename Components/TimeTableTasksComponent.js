@@ -8,7 +8,7 @@ import TaskComponent from "./TaskComponent";
 
 
 
-const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
+const TimeTableTasksComponent = ({ tasks }) => {
 
    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
@@ -44,21 +44,44 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
 
                formattedTasks.push(emptyTime)
 
-               task = {length:calculateTaskLength(tasks[0]['TimeStart']['seconds'] * 1000, tasks[0]['TimeEnd']['seconds'] * 1000), colour:"#EA4458", name:tasks[0]['TaskName'], type:"", docID:tasks[0]['id']}
+               task = { length:calculateTaskLength(tasks[0]['TimeStart']['seconds'] * 1000, tasks[0]['TimeEnd']['seconds'] * 1000),
+                        colour:"#EA4458",
+                        name:tasks[0]['TaskName'],
+                        start:tasks[0]['TimeStart']['seconds'] * 1000,
+                        end:tasks[0]['TimeEnd']['seconds'] * 1000,
+                        desc:tasks[0]['TaskDesc'],
+                        type:"",
+                        docID:tasks[0]['id']
+                     }
 
                formattedTasks.push(task)
 
             }else{
 
-               // Left off here
                const currentTask = tasks[i]
                const previousTask = tasks[i-1]
 
-               emptyTime = {length:calculateTaskLength(previousTask['TimeEnd']['seconds'] * 1000, currentTask['TimeStart']['seconds'] * 1000), colour:"", name:"", type:"", docID:currentTask['id']+"1"}
+               emptyTime = {  length:calculateTaskLength(previousTask['TimeEnd']['seconds'] * 1000, currentTask['TimeStart']['seconds'] * 1000),
+                              colour:"",
+                              name:"",
+                              start:"",
+                              end:"",
+                              desc:"",
+                              type:"",
+                              docID:currentTask['id']+"1"
+                           }
 
                formattedTasks.push(emptyTime)
 
-               task = {length:calculateTaskLength(currentTask['TimeStart']['seconds'] * 1000, currentTask['TimeEnd']['seconds'] * 1000), colour:"#EA4458", name:currentTask['TaskName'], type:"", docID:currentTask['id']}
+               task = { length:calculateTaskLength(currentTask['TimeStart']['seconds'] * 1000, currentTask['TimeEnd']['seconds'] * 1000),
+                        colour:"#EA4458",
+                        name:currentTask['TaskName'],
+                        start:currentTask['TimeStart']['seconds'] * 1000,
+                        end:currentTask['TimeEnd']['seconds'] * 1000,
+                        desc:currentTask['TaskDesc'],
+                        type:"",
+                        docID:currentTask['id']
+                     }
 
                formattedTasks.push(task)
 
@@ -99,25 +122,11 @@ const TimeTableTasksComponent = ({ openTaskOverView, tasks }) => {
 
    return (
 
-   // <TTT_Body>
-
-   //    <TaskComponent length={700}/>
-
-   //    <TaskComponent length={140} colour={"#EA4458"} name={"School Starts"} type="school" openTaskOverView={openTaskOverView}/>
-
-   //    <TaskComponent length={140} colour={"#64E84E"} name={"Biology Class"} type="bug-sharp" openTaskOverView={openTaskOverView}/>
-
-   //    <TaskComponent length={70}/>
-
-   //    <TaskComponent length={0} colour={"#E8E14E"} name={"School Ends"} type="school" openTaskOverView={openTaskOverView}/>
-
-   // </TTT_Body>
-
       <TTT_Body
          data = {formattedTasks}
          keyExtractor={(item) => item.docID}
          nestedScrollEnabled
-         renderItem={({ item }) => (<TaskComponent length={item['length']} colour={item['colour']} name={item['name']} type={item['type']} openTaskOverView={openTaskOverView}/>)}
+         renderItem={({ item }) => (<TaskComponent task={item} />)}
       />
 
    );

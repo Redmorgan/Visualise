@@ -134,6 +134,10 @@ const LoginScreen = ({ navigation }) => {
 
         if(global.UID != null){
 
+            const selectedView = await AsyncStorage.getItem("view")
+
+            global.View = selectedView.replace(/"/g,'')
+
             var view = await AsyncStorage.getItem("view")
 
             view = view.replace(/"/g,'')

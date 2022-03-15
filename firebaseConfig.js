@@ -70,6 +70,7 @@ export const checkPassword = async (password) => {
  * @param {string} email - The user inputted email address they want to use.
  * @param {string} password -  The user inputted password they want to use.
 */
+
 export const signup = async (email, password) => {
 
     if (email != "" && password != "") {
@@ -89,9 +90,9 @@ export const signup = async (email, password) => {
 
             });
 
-    }
-    else {
+    }else{
 
+        
 
     }
 
