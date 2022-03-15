@@ -63,7 +63,7 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
-    function returnToViewSelect(){
+    async function returnToViewSelect(){
 
         if(global.vibe != 0){
 
@@ -71,11 +71,13 @@ const SettingsScreen = ({ navigation }) => {
 
         }
 
-        if(global.View == "Adult"){
+        const selectedView = await AsyncStorage.getItem("view")
+
+        if(selectedView == '"Adult"'){
 
             navigation.push("ViewPick")
 
-        }else if(global.View == "Child"){
+        }else if(selectedView == '"Child"'){
 
             setPasswordState(true)
 
@@ -90,6 +92,8 @@ const SettingsScreen = ({ navigation }) => {
         setVibrationEnabled(!vibrationEnabled)
 
         if(vibrationEnabled == false){
+
+            Vibration.vibrate(5)
 
             global.vibe = 5
 
@@ -184,7 +188,7 @@ const SettingsScreen = ({ navigation }) => {
 
                             <SettingTitleLabel>Vibrations</SettingTitleLabel>
 
-                            <VibrationSettingDesc>Disable vibrations across the app.</VibrationSettingDesc>
+                            <VibrationSettingDesc>Enable vibrations across the app.</VibrationSettingDesc>
 
                             <VibrationSwitch
                                 trackColor={{ false: "#767577", true: "#b4b0ff" }}
