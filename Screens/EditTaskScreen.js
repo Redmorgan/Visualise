@@ -41,10 +41,38 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             setTaskName(route.params.taskData['TaskName'])
             setTaskDesc(route.params.taskData['TaskDesc'])
-            setDate(new Date(route.params.taskData['Date']['seconds'] * 1000))
-            setSelected(route.params.taskData['Days'])
             setStartTime(new Date(route.params.taskData['TimeStart']['seconds'] * 1000))
             setEndTime(new Date(route.params.taskData['TimeEnd']['seconds'] * 1000))
+
+            try{
+
+                setDate(new Date(route.params.taskData['Date']['seconds'] * 1000))
+
+            }catch(err){
+
+                setDate(new Date())
+
+                setSelectedDays(route.params.taskData['Days'])
+
+                var selectedDaysSub = ""
+
+                for(let i = 0; i < route.params.taskData['Days'].length; i++){
+
+                    if(i == route.params.taskData['Days'].length-1){
+
+                        selectedDaysSub += route.params.taskData['Days'][i].substring(0,3)
+    
+                    }else{
+    
+                        selectedDaysSub += (route.params.taskData['Days'][i].substring(0,3) + ", ")
+    
+                    }
+
+                }
+
+                setSelectedDaysString(selectedDaysSub)
+
+            }
 
         }        
 
