@@ -10,17 +10,17 @@ const CalendarGridComponent = ({ dates, navigation }) => {
 
    <CalendarGridContainer>
 
-        <CalendarGridRowComponent dates={dates.slice(0, 7)} navigation={navigation}/>
+      <CalendarGridRowComponent dates={dates.slice(0, 7)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(7, 14)} navigation={navigation}/>
+      <CalendarGridRowComponent dates={dates.slice(7, 14)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(14, 21)} navigation={navigation}/>
+      <CalendarGridRowComponent dates={dates.slice(14, 21)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(21, 28)} navigation={navigation}/>
+      <CalendarGridRowComponent dates={dates.slice(21, 28)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(28, 35)} navigation={navigation}/>
+      <CalendarGridRowComponent dates={dates.slice(28, 35)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(35, 42)} navigation={navigation}/>
+      <CalendarGridRowComponent dates={dates.slice(35, 42)} navigation={navigation}/>
 
    </CalendarGridContainer>
 

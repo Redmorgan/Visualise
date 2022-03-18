@@ -214,6 +214,19 @@ const CalendarComponent = ({ navigation }) => {
 
                     <CalendarGridComponent dates={dates} navigation={navigation}/>
 
+                    <CalendarNotesContainer>
+
+                        {(global.View == "Adult")?
+                        <NotesInput
+                        placeholder={"Write notes here..."}
+                        multiline={true}
+                        numberOfLines={4}
+                        style={{textAlignVertical:'top'}}/>
+                        :
+                        <NotesText/>}
+
+                    </CalendarNotesContainer>
+
                 </CalendarBody>
 
             </CalendarContainer>
@@ -227,7 +240,7 @@ const CalendarComponent = ({ navigation }) => {
  
 const MainView = styled.View`
  
-    flex:1;
+    flex:1
     display: flex;
     align-items: center;
     justify-content:center;
@@ -279,7 +292,7 @@ const CalendarBody = styled.View`
 const CalendarHeader = styled.View`
 
     width:100%
-    height:60px
+    height:10%
     border-bottom-width:1px
     border-bottom-color:#000000
     display:flex
@@ -324,11 +337,40 @@ const NextMonthTouchable = styled.TouchableHighlight`
 const WeekDayHeader = styled.View`
 
     width:100%
-    height:30px
+    height:5%
     border-bottom-width:1px
     border-bottom-color:#000000
     display:flex
     flex-direction:row
+
+`
+
+const CalendarNotesContainer = styled.View`
+
+    width:100%
+    height:36.6%
+    border-bottom-left-radius:10px
+    border-bottom-right-radius:10px
+
+`
+
+const NotesInput = styled.TextInput`
+
+    width:100%
+    height:100%
+    font-family:Barlow
+    font-size:24px
+    padding:10px
+
+`
+
+const NotesText = styled.Text`
+
+    width:100%
+    height:100%
+    font-family:Barlow
+    font-size:24px
+    padding:10px
 
 `
 
