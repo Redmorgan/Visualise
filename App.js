@@ -16,6 +16,7 @@ import ViewPickScreen from './Screens/ViewPickScreen.js';
 import AdultViewScreen from './Screens/AdultViewScreen.js';
 import EditTaskScreen from './Screens/EditTaskScreen.js';
 import SettingsScreen from './Screens/SettingsScreen.js';
+import TodayComponent from './Components/TodayComponent.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,7 @@ export default function App() {
         <Stack.Screen name="AdultView"component={AdultViewScreen}/>
         <Stack.Screen name="EditTask"component={EditTaskScreen}/>
         <Stack.Screen name="Settings"component={SettingsScreen}/>
+        <Stack.Screen name="Today"component={TodayComponent}/>
 
       </Stack.Navigator>
       

@@ -1,10 +1,10 @@
 
- import React, {useState, useEffect} from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
+import React, { useState } from "react";
+import { Vibration } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
  
- // Images
+// Images
 import MainBackgroundImage from '../Images/MainBackground.png'
 
 // Components
@@ -23,7 +23,7 @@ const CalendarComponent = ({ navigation }) => {
     const[month, setMonth] = useState(new Date().getMonth()+1)
     const[isRefreshing, setRefreshing] = useState(false)
 
-    var daysInMonth= getDaysInMonth(month)
+    var daysInMonth = getDaysInMonth(month)
     var firstDay = getFirstDay(month)
     var dates = setUpCalendar()
 
@@ -40,6 +40,10 @@ const CalendarComponent = ({ navigation }) => {
 
     function setUpCalendar(){
 
+        var firstDate = new Date(year, month-1, 1)
+
+        var nextDate = new Date(year, month-1, 1)
+
         var dates = []
 
         if(firstDay == 0){
@@ -50,39 +54,21 @@ const CalendarComponent = ({ navigation }) => {
 
         for(let i = 1; i < firstDay; i++){
 
-            dates.push("X")
+            dates.push({date:"X"})
 
         }
         
         for(let i = 1; i<= daysInMonth; i++){
 
-            var suffix = ""
+            dates.push({date:new Date(nextDate)})
 
-            if(i == 1 || i == 21 || i == 31){
-
-                suffix = "st"
-
-            }else if(i == 2 || i == 22){
-
-                suffix = "nd"
-
-            }else if (i == 3 || i == 23){
-
-                suffix = "rd"
-
-            }else{
-
-                suffix = "th"
-
-            }
-
-            dates.push(i + suffix)
+            nextDate = firstDate.setTime(firstDate.getTime() + 1 * 24 * 3600 * 1000); 
 
         }
 
         for(let i = 1; i<= (42-daysInMonth); i++){
 
-            dates.push("X")
+            dates.push({date:"X"})
 
         }
 
@@ -226,7 +212,7 @@ const CalendarComponent = ({ navigation }) => {
 
                     </WeekDayHeader>
 
-                    <CalendarGridComponent dates={dates}/>
+                    <CalendarGridComponent dates={dates} navigation={navigation}/>
 
                 </CalendarBody>
 

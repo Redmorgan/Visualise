@@ -102,6 +102,7 @@ export const signup = async (email, password) => {
 /** 
  * @summary Logs the user out of the system and resets the pages cookies for the user.
 */
+
 export async function logout() {
 
     const auth = firebase.auth()

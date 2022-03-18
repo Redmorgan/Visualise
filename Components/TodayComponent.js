@@ -16,10 +16,10 @@ import TimeOfDayComponent from "./TimeOfDayComponent";
 import TimeTableTasksComponent from "./TimeTableTasksComponent";
 
 // Icons
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
-
-const TodayComponent = ({ navigation }) => {
+const TodayComponent = ({ navigation, route }) => {
 
     const scrollRef = useRef();
 
@@ -29,16 +29,37 @@ const TodayComponent = ({ navigation }) => {
 
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-    const currentDate = new Date()
+    const [currentDate, setDate] =  useState(new Date())
 
-    const currentDay = days[currentDate.getDay()]
+    const [currentDay, setCurrentDay] = useState("")
+
+    const [isToday, setToday] = useState(true)
 
     useEffect(()=>{
         (async () => {
-    
-            getTime()
-            await getTasks()
-    
+
+            try{
+
+                var newDate = new Date(route.params.date)
+
+                setDate(newDate)
+
+                setToday(false)
+
+                setCurrentDay(days[newDate.getDay()])
+
+                await getTasks(newDate, days[newDate.getDay()])
+
+            }catch{
+
+                setCurrentDay(days[currentDate.getDay()])
+
+                getTime()
+
+                await getTasks(new Date(), days[currentDate.getDay()])
+
+            }
+
         })()
     },[])
 
@@ -70,9 +91,9 @@ const TodayComponent = ({ navigation }) => {
 
     }
 
-    async function getTasks(){
+    async function getTasks(date, day){
 
-        var formattedDate = currentDate.setHours(0,0,0,0)
+        var formattedDate = date.setHours(0,0,0,0)
 
         var newDate = new Date(formattedDate)
 
@@ -88,7 +109,9 @@ const TodayComponent = ({ navigation }) => {
     
         collectionSingleTime = TimetableCollection.where("_UID","==", global.UID).where("Date","==", newDate)
 
-        collectionRepeating = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains",currentDay)
+        console.log(day)
+
+        collectionRepeating = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains", day)
 
         collectionSingleTime
         .get()
@@ -101,9 +124,6 @@ const TodayComponent = ({ navigation }) => {
 
             })
 
-            console.log("Before")
-            console.log(filteredTasks)
-
             collectionRepeating
             .get()
             .then((querySnapshot) => {
@@ -115,9 +135,13 @@ const TodayComponent = ({ navigation }) => {
     
                 });
 
-                console.log("After")
-                console.log(filteredTasks)
-    
+                // sorts by task start time
+                filteredTasks.sort((a, b)=> {
+
+                    return a['TimeStart']['seconds'] - b['TimeStart']['seconds']
+
+                })
+
                 setTasks(filteredTasks)
     
             })
@@ -129,6 +153,18 @@ const TodayComponent = ({ navigation }) => {
 
     }
 
+    function backToCalendar(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+
+        }
+        navigation.pop()
+
+    }
+
     return (
  
     <MainView>
@@ -137,11 +173,19 @@ const TodayComponent = ({ navigation }) => {
 
         <TodayBackground source={MainBackgroundImage}>
 
+            {(isToday == false)?
+            <BackArrowTouchable onPress={()=>{backToCalendar()}} underlayColor={"transparent"}>
+
+                <AntDesign name="arrowleft" size={40} color="#8A84FF" />
+
+            </BackArrowTouchable>:null}
+
+            {(isToday)?
             <SettingsTouchable onPress={()=>{openSettings()}} underlayColor={'#00000033'} activeOpacity={1}>
 
                 <FontAwesome name="cog" size={40} color={"#8A84FF"} />
 
-            </SettingsTouchable>
+            </SettingsTouchable>:null}
 
             <TodayContainer>
 
@@ -160,7 +204,8 @@ const TodayComponent = ({ navigation }) => {
 
                         <TimeTableScrollBody>
 
-                            <TimeIndicator style={{top:scrollPosition+35}}/>
+                            {(isToday)?
+                            <TimeIndicator style={{top:scrollPosition+35}}/>:null}
 
                             <TimeOfDayContainer>
 
@@ -204,6 +249,20 @@ const TodayBackground = styled.ImageBackground`
     height:100%;
     display: flex;
  
+`
+
+const BackArrowTouchable = styled.TouchableHighlight`
+
+    width:40px
+    height:40px
+    position:absolute
+    left:6%
+    top:6%
+    display:flex
+    justify-content:center
+    align-items:center
+border-radius:10px
+
 `
 
 const SettingsTouchable = styled.TouchableHighlight`

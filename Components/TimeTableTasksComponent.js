@@ -123,6 +123,7 @@ const TimeTableTasksComponent = ({ tasks }) => {
    return (
 
       <TTT_Body
+         scrollEnabled={false}
          data = {formattedTasks}
          keyExtractor={(item) => item.docID}
          nestedScrollEnabled

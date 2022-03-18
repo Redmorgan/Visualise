@@ -4,23 +4,23 @@ import styled from "styled-components/native";
 import CalendarGridRowComponent from "./CalendarGridRowComponent";
 
 
-const CalendarGridComponent = ({ dates }) => {
+const CalendarGridComponent = ({ dates, navigation }) => {
 
    return (
 
    <CalendarGridContainer>
 
-        <CalendarGridRowComponent dates={dates.slice(0, 7)}/>
+        <CalendarGridRowComponent dates={dates.slice(0, 7)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(7, 14)}/>
+        <CalendarGridRowComponent dates={dates.slice(7, 14)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(14, 21)}/>
+        <CalendarGridRowComponent dates={dates.slice(14, 21)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(21, 28)}/>
+        <CalendarGridRowComponent dates={dates.slice(21, 28)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(28, 35)}/>
+        <CalendarGridRowComponent dates={dates.slice(28, 35)} navigation={navigation}/>
 
-        <CalendarGridRowComponent dates={dates.slice(35, 42)}/>
+        <CalendarGridRowComponent dates={dates.slice(35, 42)} navigation={navigation}/>
 
    </CalendarGridContainer>
 
