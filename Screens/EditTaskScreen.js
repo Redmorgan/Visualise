@@ -45,6 +45,7 @@ const EditTaskScreen = ({ navigation, route }) => {
             setTaskDesc(route.params.taskData['TaskDesc'])
             setStartTime(new Date(route.params.taskData['TimeStart']['seconds'] * 1000))
             setEndTime(new Date(route.params.taskData['TimeEnd']['seconds'] * 1000))
+            setSelectedColour(route.params.taskData['SelectedColour'])
 
             try{
 
