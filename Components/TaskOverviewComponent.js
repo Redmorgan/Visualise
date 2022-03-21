@@ -32,20 +32,11 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc,
             
             <TaskOverviewBody>
 
-                {/* {(view == "Adult")?
-                <EditButton>
-
-                    <FontAwesome5 name="pen" size={30} color="black" />
-
-                </EditButton>:null} */}
-
                 <CloseButton onPress={()=>{closeOverview()}} underlayColor={'#00000033'} activeOpacity={1}>
 
                     <AntDesign name="close" size={35} color="black" />
 
                 </CloseButton>
-
-                <TaskIcon></TaskIcon>
 
                 <TaskHeaderLabel>{name}</TaskHeaderLabel>
 
@@ -85,21 +76,11 @@ const TaskOverviewContainer = styled.View`
 const TaskOverviewBody = styled.View`
 
     width:85%;
-    height:50.55%;
+    height:40%;
     background-color:#ffffff;
     border-radius:10px;
     align-items:center;
     elevation:4
-
-`
-
-const EditButton = styled.TouchableHighlight`
-
-    width:35px
-    height:35px
-    position:absolute
-    left:14px
-    top:14px
 
 `
 
@@ -114,22 +95,13 @@ const CloseButton = styled.TouchableHighlight`
 
 `
 
-const TaskIcon = styled.View`
-
-    width:120px
-    height:120px
-    border-radius:90px
-    background-color:red
-    margin-top:3.2%
-
-`
-
 const TaskHeaderLabel = styled.Text`
 
     width:100%
     font-family:BarlowSemi
     font-size:36px
     text-align:center
+    margin-top:11%
 
 `
 
@@ -145,8 +117,8 @@ const TaskTimeLabel = styled.Text`
 const TaskDescriptionWrapper = styled.View`
 
     width:90%
-    height:30%
-    margin-top:1.2%
+    height:50%
+    margin-top:3.2%
 
 `
 
@@ -160,8 +132,7 @@ const TaskDescription = styled.Text`
 
     width:100%
     font-family:Barlow
-    font-size:18px
-    text-align: justify
+    font-size:22px
 
 `
 
