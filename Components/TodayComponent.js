@@ -187,9 +187,9 @@ const TodayComponent = ({ navigation, route }) => {
 
             </SettingsTouchable>:null}
 
-            <TodayContainer>
+            <TodayContainer style={{opacity:0.9}}>
 
-                <TodayBody>
+                <TodayBody style={{opacity:0.9}}>
 
                     <TodayHeader>
 
@@ -261,7 +261,8 @@ const BackArrowTouchable = styled.TouchableHighlight`
     display:flex
     justify-content:center
     align-items:center
-border-radius:10px
+    border-radius:10px
+    z-index:1000
 
 `
 
@@ -276,6 +277,7 @@ const SettingsTouchable = styled.TouchableHighlight`
     justify-content:center
     align-items:center
     border-radius:10px
+    z-index:1000
 
 `
 

@@ -229,9 +229,9 @@ const CalendarComponent = ({ navigation }) => {
 
             </SettingsTouchable>
 
-            <CalendarContainer>
+            <CalendarContainer style={{opacity:0.9}}>
 
-                <CalendarBody>
+                <CalendarBody style={{opacity:0.9}}>
 
                     <CalendarHeader>
 
@@ -340,6 +340,7 @@ const SettingsTouchable = styled.TouchableHighlight`
     justify-content:center
     align-items:center
     border-radius:10px
+    z-index:1000
 
 `
 
