@@ -15,11 +15,7 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
 
         if(global.vibe != 0){
 
-            if(global.vibe != 0){
-
-                Vibration.vibrate(5)
-    
-            }
+            Vibration.vibrate(5)
 
         }
         
@@ -29,10 +25,16 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
 
     async function switchView(){
 
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
         await firebaseAuth.checkPassword(password)
 
         if(global.loginError == null){
-            
+
             navigation.reset({
                 index:0,
                 routes: [{ name: 'ViewPick' }]
