@@ -130,11 +130,9 @@ const SettingsScreen = ({ navigation }) => {
         })
         .then((response)=>{
 
-            
-
             global.background = response['uri']
 
-            console.log(background)
+            AsyncStorage.setItem("background", response['uri'])
 
         })
 

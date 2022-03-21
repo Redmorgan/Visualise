@@ -147,9 +147,11 @@ const LoginScreen = ({ navigation }) => {
 
             var background = await AsyncStorage.getItem("background")
 
+            console.log(background)
+
             if(background == null || background == "none"){
 
-                global.background = MainBackgroundImage
+                global.background = 10
 
             }else{
 

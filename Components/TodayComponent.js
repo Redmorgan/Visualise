@@ -7,8 +7,9 @@ import moment from 'moment';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import {useIsFocused} from '@react-navigation/native';
  
- // Images
+// Images
 import MainBackgroundImage from '../Images/MainBackground.png'
 
 // Components
@@ -34,6 +35,8 @@ const TodayComponent = ({ navigation, route }) => {
     const [currentDay, setCurrentDay] = useState("")
 
     const [isToday, setToday] = useState(true)
+
+    const isFocused = useIsFocused();
 
     useEffect(()=>{
         (async () => {
@@ -61,7 +64,7 @@ const TodayComponent = ({ navigation, route }) => {
             }
 
         })()
-    },[])
+    },[isFocused])
 
     function openSettings(){
 

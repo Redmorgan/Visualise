@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
@@ -7,6 +7,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import * as firestore from '../firebaseConfig.js'
+import {useIsFocused} from '@react-navigation/native';
 
 // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
@@ -29,10 +30,21 @@ const CalendarComponent = ({ navigation }) => {
     const[notes, setNotes] = useState("")
     const[isLoaded, setLoading] = useState(false)
     const[background, setBackground] = useState(MainBackgroundImage)
+    const isFocused = useIsFocused();
 
     var daysInMonth = getDaysInMonth(month)
     var firstDay = getFirstDay(month)
     var dates = setUpCalendar()
+
+    useEffect(()=>{
+        (async () => {
+
+            daysInMonth = getDaysInMonth(month)
+            firstDay = getFirstDay(month)
+            dates = setUpCalendar()
+
+        })()
+    },[isFocused])
 
     function openSettings(){
 
