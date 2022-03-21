@@ -109,8 +109,6 @@ const TodayComponent = ({ navigation, route }) => {
     
         collectionSingleTime = TimetableCollection.where("_UID","==", global.UID).where("Date","==", newDate)
 
-        console.log(day)
-
         collectionRepeating = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains", day)
 
         collectionSingleTime

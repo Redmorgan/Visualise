@@ -211,8 +211,6 @@ const CalendarComponent = ({ navigation }) => {
 
         setLoading(true)
 
-        console.log(global.background)
-
     }
 
     return (

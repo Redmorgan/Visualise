@@ -54,8 +54,6 @@ export const checkPassword = async (password) => {
     const auth = firebase.auth();
     global.loginError = null
 
-    console.log("hi")
-    console.log(global.email)
     await auth.signInWithEmailAndPassword(global.email, password)
         .then((userCredential) => {
         })
