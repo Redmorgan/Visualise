@@ -171,7 +171,7 @@ const TodayComponent = ({ navigation, route }) => {
 
         <StatusBar backgroundColor="transparent"/>
 
-        <TodayBackground source={MainBackgroundImage}>
+        <TodayBackground source={(typeof global.background =="number")?MainBackgroundImage:{uri:global.background}}>
 
             {(isToday == false)?
             <BackArrowTouchable onPress={()=>{backToCalendar()}} underlayColor={"transparent"}>

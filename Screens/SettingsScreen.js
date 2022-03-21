@@ -1,9 +1,10 @@
 
 import React, {useState, useEffect} from "react";
-import { Vibration, Alert } from "react-native";
+import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
 
 // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
@@ -23,6 +24,7 @@ const SettingsScreen = ({ navigation }) => {
     const[passwordState, setPasswordState] = useState(false)
     const [vibrationEnabled, setVibrationEnabled] = useState(false);
     const toggleSwitch = () => toggleVibrate();
+    const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
     useEffect(()=>{
         (async () => {
@@ -39,6 +41,7 @@ const SettingsScreen = ({ navigation }) => {
             Vibration.vibrate(5)
 
         }
+
         navigation.pop()
 
     }
@@ -109,6 +112,48 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    async function pickBackground(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        // Permission check for accessing libray. Do it here im too lazy today :)
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [3, 4],
+            quality: 1,
+        })
+        .then((response)=>{
+
+            
+
+            global.background = response['uri']
+
+            console.log(background)
+
+        })
+
+    }
+
+    async function resetBackground(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        await AsyncStorage.setItem("background", "none")
+
+        global.background = 10
+
+    }
+
     async function loadSettings(){
 
         const vibrationState = await AsyncStorage.getItem("vibration")
@@ -158,7 +203,7 @@ const SettingsScreen = ({ navigation }) => {
 
                             <BackgroundSettingControls>
 
-                                <UploadButton>
+                                <UploadButton onPress={()=>{pickBackground()}} underlayColor={'#6964c4'} activeOpacity={1}>
 
                                     <UploadButtonWrapper>
 
@@ -170,7 +215,7 @@ const SettingsScreen = ({ navigation }) => {
 
                                 </UploadButton>
 
-                                <ResetButton>
+                                <ResetButton onPress={()=>{resetBackground()}} underlayColor={'#6964c4'} activeOpacity={1}>
 
                                     <ButtonLabel>RESET</ButtonLabel>
 

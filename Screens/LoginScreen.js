@@ -13,6 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 // Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
+import MainBackgroundImage from '../Images/MainBackground.png'
 
 //Componenets
 import LoadingComponent from "../Components/LoadingComponent.js";
@@ -143,6 +144,18 @@ const LoginScreen = ({ navigation }) => {
             view = view.replace(/"/g,'')
 
             global.email = email.replace(/"/g,'')
+
+            var background = await AsyncStorage.getItem("background")
+
+            if(background == null || background == "none"){
+
+                global.background = MainBackgroundImage
+
+            }else{
+
+               global.background = background 
+
+            }
 
             if(view == "Child"){
 

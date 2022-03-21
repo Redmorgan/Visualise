@@ -7,7 +7,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import * as firestore from '../firebaseConfig.js'
- 
+
 // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
 
@@ -28,6 +28,7 @@ const CalendarComponent = ({ navigation }) => {
     const[isRefreshing, setRefreshing] = useState(false)
     const[notes, setNotes] = useState("")
     const[isLoaded, setLoading] = useState(false)
+    const[background, setBackground] = useState(MainBackgroundImage)
 
     var daysInMonth = getDaysInMonth(month)
     var firstDay = getFirstDay(month)
@@ -210,6 +211,8 @@ const CalendarComponent = ({ navigation }) => {
 
         setLoading(true)
 
+        console.log(global.background)
+
     }
 
     return (
@@ -218,7 +221,7 @@ const CalendarComponent = ({ navigation }) => {
 
         <StatusBar backgroundColor="transparent"/>
 
-        <CalendarBackground source={MainBackgroundImage}>
+        <CalendarBackground source={(typeof global.background =="number")?MainBackgroundImage:{uri:global.background}}>
 
             <SettingsTouchable onPress={()=>{openSettings()}} underlayColor={'#00000033'} activeOpacity={1}>
 
