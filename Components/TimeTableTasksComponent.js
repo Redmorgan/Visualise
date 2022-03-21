@@ -45,7 +45,7 @@ const TimeTableTasksComponent = ({ tasks }) => {
                formattedTasks.push(emptyTime)
 
                task = { length:calculateTaskLength(tasks[0]['TimeStart']['seconds'] * 1000, tasks[0]['TimeEnd']['seconds'] * 1000),
-                        colour:"#EA4458",
+                        colour:tasks[0]['SelectedColour'],
                         name:tasks[0]['TaskName'],
                         start:tasks[0]['TimeStart']['seconds'] * 1000,
                         end:tasks[0]['TimeEnd']['seconds'] * 1000,
@@ -74,7 +74,7 @@ const TimeTableTasksComponent = ({ tasks }) => {
                formattedTasks.push(emptyTime)
 
                task = { length:calculateTaskLength(currentTask['TimeStart']['seconds'] * 1000, currentTask['TimeEnd']['seconds'] * 1000),
-                        colour:"#EA4458",
+                        colour:currentTask['SelectedColour'],
                         name:currentTask['TaskName'],
                         start:currentTask['TimeStart']['seconds'] * 1000,
                         end:currentTask['TimeEnd']['seconds'] * 1000,

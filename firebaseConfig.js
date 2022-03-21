@@ -2,7 +2,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { LogBox } from 'react-native';
-import DeleteTaskComponent from './Components/DeleteTaskComponent';
 
 
 // Your app's Firebase configuration
@@ -54,11 +53,14 @@ export const checkPassword = async (password) => {
 
     const auth = firebase.auth();
     global.loginError = null
+
+    console.log("hi")
+    console.log(global.email)
     await auth.signInWithEmailAndPassword(global.email, password)
         .then((userCredential) => {
         })
         .catch((error) => {
-
+            console.log(error.message)
             const errorMessage = error.message;
             global.loginError = errorMessage
 
@@ -130,13 +132,14 @@ export async function sendPasswordReset(email) {
 
 }
 
-export async function createTask(taskName, taskDesc, days, date, timeStart, timeEnd){
+export async function createTask(selectedColour, taskName, taskDesc, days, date, timeStart, timeEnd){
 
     const db = firebase.firestore()
 
     if(JSON.stringify(days) == "[]"){
 
         db.collection("Timetable").add({
+            SelectedColour:selectedColour,
             Date:date,
             Repeating:false,
             TaskDesc:taskDesc,
@@ -149,6 +152,7 @@ export async function createTask(taskName, taskDesc, days, date, timeStart, time
     }else{
 
         db.collection("Timetable").add({
+            SelectedColour:selectedColour,
             Days:days,
             Repeating:true,
             TaskDesc:taskDesc,
@@ -162,13 +166,14 @@ export async function createTask(taskName, taskDesc, days, date, timeStart, time
 
 }
 
-export async function updateTask(taskName, taskDesc, days, date, timeStart, timeEnd, docID){
+export async function updateTask(selectedColour, taskName, taskDesc, days, date, timeStart, timeEnd, docID){
 
     const db = firebase.firestore()
 
     if(JSON.stringify(days) == "[]"){
 
         db.collection("Timetable").doc(docID).update({
+            SelectedColour:selectedColour,
             Date:date,
             Repeating:false,
             TaskDesc:taskDesc,
@@ -181,6 +186,7 @@ export async function updateTask(taskName, taskDesc, days, date, timeStart, time
     }else{
 
         db.collection("Timetable").doc(docID).update({
+            SelectedColour:selectedColour,
             Days:days,
             Repeating:true,
             TaskDesc:taskDesc,
@@ -205,6 +211,17 @@ export async function deleteTask(docID){
     }).catch((error) => {
         console.error("Error removing document: ", error);
     });
+
+}
+
+export async function updateNotes(notes){
+
+    const db = firebase.firestore()
+
+    db.collection("Notes").doc(global.UID).set({
+        NoteText:notes,
+        _UID:global.UID
+    })
 
 }
 

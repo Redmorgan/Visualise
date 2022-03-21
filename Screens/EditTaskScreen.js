@@ -33,6 +33,8 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [taskName, setTaskName] = useState()
     const [taskDesc, setTaskDesc] = useState()
 
+    const [selectedColour, setSelectedColour] = useState("")
+
     const[isLoaded, setLoading] = useState(false)
 
     if(isLoaded == false){
@@ -72,6 +74,42 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                 setSelectedDaysString(selectedDaysSub)
 
+            }
+
+        }else{
+
+            const rndColour = Math.floor(Math.random() * (10 - 1 + 1) + 1)
+            switch(rndColour){
+                case 1:
+                    setSelectedColour("#228B22")
+                    break;
+                case 2:
+                    setSelectedColour("#FF0000")
+                    break;
+                case 3:
+                    setSelectedColour("#FF1493")
+                    break;
+                case 4:
+                    setSelectedColour("#A0522D")
+                    break;
+                case 5:
+                    setSelectedColour("#FFFF00")
+                    break;
+                case 6:
+                    setSelectedColour("#00BFFF")
+                    break;
+                case 7:
+                    setSelectedColour("#808080")
+                    break;
+                case 8:
+                    setSelectedColour("#FFA500")
+                    break;
+                case 9:
+                    setSelectedColour("#8B008B")
+                    break;
+                case 10:
+                    setSelectedColour("#000000")
+                    break;
             }
 
         }        
@@ -115,6 +153,7 @@ const EditTaskScreen = ({ navigation, route }) => {
             Vibration.vibrate(5)
 
         }
+
         navigation.pop()
 
     }
@@ -126,6 +165,7 @@ const EditTaskScreen = ({ navigation, route }) => {
             Vibration.vibrate(5)
 
         }
+
         setSelected("date")
         setShowDate(true)
 
@@ -138,6 +178,7 @@ const EditTaskScreen = ({ navigation, route }) => {
             Vibration.vibrate(5)
 
         }
+
         setTime(startTime)
         setSelected("start")
         setShowTime(true)
@@ -151,6 +192,7 @@ const EditTaskScreen = ({ navigation, route }) => {
             Vibration.vibrate(5)
 
         }
+
         setTime(endTime)
         setSelected("end")
         setShowTime(true)
@@ -234,7 +276,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         var newDate = new Date(formattedDate)
 
-        firebaseAuth.createTask(taskName, taskDesc, selectedDays, newDate, startTime, endTime)
+        firebaseAuth.createTask(selectedColour, taskName, taskDesc, selectedDays, newDate, startTime, endTime)
 
         navigation.pop()
 
@@ -248,9 +290,21 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         }
 
-        firebaseAuth.updateTask(taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
+        firebaseAuth.updateTask(selectedColour, taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
 
         navigation.pop()
+
+    }
+
+    function selectColour(colour){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        setSelectedColour(colour)
 
     }
 
@@ -277,15 +331,34 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             </HeaderBar>
 
-            <TaskIcon>
-
-                <TaskIconLabel>No image</TaskIconLabel>
-
-            </TaskIcon>
-
             <EditTaskBody>
 
                 <EditTaskScroll>
+
+                    <ColourSelectionHeader>Task Colour</ColourSelectionHeader>
+                    <ColourButtonContainer>
+                    
+                        <SelectColourButton style={{backgroundColor:"#228B22", borderColor:"#ffffff", borderWidth:selectedColour=="#228B22"?4:0}} onPress={()=>{selectColour("#228B22")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#FF0000", borderColor:"#ffffff", borderWidth:selectedColour=="#FF0000"?4:0}} onPress={()=>{selectColour("#FF0000")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#FF1493", borderColor:"#ffffff", borderWidth:selectedColour=="#FF1493"?4:0}} onPress={()=>{selectColour("#FF1493")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#A0522D", borderColor:"#ffffff", borderWidth:selectedColour=="#A0522D"?4:0}} onPress={()=>{selectColour("#A0522D")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#FFFF00", borderColor:"#ffffff", borderWidth:selectedColour=="#FFFF00"?4:0}} onPress={()=>{selectColour("#FFFF00")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#00BFFF", borderColor:"#ffffff", borderWidth:selectedColour=="#00BFFF"?4:0}} onPress={()=>{selectColour("#00BFFF")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#808080", borderColor:"#ffffff", borderWidth:selectedColour=="#808080"?4:0}} onPress={()=>{selectColour("#808080")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#FFA500", borderColor:"#ffffff", borderWidth:selectedColour=="#FFA500"?4:0}} onPress={()=>{selectColour("#FFA500")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#8B008B", borderColor:"#ffffff", borderWidth:selectedColour=="#8B008B"?4:0}} onPress={()=>{selectColour("#8B008B")}}/>
+
+                        <SelectColourButton style={{backgroundColor:"#000000", borderColor:"#ffffff", borderWidth:selectedColour=="#000000"?4:0}} onPress={()=>{selectColour("#000000")}}/>
+                    
+                    </ColourButtonContainer>
 
                     <TaskDataLabel>Task Name</TaskDataLabel>
                     <TaskNameInput
@@ -530,16 +603,16 @@ const BackArrowTouchable = styled.TouchableHighlight`
     align-items:center
     justify-content:center
     position:absolute
-    left:17px
-    top:37%
+    left:0
+    top:38%
 
 `
 
 const EditTaskBody = styled.View`
 
     width:85.07%
-    height:65%
-    margin-top:5%
+    height:85%
+    margin-top:4%
 
 `
 
@@ -549,24 +622,31 @@ const EditTaskScroll = styled.ScrollView`
 
 `
 
-const TaskIcon = styled.View`
-
-    width:100px
-    height:100px
-    background-color:#ffffff
-    border-radius:90px
-    margin-top:4.6%
-    display:flex
-    justify-content:center
-    align-items:center
-    border-color:#000000
-
-`
-
-const TaskIconLabel = styled.Text`
+const ColourSelectionHeader = styled.Text`
 
     font-family:Barlow
     font-size:24px
+    color:#514F4F
+    margin-bottom:1.6%
+
+`
+
+const ColourButtonContainer = styled.View`
+
+    width:100%
+    display:flex
+    flex-wrap:wrap
+    flex-direction:row
+    justify-content:space-between
+
+`
+
+const SelectColourButton = styled.TouchableOpacity`
+
+    width:60px
+    height:60px
+    border-radius:10px
+    margin-bottom:10px
 
 `
 
@@ -582,7 +662,7 @@ const TaskDataLabel = styled.Text`
 const TaskNameInput = styled.TextInput`
 
     width:100%
-    height:8%
+    height:45px
     border-radius:10px
     font-family:Barlow
     font-size:24px
@@ -596,7 +676,7 @@ const TaskNameInput = styled.TextInput`
 const TaskDescInput = styled.TextInput`
 
     width:100%
-    height:12.08%
+    height:85px
     border-radius:10px
     font-family:Barlow
     font-size:24px
@@ -610,7 +690,7 @@ const TaskDescInput = styled.TextInput`
 const TaskDateContainer = styled.View`
 
     width:100%
-    height:8%
+    height:45px
     display:flex
     flex-direction:row
 
@@ -684,7 +764,7 @@ const DayLabel = styled.Text`
 const TimeContainer = styled.View`
 
     width:100%
-    height:15%
+    height:70px
     display:flex
     flex-direction:row
     margin-top:7px
@@ -709,7 +789,7 @@ const TaskTimeWrapper = styled.View`
 
 const TimeInput = styled.TextInput`
 
-    width:60%
+    width:65%
     height:55%
     border-radius:10px
     background-color:#ffffff
@@ -721,13 +801,13 @@ const TimeInput = styled.TextInput`
 
 const ClockTouchable = styled.TouchableHighlight`
 
-    width:53px
-    height:53px
+    width:40px
+    height:40px
     display:flex
     align-items:center
     justify-content:center
     position:absolute
-    right:0
+    right:4%
     border-radius:90px
 
 `
@@ -735,7 +815,7 @@ const ClockTouchable = styled.TouchableHighlight`
 const TaskButtonsContainer = styled.View`
 
     width:100%
-    height:10%
+    height:45px
     margin-top:10%
     display:flex
     flex-direction:row
