@@ -42,6 +42,7 @@ const AdultViewScreen = ({ }) => {
                     name="Calendar"
                     component={CalendarComponent}
                     options={{
+                        unmountOnBlur:true,
                         tabBarIcon:({color}) =>(
                             <Entypo name="calendar" size={24} color={color}/>
                         ),

@@ -142,7 +142,7 @@ const LoginScreen = ({ navigation }) => {
 
             view = view.replace(/"/g,'')
 
-            global.email = email
+            global.email = email.replace(/"/g,'')
 
             if(view == "Child"){
 

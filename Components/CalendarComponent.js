@@ -3,6 +3,10 @@ import React, { useState } from "react";
 import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import * as firestore from '../firebaseConfig.js'
  
 // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
@@ -22,6 +26,8 @@ const CalendarComponent = ({ navigation }) => {
     const[year, setYear] = useState(new Date().getFullYear())
     const[month, setMonth] = useState(new Date().getMonth()+1)
     const[isRefreshing, setRefreshing] = useState(false)
+    const[notes, setNotes] = useState("")
+    const[isLoaded, setLoading] = useState(false)
 
     var daysInMonth = getDaysInMonth(month)
     var firstDay = getFirstDay(month)
@@ -158,6 +164,54 @@ const CalendarComponent = ({ navigation }) => {
 
     }
 
+    async function loadNotes(){
+
+        const db = firebase.firestore()
+    
+        const NotesCollection = db.collection("Notes")
+
+        var collections = NotesCollection.where("_UID","==", global.UID)
+
+        collections
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+
+                var task = doc.data()
+                task.id = doc.id
+                
+                setNotes(task['NoteText'])
+
+            })
+
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
+
+
+    }
+
+    function saveNotes(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        firestore.updateNotes(notes)
+
+    }
+
+    if(isLoaded == false){
+
+        loadNotes()
+
+        setLoading(true)
+
+    }
+
     return (
  
     <MainView>
@@ -214,18 +268,35 @@ const CalendarComponent = ({ navigation }) => {
 
                     <CalendarGridComponent dates={dates} navigation={navigation}/>
 
+
+                    {(global.View == "Adult")?
                     <CalendarNotesContainer>
 
-                        {(global.View == "Adult")?
                         <NotesInput
+                        value={notes}
                         placeholder={"Write notes here..."}
                         multiline={true}
                         numberOfLines={4}
-                        style={{textAlignVertical:'top'}}/>
-                        :
-                        <NotesText/>}
+                        style={{textAlignVertical:'top'}}
+                        onChangeText={text => setNotes(text)}/>
+
+                        <SaveNotesButton onPress={()=>{saveNotes()}}>
+
+                            <ButtonLabel>SAVE</ButtonLabel>
+
+                        </SaveNotesButton>
 
                     </CalendarNotesContainer>
+                    :
+                    <CalendarNotesContainer>
+
+                        <NotesScroll>
+
+                            <NotesText>{notes}</NotesText>
+
+                        </NotesScroll>
+
+                    </CalendarNotesContainer>}
 
                 </CalendarBody>
 
@@ -357,10 +428,17 @@ const CalendarNotesContainer = styled.View`
 const NotesInput = styled.TextInput`
 
     width:100%
-    height:100%
+    height:80%
     font-family:Barlow
     font-size:24px
     padding:10px
+
+`
+
+const NotesScroll = styled.ScrollView`
+
+    width:100%
+    height:100%
 
 `
 
@@ -371,6 +449,29 @@ const NotesText = styled.Text`
     font-family:Barlow
     font-size:24px
     padding:10px
+
+`
+
+const SaveNotesButton = styled.TouchableHighlight`
+
+    width:${100/3}%
+    height:16%
+    background-color:#8A84FF
+    display:flex
+    align-items:center
+    justify-content:center
+    position:absolute
+    right:3%
+    bottom:4%
+    border-radius:10px
+
+`
+
+const ButtonLabel = styled.Text`
+
+    font-family:BarlowSemi
+    font-size:24px
+    color:#ffffff
 
 `
 
