@@ -24,7 +24,7 @@ const SettingsScreen = ({ navigation }) => {
     const[passwordState, setPasswordState] = useState(false)
     const [vibrationEnabled, setVibrationEnabled] = useState(false);
     const toggleSwitch = () => toggleVibrate();
-    const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+    const [colourTheme, setColourTheme] = useState("")
 
     useEffect(()=>{
         (async () => {
@@ -165,6 +165,40 @@ const SettingsScreen = ({ navigation }) => {
 
         }
 
+        const colourTheme = await AsyncStorage.getItem("theme")
+
+        if(colourTheme == null){
+
+            await AsyncStorage.setItem("theme", "#8A84FF")
+
+            global.theme = "#8A84FF"
+
+            setColourTheme("#8A84FF")
+
+        }else{
+
+            global.theme = colourTheme
+
+            setColourTheme(colourTheme)
+
+        }
+
+    }
+
+    async function selectTheme(colour){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        await AsyncStorage.setItem("theme", colour)
+
+        global.theme = colour
+
+        setColourTheme(colour)
+
     }
     
     return (
@@ -175,7 +209,7 @@ const SettingsScreen = ({ navigation }) => {
 
         <SettingsBackground source={MainBackgroundImage}>
 
-            <HeaderBar>
+            <HeaderBar style={{backgroundColor:global.theme}}>
 
                 <BackArrowTouchable onPress={()=>{goBack()}} underlayColor={"transparent"}>
 
@@ -201,7 +235,7 @@ const SettingsScreen = ({ navigation }) => {
 
                             <BackgroundSettingControls>
 
-                                <UploadButton onPress={()=>{pickBackground()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                                <UploadButton onPress={()=>{pickBackground()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                                     <UploadButtonWrapper>
 
@@ -213,7 +247,7 @@ const SettingsScreen = ({ navigation }) => {
 
                                 </UploadButton>
 
-                                <ResetButton onPress={()=>{resetBackground()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                                <ResetButton onPress={()=>{resetBackground()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                                     <ButtonLabel>RESET</ButtonLabel>
 
@@ -224,6 +258,32 @@ const SettingsScreen = ({ navigation }) => {
                         </BackgroundSettingsWrapper>
 
                     </BackgroundSettings>
+
+                    <ColourThemeSettings>
+                    
+                        <ColourThemeSettingsWrapper>
+                        
+                            <SettingTitleLabel>Colour Theme</SettingTitleLabel>
+
+                            <ColourThemeSettingDesc>Select a colour theme to use across the app.</ColourThemeSettingDesc>
+
+                            <ColourButtonContainer>
+                            
+                                <ColourThemeButton style={{backgroundColor:"#8A84FF", borderColor:"#ffffff", borderWidth:colourTheme!="#8A84FF"?4:0}} onPress={()=>{selectTheme("#8A84FF")}}/>
+
+                                <ColourThemeButton style={{backgroundColor:"#00BFFF", borderColor:"#ffffff", borderWidth:colourTheme!="#00BFFF"?4:0}} onPress={()=>{selectTheme("#00BFFF")}}/>
+
+                                <ColourThemeButton style={{backgroundColor:"#FFA500", borderColor:"#ffffff", borderWidth:colourTheme!="#FFA500"?4:0}} onPress={()=>{selectTheme("#FFA500")}}/>
+
+                                <ColourThemeButton style={{backgroundColor:"#FF0000", borderColor:"#ffffff", borderWidth:colourTheme!="#FF0000"?4:0}} onPress={()=>{selectTheme("#FF0000")}}/>
+
+                                <ColourThemeButton style={{backgroundColor:"#228B22", borderColor:"#ffffff", borderWidth:colourTheme!="#228B22"?4:0}} onPress={()=>{selectTheme("#228B22")}}/>
+                            
+                            </ColourButtonContainer>
+
+                        </ColourThemeSettingsWrapper>
+                    
+                    </ColourThemeSettings>
 
                     <VibrationSettings>
 
@@ -257,11 +317,11 @@ const SettingsScreen = ({ navigation }) => {
 
                 <SwitchViewButton onPress={()=>{returnToViewSelect()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                    <SwitchViewLabel>SWITCH VIEWS</SwitchViewLabel>
+                    <SwitchViewLabel style={{color:global.theme}}>SWITCH VIEWS</SwitchViewLabel>
 
                 </SwitchViewButton>
 
-                <LogoutButton onPress={()=>{returnToLogin()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                <LogoutButton onPress={()=>{returnToLogin()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                     <LogoutLabel>LOGOUT</LogoutLabel>
 
@@ -298,7 +358,6 @@ const HeaderBar = styled.View`
 
     width:100%
     height:12.04%
-    background-color:#8A84FF
     align-items:center
     justify-content:center
 
@@ -388,9 +447,8 @@ const BackgroundSettingControls = styled.View`
 
 const UploadButton = styled.TouchableHighlight`
 
-    width:145px
+    width:43%
     height:100%
-    background-color:#8A84FF
     border-radius:10px
     display:flex
     justify-content:center
@@ -419,9 +477,8 @@ const ButtonLabel = styled.Text`
 
 const ResetButton = styled.TouchableHighlight`
 
-    width:145px
+    width:43%
     height:100%
-    background-color:#8A84FF
     border-radius:10px
     display:flex
     justify-content:center
@@ -467,10 +524,52 @@ const VibrationSwitch = styled.Switch`
 
 `
 
+const ColourThemeSettings = styled.View`
 
+    width:100%
+    background-color:#ffffff
+    border-radius:10px
+    display:flex
+    justify-content:center
+    align-items:center
+    margin-top:20px
 
+`
 
+const ColourThemeSettingsWrapper = styled.View`
 
+    width:95%
+
+`
+
+const ColourThemeSettingDesc = styled.Text`
+
+    width:70%
+    font-family:Barlow
+    font-size:20px
+    color:#514F4F
+
+`
+
+const ColourButtonContainer = styled.View`
+
+    width:100%
+    display:flex
+    flex-direction:row
+    flex-wrap:wrap
+    justify-content:space-between
+    margin-top:1.5%
+
+`
+
+const ColourThemeButton = styled.TouchableOpacity`
+
+    width:60px
+    height:60px
+    border-radius:10px
+    margin-bottom:8px
+
+`
 
 const ControlButtonContainer = styled.View`
 

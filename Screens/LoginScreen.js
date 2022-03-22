@@ -147,8 +147,6 @@ const LoginScreen = ({ navigation }) => {
 
             var background = await AsyncStorage.getItem("background")
 
-            console.log(background)
-
             if(background == null || background == "none"){
 
                 global.background = 10
@@ -156,6 +154,18 @@ const LoginScreen = ({ navigation }) => {
             }else{
 
                global.background = background 
+
+            }
+
+            var theme = await AsyncStorage.getItem("background")
+
+            if(theme == null){
+
+                global.theme = "#8A84FF"
+
+            }else{
+
+                global.theme = theme
 
             }
 

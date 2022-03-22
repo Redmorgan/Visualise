@@ -177,14 +177,14 @@ const TodayComponent = ({ navigation, route }) => {
             {(isToday == false)?
             <BackArrowTouchable onPress={()=>{backToCalendar()}} underlayColor={"transparent"}>
 
-                <AntDesign name="arrowleft" size={40} color="#8A84FF" />
+                <AntDesign name="arrowleft" size={40} color={global.theme} />
 
             </BackArrowTouchable>:null}
 
             {(isToday)?
             <SettingsTouchable onPress={()=>{openSettings()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                <FontAwesome name="cog" size={40} color={"#8A84FF"} />
+                <FontAwesome name="cog" size={40} color={global.theme} />
 
             </SettingsTouchable>:null}
 
@@ -206,7 +206,7 @@ const TodayComponent = ({ navigation, route }) => {
                         <TimeTableScrollBody>
 
                             {(isToday)?
-                            <TimeIndicator style={{top:scrollPosition+35}}/>:null}
+                            <TimeIndicator style={{top:scrollPosition+35, backgroundColor:global.theme}}/>:null}
 
                             <TimeOfDayContainer>
 
@@ -345,7 +345,6 @@ const TimeIndicator = styled.View`
 
     width:80.1%
     height:3px
-    background-color:#8A84FF
     position:absolute
     right:0
     z-index:10

@@ -29,8 +29,8 @@ const AdultViewScreen = ({ }) => {
 
             <Tab.Navigator screenOptions={{
                 headerShown:false,
-                tabBarActiveBackgroundColor:"#8A84FF",
-                tabBarInactiveBackgroundColor:"#8A84FF",
+                tabBarActiveBackgroundColor:global.theme,
+                tabBarInactiveBackgroundColor:global.theme,
                 tabBarActiveTintColor:"#ffffff",
                 tabBarInactiveTintColor:"#ffffffb3",
                 tabBarLabelStyle:{fontSize:24},

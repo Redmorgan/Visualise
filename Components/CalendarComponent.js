@@ -235,7 +235,7 @@ const CalendarComponent = ({ navigation }) => {
 
             <SettingsTouchable onPress={()=>{openSettings()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                <FontAwesome name="cog" size={40} color={"#8A84FF"} />
+                <FontAwesome name="cog" size={40} color={global.theme} />
 
             </SettingsTouchable>
 
@@ -293,7 +293,7 @@ const CalendarComponent = ({ navigation }) => {
                         style={{textAlignVertical:'top'}}
                         onChangeText={text => setNotes(text)}/>
 
-                        <SaveNotesButton onPress={()=>{saveNotes()}}>
+                        <SaveNotesButton onPress={()=>{saveNotes()}} style={{backgroundColor:global.theme}}>
 
                             <ButtonLabel>SAVE</ButtonLabel>
 
@@ -470,7 +470,6 @@ const SaveNotesButton = styled.TouchableHighlight`
 
     width:${100/3}%
     height:16%
-    background-color:#8A84FF
     display:flex
     align-items:center
     justify-content:center

@@ -317,7 +317,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         <EditTaskBackground source={MainBackgroundImage}>
 
-            <HeaderBar>
+            <HeaderBar style={{backgroundColor:global.theme}}>
 
                 <BackArrowTouchable onPress={()=>{goBack()}} underlayColor={"transparent"}>
 
@@ -392,7 +392,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                         <TaskDateTouchable onPress={()=>{openDatePicker()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                            <Entypo name="calendar" size={45} color="#8A84FF" />
+                            <Entypo name="calendar" size={45} color={global.theme} />
 
                         </TaskDateTouchable>
 
@@ -487,7 +487,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                                 <ClockTouchable onPress={()=>{openStartTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
 
-                                    <AntDesign name="clockcircle" size={40} color="#8A84FF" />
+                                    <AntDesign name="clockcircle" size={40} color={global.theme} />
 
                                 </ClockTouchable>
 
@@ -507,7 +507,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                                 <ClockTouchable onPress={()=>{openEndTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
 
-                                    <AntDesign name="clockcircle" size={40} color="#8A84FF" />
+                                    <AntDesign name="clockcircle" size={40} color={global.theme} />
 
                                 </ClockTouchable>
 
@@ -528,13 +528,13 @@ const EditTaskScreen = ({ navigation, route }) => {
                     <TaskButtonsContainer>
                         
                         {(route.params.type == "edit")?
-                        <SaveTaskButton onPress={()=>{updateTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                        <SaveTaskButton onPress={()=>{updateTask()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                             <SaveTaskLabel>UPDATE</SaveTaskLabel>
 
                         </SaveTaskButton>
                         :
-                        <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                        <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                             <SaveTaskLabel>SAVE</SaveTaskLabel>
 
@@ -542,7 +542,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                         <CancelTaskButton onPress={()=>{cancelTask()}} underlayColor={'#00000033'} activeOpacity={1}>
 
-                            <CancelTaskLabel>CANCEL</CancelTaskLabel>
+                            <CancelTaskLabel style={{color:global.theme}}>CANCEL</CancelTaskLabel>
 
                         </CancelTaskButton>
 
@@ -581,7 +581,6 @@ const HeaderBar = styled.View`
 
     width:100%
     height:12.4%
-    background-color:#8A84FF
     align-items:center
     justify-content:center
 

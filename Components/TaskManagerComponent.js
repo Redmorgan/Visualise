@@ -194,7 +194,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
             <ControlButtonContainer>
 
-                <NewTaskButton onPress={()=>{openNewTask()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                <NewTaskButton onPress={()=>{openNewTask()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                     <NewTaskLabel>NEW TASK</NewTaskLabel>
 
@@ -421,7 +421,6 @@ const NewTaskButton = styled.TouchableHighlight`
     display:flex
     align-items:center
     justify-content:center
-    background-color: #8A84FF
     border-radius:20px
 
 `
