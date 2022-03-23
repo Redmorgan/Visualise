@@ -239,9 +239,9 @@ const CalendarComponent = ({ navigation }) => {
 
             </SettingsTouchable>
 
-            <CalendarContainer style={{opacity:0.9}}>
+            <CalendarContainer>
 
-                <CalendarBody style={{opacity:0.9}}>
+                <CalendarBody style={{opacity:0.85}}>
 
                     <CalendarHeader>
 

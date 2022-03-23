@@ -1,9 +1,10 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Vibration, Alert } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {useIsFocused} from '@react-navigation/native';
 
 // Screens
 import CalendarComponent from "../Components/CalendarComponent.js";
@@ -18,6 +19,17 @@ import { AntDesign } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
 
 const AdultViewScreen = ({ }) => {
+
+    const [isReloading, setReloading] = useState(false)
+    const isFocused = useIsFocused();
+
+    useEffect(()=>{
+        (async () => {
+
+            setReloading(!isReloading)
+
+        })()
+    },[isFocused])
 
     return (
  

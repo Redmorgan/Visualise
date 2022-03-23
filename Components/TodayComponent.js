@@ -188,9 +188,9 @@ const TodayComponent = ({ navigation, route }) => {
 
             </SettingsTouchable>:null}
 
-            <TodayContainer style={{opacity:0.9}}>
+            <TodayContainer style={{opacity:1}}>
 
-                <TodayBody style={{opacity:0.9}}>
+                <TodayBody style={{opacity:0.85}}>
 
                     <TodayHeader>
 

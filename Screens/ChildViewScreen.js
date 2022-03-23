@@ -4,6 +4,7 @@ import { Vibration, Alert } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {useIsFocused} from '@react-navigation/native';
 
 // Screens
 import CalendarComponent from "../Components/CalendarComponent.js";
@@ -16,6 +17,17 @@ import { Entypo } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 
 const ChildViewScreen = ({ }) => {
+
+    const [isReloading, setReloading] = useState(false)
+    const isFocused = useIsFocused();
+
+    useEffect(()=>{
+        (async () => {
+
+            setReloading(!isReloading)
+
+        })()
+    },[isFocused])
 
     return (
  

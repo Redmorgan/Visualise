@@ -157,7 +157,7 @@ const LoginScreen = ({ navigation }) => {
 
             }
 
-            var theme = await AsyncStorage.getItem("background")
+            var theme = await AsyncStorage.getItem("theme")
 
             if(theme == null){
 
