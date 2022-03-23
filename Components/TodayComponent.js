@@ -34,7 +34,7 @@ const TodayComponent = ({ navigation, route }) => {
 
     const [currentDay, setCurrentDay] = useState("")
 
-    const [isToday, setToday] = useState(true)
+    const [isToday, setToday] = useState(false)
 
     const isFocused = useIsFocused();
 
@@ -47,7 +47,7 @@ const TodayComponent = ({ navigation, route }) => {
 
                 setDate(newDate)
 
-                setToday(false)
+                setToday(true)
 
                 setCurrentDay(days[newDate.getDay()])
 
@@ -174,14 +174,14 @@ const TodayComponent = ({ navigation, route }) => {
 
         <TodayBackground source={(typeof global.background =="number")?MainBackgroundImage:{uri:global.background}}>
 
-            {(isToday == false)?
+            {(isToday)?
             <BackArrowTouchable onPress={()=>{backToCalendar()}} underlayColor={"transparent"}>
 
                 <AntDesign name="arrowleft" size={40} color={global.theme} />
 
             </BackArrowTouchable>:null}
 
-            {(isToday)?
+            {(isToday  == false)?
             <SettingsTouchable onPress={()=>{openSettings()}} underlayColor={'#00000033'} activeOpacity={1}>
 
                 <FontAwesome name="cog" size={40} color={global.theme} />
@@ -206,7 +206,7 @@ const TodayComponent = ({ navigation, route }) => {
                         <TimeTableScrollBody>
 
                             {(isToday)?
-                            <TimeIndicator style={{top:scrollPosition+35, backgroundColor:global.theme}}/>:null}
+                            null:<TimeIndicator style={{top:scrollPosition+35, backgroundColor:global.theme}}/>}
 
                             <TimeOfDayContainer>
 

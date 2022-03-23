@@ -328,7 +328,7 @@ const EditTaskScreen = ({ navigation, route }) => {
                 {(route.params.type == "edit")?
                 <HeaderLabel>Update Task</HeaderLabel>
                 :
-                <HeaderLabel>Create New Task</HeaderLabel>}
+                <HeaderLabel>New Task</HeaderLabel>}
 
             </HeaderBar>
 
@@ -339,25 +339,25 @@ const EditTaskScreen = ({ navigation, route }) => {
                     <ColourSelectionHeader>Task Colour</ColourSelectionHeader>
                     <ColourButtonContainer>
                     
-                        <SelectColourButton style={{backgroundColor:"#228B22", borderColor:"#ffffff", borderWidth:selectedColour=="#228B22"?4:0}} onPress={()=>{selectColour("#228B22")}}/>
+                        <SelectColourButton style={{backgroundColor:"#228B22", borderColor:"transparent", borderWidth:selectedColour!="#228B22"?5:0}} onPress={()=>{selectColour("#228B22")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#FF0000", borderColor:"#ffffff", borderWidth:selectedColour=="#FF0000"?4:0}} onPress={()=>{selectColour("#FF0000")}}/>
+                        <SelectColourButton style={{backgroundColor:"#FF0000", borderColor:"transparent", borderWidth:selectedColour!="#FF0000"?5:0}} onPress={()=>{selectColour("#FF0000")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#FF1493", borderColor:"#ffffff", borderWidth:selectedColour=="#FF1493"?4:0}} onPress={()=>{selectColour("#FF1493")}}/>
+                        <SelectColourButton style={{backgroundColor:"#FF1493", borderColor:"transparent", borderWidth:selectedColour!="#FF1493"?5:0}} onPress={()=>{selectColour("#FF1493")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#A0522D", borderColor:"#ffffff", borderWidth:selectedColour=="#A0522D"?4:0}} onPress={()=>{selectColour("#A0522D")}}/>
+                        <SelectColourButton style={{backgroundColor:"#A0522D", borderColor:"transparent", borderWidth:selectedColour!="#A0522D"?5:0}} onPress={()=>{selectColour("#A0522D")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#FFFF00", borderColor:"#ffffff", borderWidth:selectedColour=="#FFFF00"?4:0}} onPress={()=>{selectColour("#FFFF00")}}/>
+                        <SelectColourButton style={{backgroundColor:"#FFFF00", borderColor:"transparent", borderWidth:selectedColour!="#FFFF00"?5:0}} onPress={()=>{selectColour("#FFFF00")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#00BFFF", borderColor:"#ffffff", borderWidth:selectedColour=="#00BFFF"?4:0}} onPress={()=>{selectColour("#00BFFF")}}/>
+                        <SelectColourButton style={{backgroundColor:"#00BFFF", borderColor:"transparent", borderWidth:selectedColour!="#00BFFF"?5:0}} onPress={()=>{selectColour("#00BFFF")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#808080", borderColor:"#ffffff", borderWidth:selectedColour=="#808080"?4:0}} onPress={()=>{selectColour("#808080")}}/>
+                        <SelectColourButton style={{backgroundColor:"#808080", borderColor:"transparent", borderWidth:selectedColour!="#808080"?5:0}} onPress={()=>{selectColour("#808080")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#FFA500", borderColor:"#ffffff", borderWidth:selectedColour=="#FFA500"?4:0}} onPress={()=>{selectColour("#FFA500")}}/>
+                        <SelectColourButton style={{backgroundColor:"#FFA500", borderColor:"transparent", borderWidth:selectedColour!="#FFA500"?5:0}} onPress={()=>{selectColour("#FFA500")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#8B008B", borderColor:"#ffffff", borderWidth:selectedColour=="#8B008B"?4:0}} onPress={()=>{selectColour("#8B008B")}}/>
+                        <SelectColourButton style={{backgroundColor:"#8B008B", borderColor:"transparent", borderWidth:selectedColour!="#8B008B"?5:0}} onPress={()=>{selectColour("#8B008B")}}/>
 
-                        <SelectColourButton style={{backgroundColor:"#000000", borderColor:"#ffffff", borderWidth:selectedColour=="#000000"?4:0}} onPress={()=>{selectColour("#000000")}}/>
+                        <SelectColourButton style={{backgroundColor:"#000000", borderColor:"transparent", borderWidth:selectedColour!="#000000"?5:0}} onPress={()=>{selectColour("#000000")}}/>
                     
                     </ColourButtonContainer>
 
@@ -603,8 +603,8 @@ const BackArrowTouchable = styled.TouchableHighlight`
     align-items:center
     justify-content:center
     position:absolute
-    left:0
-    top:38%
+    left:4%
+    top:42%
 
 `
 

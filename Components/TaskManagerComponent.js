@@ -151,10 +151,28 @@ const TaskManagerComponent = ({ navigation }) => {
 
     function selectFilter(filter){
 
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
         setDropdownSelection(filter)
         setDropdownState(false)
         setCurrentFilter(filter)
         searchTasks(searchString, filter)
+
+    }
+
+    function changeDropdownState(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        setDropdownState(!dropDownState)
 
     }
 
@@ -204,7 +222,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
             <DropDownContainer>
 
-                <DropDownHeaderTouchable onPress={()=>{setDropdownState(!dropDownState)}}>
+                <DropDownHeaderTouchable onPress={()=>{changeDropdownState()}}>
 
                     <DropDownHeader>
 
@@ -233,7 +251,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
                         <DropDownOption>
 
-                            <DropDownOptionLabel>One Off</DropDownOptionLabel>
+                            <DropDownOptionLabel>One Off Tasks</DropDownOptionLabel>
 
                         </DropDownOption>
 
@@ -243,7 +261,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
                         <DropDownOption>
 
-                            <DropDownOptionLabel>Repeating</DropDownOptionLabel>
+                            <DropDownOptionLabel>Repeating Tasks</DropDownOptionLabel>
 
                         </DropDownOption>
 

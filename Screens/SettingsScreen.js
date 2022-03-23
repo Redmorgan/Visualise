@@ -269,15 +269,15 @@ const SettingsScreen = ({ navigation }) => {
 
                             <ColourButtonContainer>
                             
-                                <ColourThemeButton style={{backgroundColor:"#8A84FF", borderColor:"#ffffff", borderWidth:colourTheme!="#8A84FF"?4:0}} onPress={()=>{selectTheme("#8A84FF")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#8A84FF", borderColor:"transparent", borderWidth:colourTheme!="#8A84FF"?5:0}} onPress={()=>{selectTheme("#8A84FF")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#00BFFF", borderColor:"#ffffff", borderWidth:colourTheme!="#00BFFF"?4:0}} onPress={()=>{selectTheme("#00BFFF")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#00BFFF", borderColor:"transparent", borderWidth:colourTheme!="#00BFFF"?5:0}} onPress={()=>{selectTheme("#00BFFF")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#FFA500", borderColor:"#ffffff", borderWidth:colourTheme!="#FFA500"?4:0}} onPress={()=>{selectTheme("#FFA500")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#FFA500", borderColor:"transparent", borderWidth:colourTheme!="#FFA500"?5:0}} onPress={()=>{selectTheme("#FFA500")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#FF0000", borderColor:"#ffffff", borderWidth:colourTheme!="#FF0000"?4:0}} onPress={()=>{selectTheme("#FF0000")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#FF0000", borderColor:"transparent", borderWidth:colourTheme!="#FF0000"?5:0}} onPress={()=>{selectTheme("#FF0000")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#228B22", borderColor:"#ffffff", borderWidth:colourTheme!="#228B22"?4:0}} onPress={()=>{selectTheme("#228B22")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#228B22", borderColor:"transparent", borderWidth:colourTheme!="#228B22"?5:0}} onPress={()=>{selectTheme("#228B22")}}/>
                             
                             </ColourButtonContainer>
 
