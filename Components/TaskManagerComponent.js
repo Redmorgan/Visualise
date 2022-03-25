@@ -31,22 +31,22 @@ const TaskManagerComponent = ({ navigation }) => {
 
     useEffect(()=>{
         (async () => {
-    
+
             await getTasks()
-    
+
         })()
     },[isFocused])
 
     async function getTasks(){
 
         const db = firebase.firestore()
-    
+
         const TimetableCollection = db.collection("Timetable")
-    
+
         var filteredTasks = []
 
         var userTasks = []
-    
+
         filteredTasks = TimetableCollection.where("_UID","==", global.UID)
 
         filteredTasks
@@ -58,14 +58,14 @@ const TaskManagerComponent = ({ navigation }) => {
                     task.docID = doc.id
                     userTasks.push(task)
                 });
-    
+
                 setTasks(userTasks)
 
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-    
+
     }
 
     async function searchTasks(searchString, filter){
@@ -73,9 +73,9 @@ const TaskManagerComponent = ({ navigation }) => {
         setSearchString(searchString)
 
         const db = firebase.firestore()
-    
+
         const TimetableCollection = db.collection("Timetable")
-    
+
         var collection = []
 
         var filteredTasks = []
@@ -112,7 +112,7 @@ const TaskManagerComponent = ({ navigation }) => {
             userTasks = filteredTasks.filter(function (task){
 
                 return task.TaskName.includes(searchString)
-    
+
             })
 
             setTasks(userTasks)
@@ -177,7 +177,7 @@ const TaskManagerComponent = ({ navigation }) => {
     }
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -274,26 +274,26 @@ const TaskManagerComponent = ({ navigation }) => {
         </TaskManagerBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1;
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const TaskManagerBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
     align-items:center
- 
+
 `
 
 const SearchBarContainer = styled.View`
@@ -451,6 +451,4 @@ const NewTaskLabel = styled.Text`
 
 `
 
-
 export default TaskManagerComponent;
- 

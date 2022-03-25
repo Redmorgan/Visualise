@@ -152,9 +152,9 @@ const TimeOfDayComponent = () => {
 
         </SingleHourContainer>
 
-   </TimeOfDayBody>
+    </TimeOfDayBody>
 
-   );
+    );
 }
 
 const TimeOfDayBody = styled.View`
@@ -181,6 +181,5 @@ const TimeLabel = styled.Text`
     font-size:24px
 
 `
-
 
 export default TimeOfDayComponent;

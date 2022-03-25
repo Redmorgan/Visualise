@@ -32,7 +32,7 @@ const AdultViewScreen = ({ }) => {
     },[isFocused])
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -118,19 +118,19 @@ const AdultViewScreen = ({ }) => {
         </MainBody>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const MainBody = styled.View`
 
     height:100%
@@ -139,4 +139,3 @@ const MainBody = styled.View`
 `
 
 export default AdultViewScreen;
- 

@@ -310,7 +310,7 @@ const EditTaskScreen = ({ navigation, route }) => {
     }
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -555,26 +555,26 @@ const EditTaskScreen = ({ navigation, route }) => {
         </EditTaskBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const EditTaskBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
     align-items: center;
- 
+
 `
 
 const HeaderBar = styled.View`
@@ -863,6 +863,4 @@ const CancelTaskLabel = styled.Text`
 
 `
 
-
 export default EditTaskScreen;
- 

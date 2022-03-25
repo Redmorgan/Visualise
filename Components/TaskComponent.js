@@ -20,9 +20,9 @@ const TaskComponent = ({task}) => {
 
     }
 
-   return (
+    return (
 
-   <TaskBody style={{height:task['length']+5}} onPress={()=>{openTaskDesc()}} underlayColor={'transparent'} activeOpacity={1}>
+    <TaskBody style={{height:task['length']+5}} onPress={()=>{openTaskDesc()}} underlayColor={'transparent'} activeOpacity={1}>
 
         <TaskWrapper>
 
@@ -38,15 +38,15 @@ const TaskComponent = ({task}) => {
 
         </TaskWrapper>
 
-   </TaskBody>
+    </TaskBody>
 
-   );
+    );
 }
 
 const TaskBody = styled.TouchableHighlight`
 
-   width:100%
-   display: flex;
+    width:100%
+    display: flex;
 
 `
 

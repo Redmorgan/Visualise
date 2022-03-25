@@ -17,19 +17,19 @@ const TaskManagerItemComponent = ({  taskData, openTaskEditor, refreshTasks }) =
 
     useEffect(()=>{
         (async () => {
-    
+
             if(taskData["Repeating"] == true){
 
                 setTiming("Repeating")
-        
+
             }else{
-        
+
                 var timingString = moment.utc(taskData['TimeStart']['seconds']*1000).format('HH:mm') + " - " + moment.utc(taskData['Date']['seconds']*1000).format('DD/MM/YYYY')
 
                 setTiming(timingString)
-        
+
             }
-    
+
         })()
     },[taskData])
 
@@ -82,14 +82,14 @@ const TaskManagerItemComponent = ({  taskData, openTaskEditor, refreshTasks }) =
 
 const TaskContainer = styled.View`
 
-   width:100%
-   height:90px
-   display:flex
-   flex-direction:row
-   background-color:#ffffff
-   elevation:5
-   border-radius:10px
-   margin-bottom:4%
+    width:100%
+    height:90px
+    display:flex
+    flex-direction:row
+    background-color:#ffffff
+    elevation:5
+    border-radius:10px
+    margin-bottom:4%
 
 `
 
@@ -149,6 +149,5 @@ const DeleteButton = styled.TouchableHighlight`
     border-radius:10px
 
 `
-
 
 export default TaskManagerItemComponent;

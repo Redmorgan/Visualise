@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { Vibration, Alert } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
- 
+
 import * as firebaseAuth from '../firebaseConfig.js'
 
  // Images
@@ -56,15 +56,8 @@ const CreateAccountScreen = ({ navigation }) => {
 
     }
 
-    async function signUpOnPress(){
-
-
-
-
-    }
-
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -99,25 +92,25 @@ const CreateAccountScreen = ({ navigation }) => {
         </LoginBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const LoginBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
- 
+
 `
 
 const BackArrowTouchable = styled.TouchableHighlight`

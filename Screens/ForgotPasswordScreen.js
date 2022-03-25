@@ -1,19 +1,18 @@
 
- import React, { useState } from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
+import React, { useState } from "react";
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
+import * as firebaseAuth from '../firebaseConfig.js'
 
- import * as firebaseAuth from '../firebaseConfig.js'
- 
- // Images
+// Images
 import ResetBackgroundImage from '../Images/LoginBackground.png'
 
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
 const ForgotPasswordScreen = ({ navigation }) => {
-  
+
     const[email, setEmail] = useState("")
     const [isEmpty, setEmpty] = useState(false)
     const [isReset, setReset] = useState(false)
@@ -22,7 +21,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
         Vibration.vibrate(5)
         navigation.pop()
-    
+
     }
 
     async function resetPassword(){
@@ -85,25 +84,25 @@ const ForgotPasswordScreen = ({ navigation }) => {
         </ResetBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const ResetBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
- 
+
 `
 
 const BackArrowTouchable = styled.TouchableHighlight`
@@ -189,4 +188,3 @@ const ResetMessage = styled.Text`
 `
 
 export default ForgotPasswordScreen;
- 

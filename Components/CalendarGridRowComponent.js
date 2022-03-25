@@ -5,7 +5,6 @@ import moment from 'moment';
 
 const CalendarGridRowComponent = ({ dates, navigation }) => {
 
-
     function openTasks(date){
 
         if(date != "X"){
@@ -24,9 +23,9 @@ const CalendarGridRowComponent = ({ dates, navigation }) => {
 
     }
 
-   return (
+    return (
 
-   <CalendarGridRowContainer>
+    <CalendarGridRowContainer>
 
         <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[0]['date'])}}>
 
@@ -70,18 +69,18 @@ const CalendarGridRowComponent = ({ dates, navigation }) => {
 
         </CalendarDayContainer>
 
-   </CalendarGridRowContainer>
+    </CalendarGridRowContainer>
 
-   );
+    );
 }
 
 const CalendarGridRowContainer = styled.View`
 
-   height:${100/6}%
-   width:100%
-   display:flex
-   flex-wrap:wrap
-   flex-direction:row
+    height:${100/6}%
+    width:100%
+    display:flex
+    flex-wrap:wrap
+    flex-direction:row
 
 `
 
@@ -104,6 +103,5 @@ const DateLabel = styled.Text`
     font-size:18px
 
 `
-
 
 export default CalendarGridRowComponent;

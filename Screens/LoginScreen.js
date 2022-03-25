@@ -113,7 +113,7 @@ const LoginScreen = ({ navigation }) => {
         } catch(e) {
 
             console.log("Error collecting rememberMe state.")
-      
+
         }
 
         if(rememberMe == "true"){
@@ -153,7 +153,7 @@ const LoginScreen = ({ navigation }) => {
 
             }else{
 
-               global.background = background 
+                global.background = background 
 
             }
 
@@ -220,7 +220,7 @@ const LoginScreen = ({ navigation }) => {
     }
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -251,8 +251,7 @@ const LoginScreen = ({ navigation }) => {
             <LoginInput placeholder="Password"
             secureTextEntry={true}
             onChangeText={text => setPassword(text)}/>
-            
-            
+
             <HorizontalContainer>
 
                 <RememberMeContainer>
@@ -277,14 +276,11 @@ const LoginScreen = ({ navigation }) => {
 
             </HorizontalContainer>
 
-
             <LoginButton underlayColor={'#6964c4'} activeOpacity={1} onPress={()=>{openViewPick()}}>
 
                 <LoginButtonLabel>LOGIN</LoginButtonLabel>
 
             </LoginButton>
-
-
 
             <AccountSignUpContainer>
 
@@ -303,24 +299,24 @@ const LoginScreen = ({ navigation }) => {
         </LoginBackground>}
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const LoginBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
- 
+
 `
 
 const LoginHeader = styled.Text`
@@ -420,7 +416,6 @@ const ForgottenPasswordLabel = styled.Text`
 
 `
 
-
 const LoginButton = styled.TouchableHighlight`
 
     width:36.7%
@@ -515,7 +510,7 @@ const NotificationLabel = styled.Text`
 `
 
 const LoadingBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
@@ -525,4 +520,3 @@ const LoadingBackground = styled.ImageBackground`
 `
 
 export default LoginScreen;
- 

@@ -6,8 +6,6 @@ import moment from 'moment';
 // Components
 import TaskComponent from "./TaskComponent";
 
-
-
 const TimeTableTasksComponent = ({ tasks }) => {
 
    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -140,8 +138,6 @@ const TTT_Body = styled.FlatList`
    display: flex;
    border-bottom-right-radius:10px
 
-
 `
-
 
 export default TimeTableTasksComponent;

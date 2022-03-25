@@ -28,9 +28,9 @@ const SettingsScreen = ({ navigation }) => {
 
     useEffect(()=>{
         (async () => {
-    
+
             await loadSettings()
-    
+
         })()
     },[])
 
@@ -202,7 +202,7 @@ const SettingsScreen = ({ navigation }) => {
     }
     
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -260,15 +260,15 @@ const SettingsScreen = ({ navigation }) => {
                     </BackgroundSettings>
 
                     <ColourThemeSettings>
-                    
+
                         <ColourThemeSettingsWrapper>
-                        
+
                             <SettingTitleLabel>Colour Theme</SettingTitleLabel>
 
                             <ColourThemeSettingDesc>Select a colour theme to use across the app.</ColourThemeSettingDesc>
 
                             <ColourButtonContainer>
-                            
+
                                 <ColourThemeButton style={{backgroundColor:"#8A84FF", borderColor:"transparent", borderWidth:colourTheme!="#8A84FF"?5:0}} onPress={()=>{selectTheme("#8A84FF")}}/>
 
                                 <ColourThemeButton style={{backgroundColor:"#00BFFF", borderColor:"transparent", borderWidth:colourTheme!="#00BFFF"?5:0}} onPress={()=>{selectTheme("#00BFFF")}}/>
@@ -278,11 +278,11 @@ const SettingsScreen = ({ navigation }) => {
                                 <ColourThemeButton style={{backgroundColor:"#FF0000", borderColor:"transparent", borderWidth:colourTheme!="#FF0000"?5:0}} onPress={()=>{selectTheme("#FF0000")}}/>
 
                                 <ColourThemeButton style={{backgroundColor:"#228B22", borderColor:"transparent", borderWidth:colourTheme!="#228B22"?5:0}} onPress={()=>{selectTheme("#228B22")}}/>
-                            
+
                             </ColourButtonContainer>
 
                         </ColourThemeSettingsWrapper>
-                    
+
                     </ColourThemeSettings>
 
                     <VibrationSettings>
@@ -332,26 +332,26 @@ const SettingsScreen = ({ navigation }) => {
         </SettingsBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const SettingsBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
     align-items: center;
- 
+
 `
 
 const HeaderBar = styled.View`
@@ -620,6 +620,4 @@ const LogoutLabel = styled.Text`
 
 `
 
-
 export default SettingsScreen;
- 

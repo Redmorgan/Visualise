@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
 
+// Components
 import CalendarGridRowComponent from "./CalendarGridRowComponent";
-
 
 const CalendarGridComponent = ({ dates, navigation }) => {
 

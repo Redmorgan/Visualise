@@ -21,9 +21,9 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc,
 
     }
 
-   return (
+    return (
 
-   <TaskOverviewModal
+    <TaskOverviewModal
         visible={state}
         animationType='fade'
         transparent={true}>
@@ -56,9 +56,9 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc,
             
         </TaskOverviewContainer>
 
-   </TaskOverviewModal>
+    </TaskOverviewModal>
 
-   );
+    );
 }
 
 const TaskOverviewModal = styled.Modal`
@@ -135,6 +135,5 @@ const TaskDescription = styled.Text`
     font-size:22px
 
 `
-
 
 export default TaskOverviewComponent;

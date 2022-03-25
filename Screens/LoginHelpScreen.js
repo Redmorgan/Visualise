@@ -1,10 +1,10 @@
 
- import React from "react";
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
- 
- // Images
+import React from "react";
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
+
+// Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
 import EmailIcon from '../Images/EmailIcon.png'
 import PhoneIcon from '../Images/PhoneIcon.png'
@@ -14,17 +14,17 @@ import { AntDesign } from '@expo/vector-icons';
 
 const LoginHelpScreen = ({ navigation }) => {
 
-    
+
     function backToLogin(){
 
         Vibration.vibrate(5)
         navigation.pop()
-    
+
     }
 
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -68,25 +68,25 @@ const LoginHelpScreen = ({ navigation }) => {
         </LoginBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const LoginBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
- 
+
 `
 
 const BackArrowTouchable = styled.TouchableHighlight`
@@ -169,4 +169,3 @@ const ContactInfoLabel = styled.Text`
 `
 
 export default LoginHelpScreen;
- 

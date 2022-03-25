@@ -18,7 +18,7 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
             Vibration.vibrate(5)
 
         }
-        
+
         closePassword()
 
     }
@@ -44,15 +44,15 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
 
     }
 
-   return (
+    return (
 
-   <EnterPasswordModal
+    <EnterPasswordModal
         visible={state}
         animationType='fade'
         transparent={true}>
 
         <EnterPasswordContainer>
-            
+
             <EnterPasswordBody>
 
                 <CloseButton underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{closePasswordPopup()}}>
@@ -81,9 +81,9 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
             
         </EnterPasswordContainer>
 
-   </EnterPasswordModal>
+    </EnterPasswordModal>
 
-   );
+    );
 }
 
 const EnterPasswordModal = styled.Modal`
@@ -179,6 +179,5 @@ const CloseButton = styled.TouchableHighlight`
     border-radius:10px
 
 `
-
 
 export default EnterPasswordComponent;

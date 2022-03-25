@@ -9,7 +9,6 @@ import { Entypo } from '@expo/vector-icons'
 
 const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
 
-
     function cancelDelete(){
 
         if(global.vibe != 0){
@@ -38,15 +37,15 @@ const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
 
     }
 
-   return (
+    return (
 
-   <DeleteTaskModal
+    <DeleteTaskModal
         visible={state}
         animationType='fade'
         transparent={true}>
 
         <DeleteTaskContainer>
-            
+
             <DeleteTaskBody>
 
                 <MaterialIcons name="error" size={80} color="red" style={{marginTop:20}}/>
@@ -73,9 +72,9 @@ const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
             
         </DeleteTaskContainer>
 
-   </DeleteTaskModal>
+    </DeleteTaskModal>
 
-   );
+    );
 }
 
 const DeleteTaskModal = styled.Modal`
@@ -122,12 +121,15 @@ const DeleteControlsContainer = styled.View`
 `
 
 const ConfirmDeleteButton = styled.TouchableHighlight`
+
     border-radius:90px
+
 `
 
 const CancelDeleteButton = styled.TouchableHighlight`
-    border-radius:90px
-`
 
+    border-radius:90px
+
+`
 
 export default DeleteTaskComponent;

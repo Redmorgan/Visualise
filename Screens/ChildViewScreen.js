@@ -1,6 +1,6 @@
 
-import React from "react";
-import { Vibration, Alert } from "react-native";
+import React ,{ useEffect, useState } from "react";
+import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -30,7 +30,7 @@ const ChildViewScreen = ({ }) => {
     },[isFocused])
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -95,19 +95,19 @@ const ChildViewScreen = ({ }) => {
         </MainBody>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1;
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const MainBody = styled.View`
 
     height:100%
@@ -116,4 +116,3 @@ const MainBody = styled.View`
 `
 
 export default ChildViewScreen;
- 

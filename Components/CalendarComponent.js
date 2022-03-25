@@ -192,7 +192,7 @@ const CalendarComponent = ({ navigation }) => {
 
                 var task = doc.data()
                 task.id = doc.id
-                
+
                 setNotes(task['NoteText'])
 
             })
@@ -226,7 +226,7 @@ const CalendarComponent = ({ navigation }) => {
     }
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -318,25 +318,25 @@ const CalendarComponent = ({ navigation }) => {
         </CalendarBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const CalendarBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
- 
+
 `
 
 const SettingsTouchable = styled.TouchableHighlight`
@@ -489,4 +489,3 @@ const ButtonLabel = styled.Text`
 `
 
 export default CalendarComponent;
- 

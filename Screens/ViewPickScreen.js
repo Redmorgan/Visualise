@@ -1,11 +1,10 @@
-
 import React, {useState} from 'react';
- import { Vibration, Alert } from "react-native";
- import styled from "styled-components/native";
- import { StatusBar } from 'expo-status-bar';
- import AsyncStorage from '@react-native-async-storage/async-storage';
- 
- // Images
+import { Vibration, Alert } from "react-native";
+import styled from "styled-components/native";
+import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
 
 // Icons
@@ -19,7 +18,7 @@ const ViewPickScreen = ({ navigation }) => {
 
         Vibration.vibrate(5)
         navigation.pop()
-    
+
     }
 
     function selectView(view){
@@ -56,7 +55,7 @@ const ViewPickScreen = ({ navigation }) => {
     }
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -111,25 +110,25 @@ const ViewPickScreen = ({ navigation }) => {
         </LoginBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const LoginBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
- 
+
 `
 
 const BackArrowTouchable = styled.TouchableHighlight`
@@ -236,4 +235,3 @@ const ConfirmButtonLabel = styled.Text`
 `
 
 export default ViewPickScreen;
- 

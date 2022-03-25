@@ -1,4 +1,3 @@
-
 import React, {useRef, useState, useEffect} from "react";
 import { Vibration, Alert } from "react-native";
 import styled from "styled-components/native";
@@ -8,7 +7,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import {useIsFocused} from '@react-navigation/native';
- 
+
 // Images
 import MainBackgroundImage from '../Images/MainBackground.png'
 
@@ -101,7 +100,7 @@ const TodayComponent = ({ navigation, route }) => {
         var newDate = new Date(formattedDate)
 
         const db = firebase.firestore()
-    
+
         const TimetableCollection = db.collection("Timetable")
 
         var collectionSingleTime = []
@@ -109,7 +108,7 @@ const TodayComponent = ({ navigation, route }) => {
         var collectionRepeating = []
 
         var filteredTasks = []
-    
+
         collectionSingleTime = TimetableCollection.where("_UID","==", global.UID).where("Date","==", newDate)
 
         collectionRepeating = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains", day)
@@ -167,7 +166,7 @@ const TodayComponent = ({ navigation, route }) => {
     }
 
     return (
- 
+
     <MainView>
 
         <StatusBar backgroundColor="transparent"/>
@@ -200,7 +199,7 @@ const TodayComponent = ({ navigation, route }) => {
 
                     </TodayHeader>
 
-                    
+
                     <TimeTableScroll ref={scrollRef} onContentSizeChange={(contentWidth, contentHeight)=> {scrollRef.current.scrollTo({y:scrollPosition, animated: false})}}>
 
                         <TimeTableScrollBody>
@@ -231,25 +230,25 @@ const TodayComponent = ({ navigation, route }) => {
         </TodayBackground>
 
     </MainView>
- 
+
     );
 }
- 
+
 const MainView = styled.View`
- 
+
     flex:1;
     display: flex;
     align-items: center;
     justify-content:center;
- 
+
 `
- 
+
 const TodayBackground = styled.ImageBackground`
- 
+
     width:100%;
     height:100%;
     display: flex;
- 
+
 `
 
 const BackArrowTouchable = styled.TouchableHighlight`
@@ -369,4 +368,3 @@ const TimeTableTasksContainer = styled.View`
 `
 
 export default TodayComponent;
- 
