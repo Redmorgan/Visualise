@@ -17,6 +17,8 @@ const CreateAccountScreen = ({ navigation }) => {
     const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
     const[confirmPassword, setConfirmPassword] = useState("")
+    const[isError, setError] = useState(false)
+    const[errorMessage, setErrorMessage] = useState("")
 
     function backToLogin(){
 
@@ -31,26 +33,46 @@ const CreateAccountScreen = ({ navigation }) => {
 
     const createAccount = async () => {
 
-        if(password == confirmPassword){
+        setError(false)
 
-            await firebaseAuth.signup(email, password)
+        if(email != "" && password != "" && confirmPassword != ""){
 
-            if(global.loginError != null){
+            if(password == confirmPassword){
 
-                console.log(global.loginError)
+                await firebaseAuth.signup(email, password)
+
+                if(global.loginError != null){
+
+                    console.log(global.loginError)
+
+                    if(global.loginError.includes("(auth/email-already-in-use)")){
+
+                        setErrorMessage("An account with that email address aready exists.")
+                        setError(true)
+
+                    }
+
+                }else{
+
+                    global.newAccount = true
+                    global.userAccountNotification = "Your account has successfully been created."
+                    global.email = email
+
+                    navigation.push("Login")
+
+                }
 
             }else{
 
-                global.newAccount = true
-                global.email = email
-
-                navigation.push("Login")
+                setErrorMessage("Your passwords do not match.  Please try again.")
+                setError(true)
 
             }
 
         }else{
 
-            console.log("Passwords do not match.")
+            setErrorMessage("One or more fields are currently empty. Please try again.")
+            setError(true)
 
         }
 
@@ -63,6 +85,18 @@ const CreateAccountScreen = ({ navigation }) => {
         <StatusBar backgroundColor="transparent"/>
 
         <LoginBackground source={LoginBackgroundImage}>
+
+            {(isError == true)?
+
+            <UserAccountNotificationWrapper>
+
+                <UserAccountNotification style={{backgroundColor:"#FF0000"}}>
+
+                    <NotificationLabel>{errorMessage}</NotificationLabel>
+
+                </UserAccountNotification>
+                
+            </UserAccountNotificationWrapper>:null}
 
             <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
 
@@ -173,5 +207,32 @@ const SignUpButtonLabel = styled.Text`
 
 `
 
+const UserAccountNotificationWrapper = styled.View`
+
+    width:100%
+    margin-bottom:10%
+    position:absolute
+    bottom:0
+    align-items: center;
+    justify-content:center;
+
+`
+
+const UserAccountNotification = styled.View`
+
+    border-radius:20px
+    align-items: center;
+    justify-content:center;
+    padding:2%
+
+`
+
+const NotificationLabel = styled.Text`
+
+    font-family:BarlowSemi
+    color:#ffffff
+    font-size:18px
+
+`
+
 export default CreateAccountScreen;
- 

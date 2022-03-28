@@ -1,6 +1,6 @@
 
 import React, {useState} from "react";
-import { Vibration, Alert } from "react-native";
+import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,18 +19,13 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 import LoadingComponent from "../Components/LoadingComponent.js";
 
 const LoginScreen = ({ navigation }) => {
-    //AsyncStorage.clear()
+
     const [isLoaded, setLoading] = useState(false)
-    const[email, setEmail] = useState("")
-    const[password, setPassword] = useState("")
-    const[rememberMeState, setRememberMeState] = useState()
-    const[isAuto, setAuto] = useState(false)
-
-    const showMessage = (input) => {
-
-        Alert.alert(`Button Pressed: ${input}`);
-
-    }
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [rememberMeState, setRememberMeState] = useState()
+    const [isAuto, setAuto] = useState(false)
+    const [loginError, setLoginError] = useState(false)
 
     function openCreateAccount(){
 
@@ -56,28 +51,56 @@ const LoginScreen = ({ navigation }) => {
 
     async function openViewPick(){
 
+        setLoginError(false)
+
         Vibration.vibrate(5)
 
-        global.newAccount = false
+        if(email != "" & password != ""){
 
-        await firebaseAuth.login(email, password)
+            global.newAccount = false
 
-        if(global.UID != null){
+            await firebaseAuth.login(email, password)
 
-            if(rememberMeState){
+            if(global.UID != null){
 
-                saveLoginDetails(email, password)
+                if(rememberMeState){
+
+                    saveLoginDetails(email, password)
+
+                }else{
+
+                    saveLoginDetails("none","none")
+
+                }
+
+                global.email = email
+                navigation.push("ViewPick")
 
             }else{
 
-                saveLoginDetails("none","none")
+                console.log(global.loginError)
+
+                if(global.loginError.includes("(auth/wrong-password)") || global.loginError.includes("(auth/user-not-found)")){
+
+                    global.userAccountNotification = "Your email and/or password is incorrect."
+
+                }else if(global.loginError.includes("(auth/invalid-email)")){
+
+                    global.userAccountNotification = "Please enter your email address in the format: yourname@example.com"
+
+                }
+
+                setLoginError(true)
 
             }
+            
+        }else{
 
-            global.email = email
-            navigation.push("ViewPick")
+            global.userAccountNotification = "Missing email address or password."
 
-        } 
+            setLoginError(true)
+
+        }
 
     }
 
@@ -234,12 +257,17 @@ const LoginScreen = ({ navigation }) => {
         :
         <LoginBackground source={LoginBackgroundImage}>
 
-            {(global.newAccount == true)?
-            <NewAccountNotification>
+            {(global.newAccount == true || loginError == true)?
 
-                <NotificationLabel>Account Created</NotificationLabel>
+            <UserAccountNotificationWrapper>
 
-            </NewAccountNotification>:null}
+                <UserAccountNotification style={{backgroundColor:loginError==true?"#FF0000":"#008000"}}>
+
+                    <NotificationLabel>{global.userAccountNotification}</NotificationLabel>
+
+                </UserAccountNotification>
+                
+            </UserAccountNotificationWrapper>:null}
 
             <LoginHeader>Login</LoginHeader>
 
@@ -486,18 +514,23 @@ const ContactUsLabel = styled.Text`
 
 `
 
-const NewAccountNotification = styled.View`
+const UserAccountNotificationWrapper = styled.View`
 
-    width:40%
-    height:5%
-    margin-left:30%
-    margin-top:10%
+    width:100%
+    margin-bottom:10%
     position:absolute
-    top:0
-    background-color:green
+    bottom:0
+    align-items: center;
+    justify-content:center;
+
+`
+
+const UserAccountNotification = styled.View`
+
     border-radius:20px
     align-items: center;
     justify-content:center;
+    padding:2%
 
 `
 
@@ -505,7 +538,7 @@ const NotificationLabel = styled.Text`
 
     font-family:BarlowSemi
     color:#ffffff
-    font-size:23px
+    font-size:18px
 
 `
 

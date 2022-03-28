@@ -7,21 +7,21 @@ import { LogBox } from 'react-native';
 // Your app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAJfUj2OXhJvdt_6bg9rDmkP3uEMB6B1Vw",
-  authDomain: "timetable-2c963.firebaseapp.com",
-  projectId: "timetable-2c963",
-  storageBucket: "timetable-2c963.appspot.com",
-  messagingSenderId: "309100714582",
-  appId: "1:309100714582:web:2349321e78368d4c5bb9f7",
-  measurementId: "G-Z2TC69JWKP"
+    apiKey: "AIzaSyAJfUj2OXhJvdt_6bg9rDmkP3uEMB6B1Vw",
+    authDomain: "timetable-2c963.firebaseapp.com",
+    projectId: "timetable-2c963",
+    storageBucket: "timetable-2c963.appspot.com",
+    messagingSenderId: "309100714582",
+    appId: "1:309100714582:web:2349321e78368d4c5bb9f7",
+    measurementId: "G-Z2TC69JWKP"
 };
 
 let app;
 
 if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig)
+    app = firebase.initializeApp(firebaseConfig)
 } else {
-  app = firebase.app();
+    app = firebase.app();
 }
 
 LogBox.ignoreLogs(['Setting a timer']);
@@ -35,7 +35,7 @@ export const login = async (email, password) => {
 
     await auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            
+
             const user = userCredential.user;
 
             global.UID = user['uid']

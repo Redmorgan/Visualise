@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Components
 import LoginScreen from './Screens/LoginScreen.js'
@@ -31,7 +30,7 @@ export default function App() {
         });
     };
 
-  const [fontLoaded, setFontLoaded] = useState(false);
+    const [fontLoaded, setFontLoaded] = useState(false);
 
     if(!fontLoaded) {
         return (
@@ -47,13 +46,13 @@ export default function App() {
     global.deviceWidth = Dimensions.get("window").width;
     global.deviceHeight = Dimensions.get("window").height;
 
-  return (
+    return (
 
     <NavigationContainer>
 
     <AppLoading/>
 
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown:false }}>
+    <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown:false }}>
 
         <Stack.Screen name="Login"component={LoginScreen}/>
         <Stack.Screen name="CreateAccount"component={CreateAccountScreen}/>
@@ -66,9 +65,9 @@ export default function App() {
         <Stack.Screen name="Settings"component={SettingsScreen}/>
         <Stack.Screen name="Today"component={TodayComponent}/>
 
-      </Stack.Navigator>
-      
+    </Stack.Navigator>
+
     </NavigationContainer>
 
-  );
+    );
 }
