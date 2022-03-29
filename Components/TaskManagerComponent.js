@@ -124,6 +124,19 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    function clearSearch(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        setSearchString("")
+
+        searchTasks("", dropDownSelection)
+
+    }
 
     function openTaskEditor(taskData){
 
@@ -186,14 +199,24 @@ const TaskManagerComponent = ({ navigation }) => {
 
             <SearchBarContainer>
 
-                <TaskSearchInput placeholder="Search"
+                <TaskSearchInput
+                placeholder="Search"
+                value={searchString}
                 onChangeText={text => searchTasks(text, currentFilter)}/>
 
-                <SearchIconToucable>
+                {(searchString == "")?
+
+                <SearchIconToucable underlayColor={'transparent'} activeOpacity={1}>
 
                     <Feather name="search" size={28} color="black" />
 
                 </SearchIconToucable>
+                :
+                <SearchIconToucable onPress={()=>{clearSearch()}} underlayColor={'transparent'} activeOpacity={1}>
+                    
+                    <Feather name="x" size={34} color="black" />
+
+                </SearchIconToucable>}
 
             </SearchBarContainer>
 
@@ -212,7 +235,7 @@ const TaskManagerComponent = ({ navigation }) => {
 
             <ControlButtonContainer>
 
-                <NewTaskButton onPress={()=>{openNewTask()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
+                <NewTaskButton onPress={()=>{openNewTask()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                     <NewTaskLabel>NEW TASK</NewTaskLabel>
 
