@@ -1,3 +1,4 @@
+// Copyright © 2022 - William Wernick
 import React, {useState} from 'react';
 import { Dimensions } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';

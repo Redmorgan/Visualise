@@ -5,6 +5,9 @@ import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 import * as firebaseAuth from '../firebaseConfig.js'
 
@@ -29,13 +32,18 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [selected, setSelected] = useState()
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(moment(new Date()).add(1, 'h').toDate())
+    const [timeError, setTimeError] = useState(false)
 
     const [taskName, setTaskName] = useState("")
+    const [taskNameError, setTaskNameError] = useState(false)
+
     const [taskDesc, setTaskDesc] = useState("")
 
     const [selectedColour, setSelectedColour] = useState("")
 
-    const[isLoaded, setLoading] = useState(false)
+    const [overlapError, setOverlapError] = useState(false)
+
+    const [isLoaded, setLoading] = useState(false)
 
     if(isLoaded == false){
 
@@ -265,7 +273,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
-    function saveTask(){
+    async function saveTask(){
 
         if(global.vibe != 0){
 
@@ -273,8 +281,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         }
 
-
-        if(checkInputsCorrect()){
+        if(await checkInputsCorrect()){
 
             var formattedDate = date.setHours(0,0,0,0)
 
@@ -288,7 +295,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
-    function updateTask(){
+    async function updateTask(){
 
         if(global.vibe != 0){
 
@@ -296,11 +303,11 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         }
 
-        if(checkInputsCorrect()){
+        if(await checkInputsCorrect()){
 
             firebaseAuth.updateTask(selectedColour, taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
 
-            navigation.pop()
+            navigation.pop()        
 
         }
 
@@ -318,7 +325,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
-    function checkInputsCorrect(){
+    async function checkInputsCorrect(){
 
         var inputsCorrect = true
 
@@ -326,10 +333,107 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             inputsCorrect = false
 
+            setTaskNameError(true)
+
+        }else{
+
+            setTaskNameError(false)
+
         }
+
+        
+        if(endTime < startTime){
+
+            inputsCorrect = false
+
+            setTimeError(true)
+
+        }else{
+
+            setTimeError(false)
+
+        }
+
+        await checkOverlappingTasks()
+        .then(function(overlap){
+
+            if(overlap == true){
+
+                inputsCorrect = false
+
+                setOverlapError(true)
+
+            }else{
+
+                setOverlapError(false)
+
+            }
+
+        })
 
         return inputsCorrect
 
+    }
+
+    async function checkOverlappingTasks(){
+
+        const formattedDate = new Date(date.setHours(0,0,0,0))
+
+        const db = firebase.firestore()
+
+        const TimetableCollection = db.collection("Timetable")
+
+        var overlapBool
+
+        // Other tasks start time within new task
+        var tasksOnDate = TimetableCollection.where("_UID","==", global.UID).where("Date","==", formattedDate)
+
+        const tasksData = []
+
+        await tasksOnDate
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+
+                var task = doc.data()
+                task.id = doc.id
+                tasksData.push(task)
+
+            })
+
+            for(let i=0; i<=tasksData.length-1; i++){
+
+                const task2_start = new Date(tasksData[i]['TimeStart']['seconds'] * 1000)
+                const task2_end = new Date(tasksData[i]['TimeEnd']['seconds'] * 1000)
+
+                if(startTime < task2_start && task2_start < endTime){
+
+                    overlapBool = true
+
+                }else if(startTime < task2_end && task2_end < endTime){
+
+                    overlapBool = true
+
+                }else if(task2_start < startTime && endTime < task2_end){
+
+                    overlapBool = true
+
+                }else{
+
+                    overlapBool = false
+
+                }
+
+            }
+
+            
+
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
+
+        return overlapBool
     }
 
     return (
@@ -387,7 +491,15 @@ const EditTaskScreen = ({ navigation, route }) => {
                     <TaskDataLabel>Task Name</TaskDataLabel>
                     <TaskNameInput
                     value={taskName}
+                    placeholder="Required"
                     onChangeText={text => setTaskName(text)}/>
+
+                    {(taskNameError == true)?
+                    <ErrorContainer>
+
+                        <ErrorLabel>Task Name is required.</ErrorLabel>
+
+                    </ErrorContainer>:null}
 
                     <TaskDataLabel>Description</TaskDataLabel>
                     <TaskDescInput
@@ -547,6 +659,20 @@ const EditTaskScreen = ({ navigation, route }) => {
                         />:null}
                     
                     </TimeContainer>
+
+                    {(timeError == true)?
+                    <ErrorContainer>
+
+                        <ErrorLabel>The Start time cannot be later than the End time.</ErrorLabel>
+
+                    </ErrorContainer>:null}
+
+                    {(overlapError == true)?
+                    <ErrorContainer>
+
+                        <ErrorLabel>You cannot make a task that overlaps with a preexisting task/s.</ErrorLabel>
+
+                    </ErrorContainer>:null}
 
                     <TaskButtonsContainer>
                         
@@ -839,7 +965,7 @@ const TaskButtonsContainer = styled.View`
 
     width:100%
     height:45px
-    margin-top:10%
+    margin-top:5%
     display:flex
     flex-direction:row
     justify-content:space-between
@@ -885,5 +1011,20 @@ const CancelTaskLabel = styled.Text`
     color:#8A84FF
 
 `
+const ErrorContainer = styled.View`
+
+    width:100%
+    margin-bottom:1.6%
+
+`
+
+const ErrorLabel = styled.Text`
+
+    font-family:Barlow
+    color:#FF0000
+    font-size:18px
+
+`
+
 
 export default EditTaskScreen;

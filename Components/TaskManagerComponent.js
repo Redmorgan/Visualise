@@ -23,7 +23,6 @@ const TaskManagerComponent = ({ navigation }) => {
 
     const[dropDownState, setDropdownState] = useState(false)
     const[dropDownSelection, setDropdownSelection] = useState("All Tasks")
-    const[deleteTaskState, setDeleteTaskState] = useState(false)
     const[taskList, setTasks] = useState()
     const[searchString, setSearchString] = useState("")
     const[currentFilter, setCurrentFilter] = useState("All Tasks")
