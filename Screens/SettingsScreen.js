@@ -197,10 +197,44 @@ const SettingsScreen = ({ navigation }) => {
 
         global.theme = colour
 
+        setUnderlay(colour)
+
         setColourTheme(colour)
 
     }
-    
+
+    async function setUnderlay(colour){
+
+        var underlay;
+
+        if(colour == "#8A84FF"){
+
+            underlay = "#6e69cc"
+
+        }else if(colour == "#00BFFF"){
+
+            underlay = "#0098cc"
+
+        }else if(colour == "#FFA500"){
+
+            underlay = "#cc8400"
+
+        }else if(colour == "#FF0000"){
+
+            underlay = "#cc0000"
+
+        }else if(colour == "#228B22"){
+
+            underlay = "#1b6f1b"
+
+        }
+
+        global.underlay = underlay
+
+        await AsyncStorage.setItem("underlay", colour)
+
+    }
+
     return (
 
     <MainView>
@@ -235,7 +269,7 @@ const SettingsScreen = ({ navigation }) => {
 
                             <BackgroundSettingControls>
 
-                                <UploadButton onPress={()=>{pickBackground()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
+                                <UploadButton onPress={()=>{pickBackground()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                                     <UploadButtonWrapper>
 
@@ -247,7 +281,7 @@ const SettingsScreen = ({ navigation }) => {
 
                                 </UploadButton>
 
-                                <ResetButton onPress={()=>{resetBackground()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
+                                <ResetButton onPress={()=>{resetBackground()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                                     <ButtonLabel>RESET</ButtonLabel>
 
@@ -294,8 +328,8 @@ const SettingsScreen = ({ navigation }) => {
                             <VibrationSettingDesc>Enable vibrations across the app.</VibrationSettingDesc>
 
                             <VibrationSwitch
-                                trackColor={{ false: "#767577", true: "#b4b0ff" }}
-                                thumbColor={vibrationEnabled ? "#8A84FF" : "#f4f3f4"}
+                                trackColor={{ false: "#767577", true: global.theme }}
+                                thumbColor={vibrationEnabled ? global.underlay : "#f4f3f4"}
                                 ios_backgroundColor="#3e3e3e"
                                 onValueChange={toggleSwitch}
                                 value={vibrationEnabled}/>
@@ -315,13 +349,13 @@ const SettingsScreen = ({ navigation }) => {
 
             <ControlButtonContainer>
 
-                <SwitchViewButton onPress={()=>{returnToViewSelect()}} underlayColor={'#00000033'} activeOpacity={1}>
+                <SwitchViewButton onPress={()=>{returnToViewSelect()}} underlayColor={'#CCCCCC'} activeOpacity={1}>
 
                     <SwitchViewLabel style={{color:global.theme}}>SWITCH VIEWS</SwitchViewLabel>
 
                 </SwitchViewButton>
 
-                <LogoutButton onPress={()=>{returnToLogin()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
+                <LogoutButton onPress={()=>{returnToLogin()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                     <LogoutLabel>LOGOUT</LogoutLabel>
 

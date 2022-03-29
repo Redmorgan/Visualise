@@ -293,7 +293,7 @@ const CalendarComponent = ({ navigation }) => {
                         style={{textAlignVertical:'top'}}
                         onChangeText={text => setNotes(text)}/>
 
-                        <SaveNotesButton onPress={()=>{saveNotes()}} style={{backgroundColor:global.theme}}>
+                        <SaveNotesButton onPress={()=>{saveNotes()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                             <ButtonLabel>SAVE</ButtonLabel>
 

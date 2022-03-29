@@ -69,7 +69,7 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
                         secureTextEntry={true}
                         onChangeText={text => setPassword(text)}/>
 
-                    <SwitchViewButton onPress={()=>{switchView()}} underlayColor={'#6964c4'} activeOpacity={1}>
+                    <SwitchViewButton onPress={()=>{switchView()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                         <SwitchViewButtonLabel>SWITCH</SwitchViewButtonLabel>
 
@@ -148,7 +148,6 @@ const SwitchViewButton = styled.TouchableHighlight`
     width:36.7%
     height:30%
     border-radius:20px
-    background-color: #8A84FF
     margin-top:4%
     margin-left:47%
     justify-content:center

@@ -30,8 +30,8 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(moment(new Date()).add(1, 'h').toDate())
 
-    const [taskName, setTaskName] = useState()
-    const [taskDesc, setTaskDesc] = useState()
+    const [taskName, setTaskName] = useState("")
+    const [taskDesc, setTaskDesc] = useState("")
 
     const [selectedColour, setSelectedColour] = useState("")
 
@@ -273,13 +273,18 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         }
 
-        var formattedDate = date.setHours(0,0,0,0)
 
-        var newDate = new Date(formattedDate)
+        if(checkInputsCorrect()){
 
-        firebaseAuth.createTask(selectedColour, taskName, taskDesc, selectedDays, newDate, startTime, endTime)
+            var formattedDate = date.setHours(0,0,0,0)
 
-        navigation.pop()
+            var newDate = new Date(formattedDate)
+
+            firebaseAuth.createTask(selectedColour, taskName, taskDesc, selectedDays, newDate, startTime, endTime)
+
+            navigation.pop()
+
+        }
 
     }
 
@@ -291,9 +296,13 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         }
 
-        firebaseAuth.updateTask(selectedColour, taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
+        if(checkInputsCorrect()){
 
-        navigation.pop()
+            firebaseAuth.updateTask(selectedColour, taskName, taskDesc, selectedDays, date, startTime, endTime, route.params.taskData['docID'])
+
+            navigation.pop()
+
+        }
 
     }
 
@@ -306,6 +315,20 @@ const EditTaskScreen = ({ navigation, route }) => {
         }
 
         setSelectedColour(colour)
+
+    }
+
+    function checkInputsCorrect(){
+
+        var inputsCorrect = true
+
+        if(taskName == ""){
+
+            inputsCorrect = false
+
+        }
+
+        return inputsCorrect
 
     }
 
@@ -485,7 +508,7 @@ const EditTaskScreen = ({ navigation, route }) => {
                                     editable={false}
                                     value={moment(startTime).format("HH:mm")}/>
 
-                                <ClockTouchable onPress={()=>{openStartTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
+                                <ClockTouchable onPress={()=>{openStartTime()}}  underlayColor={global.underlay} activeOpacity={1}>
 
                                     <AntDesign name="clockcircle" size={40} color={global.theme} />
 
@@ -505,7 +528,7 @@ const EditTaskScreen = ({ navigation, route }) => {
                                     value={moment(endTime).format("HH:mm")}
                                     editable={false}/>
 
-                                <ClockTouchable onPress={()=>{openEndTime()}}  underlayColor={'#00000033'} activeOpacity={1}>
+                                <ClockTouchable onPress={()=>{openEndTime()}}  underlayColor={global.underlay} activeOpacity={1}>
 
                                     <AntDesign name="clockcircle" size={40} color={global.theme} />
 
@@ -528,19 +551,19 @@ const EditTaskScreen = ({ navigation, route }) => {
                     <TaskButtonsContainer>
                         
                         {(route.params.type == "edit")?
-                        <SaveTaskButton onPress={()=>{updateTask()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
+                        <SaveTaskButton onPress={()=>{updateTask()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                             <SaveTaskLabel>UPDATE</SaveTaskLabel>
 
                         </SaveTaskButton>
                         :
-                        <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={'#6964c4'} activeOpacity={1} style={{backgroundColor:global.theme}}>
+                        <SaveTaskButton onPress={()=>{saveTask()}} underlayColor={global.underlay} activeOpacity={1} style={{backgroundColor:global.theme}}>
 
                             <SaveTaskLabel>SAVE</SaveTaskLabel>
 
                         </SaveTaskButton>}
 
-                        <CancelTaskButton onPress={()=>{cancelTask()}} underlayColor={'#00000033'} activeOpacity={1}>
+                        <CancelTaskButton onPress={()=>{cancelTask()}} underlayColor={'#CCCCCC'} activeOpacity={1}>
 
                             <CancelTaskLabel style={{color:global.theme}}>CANCEL</CancelTaskLabel>
 

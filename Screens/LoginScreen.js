@@ -168,30 +168,6 @@ const LoginScreen = ({ navigation }) => {
 
             global.email = email.replace(/"/g,'')
 
-            var background = await AsyncStorage.getItem("background")
-
-            if(background == null || background == "none"){
-
-                global.background = 10
-
-            }else{
-
-                global.background = background 
-
-            }
-
-            var theme = await AsyncStorage.getItem("theme")
-
-            if(theme == null){
-
-                global.theme = "#8A84FF"
-
-            }else{
-
-                global.theme = theme
-
-            }
-
             if(view == "Child"){
 
                 navigation.push("ChildView")
@@ -240,6 +216,38 @@ const LoginScreen = ({ navigation }) => {
 
         }
 
+        var background = await AsyncStorage.getItem("background")
+
+        if(background == null || background == "none"){
+
+            global.background = 10
+
+        }else{
+
+            global.background = background 
+
+        }
+
+        var theme = await AsyncStorage.getItem("theme")
+
+        if(theme == null){
+
+            global.theme = "#8A84FF"
+
+        }else{
+
+            global.theme = theme
+
+        }
+
+    }
+
+    function closePopup(){
+
+        Vibration.vibrate(5)
+
+        setLoginError(false)
+
     }
 
     return (
@@ -261,7 +269,7 @@ const LoginScreen = ({ navigation }) => {
 
             <UserAccountNotificationWrapper>
 
-                <UserAccountNotification style={{backgroundColor:loginError==true?"#FF0000":"#008000"}}>
+                <UserAccountNotification style={{backgroundColor:loginError==true?"#FF0000":"#008000"}} onPress={()=>{closePopup()}}>
 
                     <NotificationLabel>{global.userAccountNotification}</NotificationLabel>
 
@@ -525,7 +533,7 @@ const UserAccountNotificationWrapper = styled.View`
 
 `
 
-const UserAccountNotification = styled.View`
+const UserAccountNotification = styled.TouchableOpacity`
 
     border-radius:20px
     align-items: center;
