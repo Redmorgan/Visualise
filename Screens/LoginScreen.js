@@ -13,7 +13,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 // Images
 import LoginBackgroundImage from '../Images/LoginBackground.png'
-import MainBackgroundImage from '../Images/MainBackground.png'
 
 //Componenets
 import LoadingComponent from "../Components/LoadingComponent.js";
@@ -237,6 +236,30 @@ const LoginScreen = ({ navigation }) => {
         }else{
 
             global.theme = theme
+
+        }
+
+        var underlay = await AsyncStorage.getItem("underlay")
+
+        if(underlay == null){
+
+            global.theme = "#6e69cc"
+
+        }else{
+
+            global.underlay = underlay
+
+        }
+
+        const time = await AsyncStorage.getItem("time")
+
+        if(time.replace(/"/g,'') == "24-hour"){
+
+            global.time = "24-hour"
+
+        }else{
+
+            global.time = "12-hour"
 
         }
 

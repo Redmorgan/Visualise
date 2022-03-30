@@ -23,7 +23,9 @@ const SettingsScreen = ({ navigation }) => {
 
     const[passwordState, setPasswordState] = useState(false)
     const [vibrationEnabled, setVibrationEnabled] = useState(false);
-    const toggleSwitch = () => toggleVibrate();
+    const toggleVibrateSwitch = () => toggleVibrate();
+    const [militaryTimeEnabled, setMilitaryTimeEnabled] = useState(false);
+    const toggleTimeSwitch = () => toggleTime();
     const [colourTheme, setColourTheme] = useState("")
 
     useEffect(()=>{
@@ -183,6 +185,20 @@ const SettingsScreen = ({ navigation }) => {
 
         }
 
+        const time = await AsyncStorage.getItem("time")
+
+        if(time.replace(/"/g,'') == "24-hour"){
+
+            setMilitaryTimeEnabled(true)
+
+        }else{
+
+            await AsyncStorage.setItem("time", "12-hour")
+
+            setMilitaryTimeEnabled(false)
+
+        }
+
     }
 
     async function selectTheme(colour){
@@ -231,7 +247,35 @@ const SettingsScreen = ({ navigation }) => {
 
         global.underlay = underlay
 
-        await AsyncStorage.setItem("underlay", colour)
+        await AsyncStorage.setItem("underlay", underlay)
+
+    }
+
+    async function toggleTime(){
+
+        if(global.vibe != 0){
+
+            Vibration.vibrate(5)
+
+        }
+
+        await AsyncStorage.setItem("time", JSON.stringify("none"))
+
+        setMilitaryTimeEnabled(!militaryTimeEnabled)
+
+        if(militaryTimeEnabled == false){
+
+            global.time = "24-hour"
+
+            await AsyncStorage.setItem("time", JSON.stringify("24-hour"))
+
+        }else if(militaryTimeEnabled){
+
+            global.time = "12-hour"
+
+            await AsyncStorage.setItem("time", JSON.stringify("12-hour"))
+
+        }
 
     }
 
@@ -331,12 +375,31 @@ const SettingsScreen = ({ navigation }) => {
                                 trackColor={{ false: "#767577", true: global.theme }}
                                 thumbColor={vibrationEnabled ? global.underlay : "#f4f3f4"}
                                 ios_backgroundColor="#3e3e3e"
-                                onValueChange={toggleSwitch}
+                                onValueChange={toggleVibrateSwitch}
                                 value={vibrationEnabled}/>
 
                         </VibrationSettingsWrapper>
 
                     </VibrationSettings>
+
+                    <TimeFormatSetting>
+
+                        <TimeFormatSettingsWrapper>
+
+                            <SettingTitleLabel>Date Format</SettingTitleLabel>
+
+                            <TimeFormatSettingDesc>Enable 24-hour clock format.</TimeFormatSettingDesc>
+
+                            <TimeSwitch
+                                trackColor={{ false: "#767577", true: global.theme }}
+                                thumbColor={militaryTimeEnabled ? global.underlay : "#f4f3f4"}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={toggleTimeSwitch}
+                                value={militaryTimeEnabled}/>
+
+                        </TimeFormatSettingsWrapper>
+
+                    </TimeFormatSetting>
 
                 </SettingsScrollView>
 
@@ -602,6 +665,44 @@ const ColourThemeButton = styled.TouchableOpacity`
     height:60px
     border-radius:10px
     margin-bottom:8px
+
+`
+
+const TimeFormatSetting = styled.View`
+
+    width:100%
+    height:100px
+    background-color:#ffffff
+    border-radius:10px
+    display:flex
+    justify-content:center
+    align-items:center
+    margin-top:20px
+    margin-bottom:20px
+
+`
+
+const TimeFormatSettingsWrapper = styled.View`
+
+    width:95%
+    height:90%
+
+`
+
+const TimeFormatSettingDesc = styled.Text`
+
+    width:70%
+    font-family:Barlow
+    font-size:20px
+    color:#514F4F
+
+`
+
+const TimeSwitch = styled.Switch`
+
+    position:absolute
+    right:5px
+    top:35px
 
 `
 

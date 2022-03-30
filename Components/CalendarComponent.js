@@ -29,7 +29,6 @@ const CalendarComponent = ({ navigation }) => {
     const[isRefreshing, setRefreshing] = useState(false)
     const[notes, setNotes] = useState("")
     const[isLoaded, setLoading] = useState(false)
-    const[background, setBackground] = useState(MainBackgroundImage)
     const isFocused = useIsFocused();
 
     var daysInMonth = getDaysInMonth(month)
@@ -53,6 +52,8 @@ const CalendarComponent = ({ navigation }) => {
             Vibration.vibrate(5)
 
         }
+
+        console.log(global.underlay)
         navigation.push("Settings")
 
     }

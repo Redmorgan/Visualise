@@ -4,151 +4,153 @@ import styled from "styled-components/native";
 
 const TimeOfDayComponent = () => {
 
+    console.log(global.time)
+
     return (
 
     <TimeOfDayBody>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>12am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"00:00":"12am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>1am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"01:00":"1am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>2am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"02:00":"2am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>3am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"03:00":"3am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>4am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"04:00":"4am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>5am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"05:00":"5am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>6am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"06:00":"6am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>7am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"07:00":"7am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>8am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"08:00":"8am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>9am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"09:00":"9am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>10am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"10:00":"10am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>11am</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"11:00":"11am"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>12pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"12:00":"12pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>1pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"13:00":"1pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>2pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"14:00":"2pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>3pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"15:00":"3pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>4pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"16:00":"4pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>5pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"17:00":"5pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>6pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"18:00":"6pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>7pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"19:00":"7pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>8pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"20:00":"8pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>9pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"21:00":"9pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer style={{borderBottomWidth:1}}>
 
-            <TimeLabel>10pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"22:00":"10pm"}</TimeLabel>
 
         </SingleHourContainer>
 
         <SingleHourContainer>
 
-            <TimeLabel>11pm</TimeLabel>
+            <TimeLabel>{(global.time == "24-hour")?"23:00":"11pm"}</TimeLabel>
 
         </SingleHourContainer>
 

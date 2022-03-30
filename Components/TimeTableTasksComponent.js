@@ -87,8 +87,6 @@ const TimeTableTasksComponent = ({ tasks }) => {
 
          }
 
-         console.log(formattedTasks)
-
          setFormattedTasks(formattedTasks)
 
       }
