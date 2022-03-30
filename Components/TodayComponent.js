@@ -89,7 +89,7 @@ const TodayComponent = ({ navigation, route }) => {
 
         var seconds = (+timeSplit[0]) * 60 * 60 + (+timeSplit[1]) * 60 + (+timeSplit[2])
 
-        setScrollPosition(((1703/secondsInDay)*seconds)-51)
+        setScrollPosition(((1703/secondsInDay)*seconds)-46)
 
         //setScrollPosition(((1703/secondsInDay)*43200)-11)
 

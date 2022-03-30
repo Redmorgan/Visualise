@@ -105,7 +105,9 @@ const TimeTableTasksComponent = ({ tasks }) => {
 
       const secondsInDay = 86400
 
-      return ((1703/secondsInDay)*seconds)-16
+      return ((1703/secondsInDay)*seconds)-11
+
+      
 
    }
 
