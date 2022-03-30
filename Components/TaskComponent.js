@@ -22,7 +22,7 @@ const TaskComponent = ({task}) => {
 
     return (
 
-    <TaskBody style={{height:task['length']+5}} onPress={()=>{openTaskDesc()}} underlayColor={'transparent'} activeOpacity={1}>
+    <TaskBody style={{height:task['length']}} onPress={()=>{openTaskDesc()}} underlayColor={'transparent'} activeOpacity={1}>
 
         <TaskWrapper>
 
@@ -57,28 +57,6 @@ const TaskWrapper = styled.View`
 
 `
 
-const TaskOverviewTouchable = styled.TouchableHighlight`
-
-    width:70px
-    height:70px
-    border-radius:90px
-    position:absolute
-    right:5%
-    z-index:2
-
-`
-
-const TaskIcon = styled.View`
-
-    width:100%
-    height:100%
-    border-radius:90px
-    display:flex
-    align-items:center
-    justify-content:center
-
-`
-
 const TaskLength = styled.View`
 
     width:15%
@@ -94,8 +72,6 @@ const TaskLength = styled.View`
 const TaskLabelWrapper = styled.View`
 
     width:100%
-    display:flex
-    justify-content:center
     padding-left:5%
 
 `
@@ -104,7 +80,6 @@ const TaskLabel = styled.Text`
 
     font-family:BarlowBold
     font-size:25px
-    line-height: 22px
 
 `
 

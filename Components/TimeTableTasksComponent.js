@@ -87,6 +87,8 @@ const TimeTableTasksComponent = ({ tasks }) => {
 
          }
 
+         console.log(formattedTasks)
+
          setFormattedTasks(formattedTasks)
 
       }
@@ -103,7 +105,7 @@ const TimeTableTasksComponent = ({ tasks }) => {
 
       const secondsInDay = 86400
 
-      return (1680/secondsInDay)*seconds
+      return ((1703/secondsInDay)*seconds)-16
 
    }
 
