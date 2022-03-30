@@ -45,6 +45,8 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     const [isLoaded, setLoading] = useState(false)
 
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
     if(isLoaded == false){
 
         if(route.params.type == "edit"){
@@ -377,18 +379,38 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     async function checkOverlappingTasks(){
 
-        const formattedDate = new Date(date.setHours(0,0,0,0))
-
         const db = firebase.firestore()
 
         const TimetableCollection = db.collection("Timetable")
 
-        var overlapBool
-
-        // Other tasks start time within new task
-        var tasksOnDate = TimetableCollection.where("_UID","==", global.UID).where("Date","==", formattedDate)
-
         const tasksData = []
+
+        var overlapBool;
+
+        var tasksOnDate;
+
+        // DOW = Day of Week
+        var tasksOnDOW;
+
+        const formattedDate = new Date(date.setHours(0,0,0,0))
+
+        if(selectedDays.length == 0){
+            
+            // All the "one off" tasks that happen on the "formattedDate"
+            tasksOnDate = TimetableCollection.where("_UID","==", global.UID).where("Date","==", formattedDate)
+
+            // All the repeating tasks that happen on the same day of the week that "formattedDate" is
+            tasksOnDOW = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains", days[formattedDate.getDay()])
+
+
+        }else{
+
+            tasksOnDate = TimetableCollection.where("_UID","==", global.UID).where("DayOfWeek","in", selectedDays).where("Date",">=", formattedDate)
+
+            // DOW = Day of Week
+            tasksOnDOW = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains-any", selectedDays)
+
+        }
 
         await tasksOnDate
         .get()
@@ -401,39 +423,54 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             })
 
-            for(let i=0; i<=tasksData.length-1; i++){
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 
-                const task2_start = new Date(tasksData[i]['TimeStart']['seconds'] * 1000)
-                const task2_end = new Date(tasksData[i]['TimeEnd']['seconds'] * 1000)
+        await tasksOnDOW
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
 
-                if(startTime < task2_start && task2_start < endTime){
+                var task = doc.data()
+                task.id = doc.id
+                tasksData.push(task)
 
-                    overlapBool = true
-
-                }else if(startTime < task2_end && task2_end < endTime){
-
-                    overlapBool = true
-
-                }else if(task2_start < startTime && endTime < task2_end){
-
-                    overlapBool = true
-
-                }else{
-
-                    overlapBool = false
-
-                }
-
-            }
-
-            
+            })
 
         })
         .catch((error) => {
             console.log("Error getting documents: ", error);
         });
 
+        for(let i=0; i<=tasksData.length-1; i++){
+
+            const task2_start = new Date(tasksData[i]['TimeStart']['seconds'] * 1000)
+            const task2_end = new Date(tasksData[i]['TimeEnd']['seconds'] * 1000)
+
+            if(startTime < task2_start && task2_start < endTime){
+
+                overlapBool = true
+
+            }else if(startTime < task2_end && task2_end < endTime){
+
+                overlapBool = true
+
+            }else if(task2_start < startTime && endTime < task2_end){
+
+                overlapBool = true
+
+            }else{
+
+                overlapBool = false
+
+            }
+
+        }
+
         return overlapBool
+
     }
 
     return (

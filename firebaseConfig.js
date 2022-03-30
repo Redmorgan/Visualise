@@ -130,6 +130,8 @@ export async function sendPasswordReset(email) {
 
 }
 
+const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
 export async function createTask(selectedColour, taskName, taskDesc, days, date, timeStart, timeEnd){
 
     const db = firebase.firestore()
@@ -139,6 +141,7 @@ export async function createTask(selectedColour, taskName, taskDesc, days, date,
         db.collection("Timetable").add({
             SelectedColour:selectedColour,
             Date:date,
+            DayOfWeek:daysOfWeek[date.getDay()],
             Repeating:false,
             TaskDesc:taskDesc,
             TaskName:taskName,
@@ -173,6 +176,7 @@ export async function updateTask(selectedColour, taskName, taskDesc, days, date,
         db.collection("Timetable").doc(docID).update({
             SelectedColour:selectedColour,
             Date:date,
+            DayOfWeek:daysOfWeek[date.getDay()],
             Repeating:false,
             TaskDesc:taskDesc,
             TaskName:taskName,
