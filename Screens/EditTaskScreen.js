@@ -402,7 +402,6 @@ const EditTaskScreen = ({ navigation, route }) => {
             // All the repeating tasks that happen on the same day of the week that "formattedDate" is
             tasksOnDOW = TimetableCollection.where("_UID","==", global.UID).where("Days","array-contains", days[formattedDate.getDay()])
 
-
         }else{
 
             tasksOnDate = TimetableCollection.where("_UID","==", global.UID).where("DayOfWeek","in", selectedDays).where("Date",">=", formattedDate)

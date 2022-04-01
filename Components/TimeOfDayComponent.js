@@ -4,8 +4,6 @@ import styled from "styled-components/native";
 
 const TimeOfDayComponent = () => {
 
-    console.log(global.time)
-
     return (
 
     <TimeOfDayBody>
