@@ -24,7 +24,7 @@ const TaskManagerItemComponent = ({  taskData, openTaskEditor, refreshTasks }) =
 
             }else{
 
-                var timingString = moment.utc(taskData['TimeStart']['seconds']*1000).format('HH:mm') + " - " + moment.utc(taskData['Date']['seconds']*1000).format('DD/MM/YYYY')
+                var timingString = moment(taskData['TimeStart']['seconds']*1000).format('HH:mm') + " - " + moment(taskData['Date']['seconds']*1000).format('DD/MM/YYYY')
 
                 setTiming(timingString)
 
