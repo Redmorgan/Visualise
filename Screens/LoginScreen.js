@@ -253,13 +253,23 @@ const LoginScreen = ({ navigation }) => {
 
         const time = await AsyncStorage.getItem("time")
 
-        if(time.replace(/"/g,'') == "24-hour"){
+        if(time == null){
 
-            global.time = "24-hour"
+            await AsyncStorage.setItem("time", JSON.stringify("12-hour"))
+
+            global.time = "12-hour"
 
         }else{
 
-            global.time = "12-hour"
+            if(time.replace(/"/g,'') == "24-hour"){
+
+                global.time = "24-hour"
+
+            }else{
+
+                global.time = "12-hour"
+
+            }
 
         }
 
