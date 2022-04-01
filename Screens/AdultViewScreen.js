@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 //Icons
 import { Entypo } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 const AdultViewScreen = ({ }) => {
 
@@ -98,7 +98,7 @@ const AdultViewScreen = ({ }) => {
                     
                     options={{
                         tabBarIcon:({color}) =>(
-                            <FontAwesome name="cog" size={24} color={color} />
+                            <FontAwesome5 name="book" size={24} color={color} />
                         ),
                         tabBarItemStyle:{borderLeftColor:"#ffffff", borderLeftWidth:1}
                     }}
