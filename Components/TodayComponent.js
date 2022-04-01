@@ -91,8 +91,6 @@ const TodayComponent = ({ navigation, route }) => {
 
         setScrollPosition(((1703/secondsInDay)*seconds)-46)
 
-        //setScrollPosition(((1703/secondsInDay)*43200)-11)
-
     }
 
     async function getTasks(date, day){
@@ -207,7 +205,7 @@ const TodayComponent = ({ navigation, route }) => {
                         <TimeTableScrollBody>
 
                             {(isToday)?
-                            null:<TimeIndicator style={{top:scrollPosition+35, backgroundColor:global.theme}}/>}
+                            null:<TimeIndicator style={{top:scrollPosition+34, backgroundColor:global.theme}}/>}
 
                             <TimeOfDayContainer>
 
