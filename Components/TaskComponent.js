@@ -10,13 +10,17 @@ const TaskComponent = ({task}) => {
 
     function openTaskDesc(){
 
-        if(global.vibe != 0){
+        if(task['name'] != ""){
 
-            Vibration.vibrate(5)
+            if(global.vibe != 0){
+
+                Vibration.vibrate(5)
+
+            }
+
+            setOverviewState(true)
 
         }
-
-        setOverviewState(true)
 
     }
 
