@@ -27,43 +27,43 @@ const CalendarGridRowComponent = ({ dates, navigation }) => {
 
     <CalendarGridRowContainer>
 
-        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[0]['date'])}}>
+        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={dates[0]['date'] == "X"?'transparent':'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[0]['date'])}}>
 
             <DateLabel>{(dates[0]['date'] != "X")?moment(dates[0]['date']).format("Do"):"X"}</DateLabel>
 
         </CalendarDayContainer>
 
-        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[1]['date'])}}>
+        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={dates[1]['date'] == "X"?'transparent':'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[1]['date'])}}>
 
             <DateLabel>{(dates[1]['date'] != "X")?moment(dates[1]['date']).format("Do"):"X"}</DateLabel>
 
         </CalendarDayContainer>
 
-        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[2]['date'])}}>
+        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={dates[2]['date'] == "X"?'transparent':'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[2]['date'])}}>
 
             <DateLabel>{(dates[2]['date'] != "X")?moment(dates[2]['date']).format("Do"):"X"}</DateLabel>
 
         </CalendarDayContainer>
 
-        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[3]['date'])}}>
+        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={dates[3]['date'] == "X"?'transparent':'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[3]['date'])}}>
 
             <DateLabel>{(dates[3]['date'] != "X")?moment(dates[3]['date']).format("Do"):"X"}</DateLabel>
 
         </CalendarDayContainer>
 
-        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[4]['date'])}}>
+        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={dates[4]['date'] == "X"?'transparent':'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[4]['date'])}}>
 
             <DateLabel>{(dates[4]['date'] != "X")?moment(dates[4]['date']).format("Do"):"X"}</DateLabel>
 
         </CalendarDayContainer>
 
-        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[5]['date'])}}>
+        <CalendarDayContainer style={{borderRightWidth:1}} underlayColor={dates[5]['date'] == "X"?'transparent':'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[5]['date'])}}>
 
             <DateLabel>{(dates[5]['date'] != "X")?moment(dates[5]['date']).format("Do"):"X"}</DateLabel>
 
         </CalendarDayContainer>
 
-        <CalendarDayContainer underlayColor={'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[6]['date'])}}>
+        <CalendarDayContainer underlayColor={dates[6]['date'] == "X"?'transparent':'#00000033'} activeOpacity={1} onPress={()=>{openTasks(dates[6]['date'])}}>
 
             <DateLabel>{(dates[6]['date'] != "X")?moment(dates[6]['date']).format("Do"):"X"}</DateLabel>
 

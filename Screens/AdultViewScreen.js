@@ -65,7 +65,7 @@ const AdultViewScreen = ({ }) => {
                             if(global.vibe != 0){
 
                                 Vibration.vibrate(5)
-                    
+
                             }
                         },
                     })}
@@ -86,7 +86,7 @@ const AdultViewScreen = ({ }) => {
                             if(global.vibe != 0){
 
                                 Vibration.vibrate(5)
-                    
+
                             }
                         },
                     })}
@@ -95,7 +95,7 @@ const AdultViewScreen = ({ }) => {
                 <Tab.Screen
                     name="Tasks"
                     component={TaskManagerComponent}
-                    
+
                     options={{
                         tabBarIcon:({color}) =>(
                             <FontAwesome5 name="book" size={24} color={color} />
@@ -107,7 +107,7 @@ const AdultViewScreen = ({ }) => {
                             if(global.vibe != 0){
 
                                 Vibration.vibrate(5)
-                    
+
                             }
                         },
                     })}
