@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Vibration, Alert } from "react-native";
+import { Vibration, Alert, Linking } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 
@@ -19,6 +19,21 @@ const LoginHelpScreen = ({ navigation }) => {
 
         Vibration.vibrate(5)
         navigation.pop()
+        
+
+    }
+
+    function openEmail(){
+
+        Vibration.vibrate(5)
+        Linking.openURL("mailto:admin@timetable.com")
+
+    }
+
+    function openMobile(){
+
+        Vibration.vibrate(5)
+        Linking.openURL("tel:01632960807")
 
     }
 
@@ -45,7 +60,11 @@ const LoginHelpScreen = ({ navigation }) => {
 
                 <ContactTypeContainer>
 
-                    <ContactImage source={EmailIcon}/>
+                    <ContactImageOnPress onPress={()=>{openEmail()}}>
+
+                        <ContactImage source={EmailIcon}/>
+
+                    </ContactImageOnPress>
 
                     <ContactHeaderLabel>Email</ContactHeaderLabel>
 
@@ -55,11 +74,15 @@ const LoginHelpScreen = ({ navigation }) => {
 
                 <ContactTypeContainer>
 
-                    <ContactImage source={PhoneIcon}/>
+                    <ContactImageOnPress onPress={()=>{openMobile()}}>
+
+                        <ContactImage source={PhoneIcon}/>
+
+                    </ContactImageOnPress>
 
                     <ContactHeaderLabel>Telephone</ContactHeaderLabel>
 
-                    <ContactInfoLabel>07598843305</ContactInfoLabel>
+                    <ContactInfoLabel>01632 960807</ContactInfoLabel>
 
                 </ContactTypeContainer>
 
@@ -141,6 +164,13 @@ const ContactTypeContainer = styled.View`
     height:100%
     display:flex
     align-items:center
+
+`
+
+const ContactImageOnPress = styled.TouchableOpacity`
+
+    width:80px
+    height:80px
 
 `
 
