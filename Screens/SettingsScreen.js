@@ -124,17 +124,28 @@ const SettingsScreen = ({ navigation }) => {
 
         // Permission check for accessing libray. Do it here im too lazy today :)
 
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [3, 4],
-            quality: 1,
-        })
-        .then((response)=>{
+        await ImagePicker.requestMediaLibraryPermissionsAsync()
+        .then(function(x){
 
-            global.background = response['uri']
+            console.log(x["granted"])
 
-            AsyncStorage.setItem("background", response['uri'])
+            if(x["granted"] == true){
+
+                let result = ImagePicker.launchImageLibraryAsync({
+                    mediaTypes: ImagePicker.MediaTypeOptions.All,
+                    allowsEditing: true,
+                    aspect: [3, 4],
+                    quality: 1,
+                })
+                .then((response)=>{
+        
+                    global.background = response['uri']
+        
+                    AsyncStorage.setItem("background", response['uri'])
+        
+                })
+
+            }
 
         })
 
