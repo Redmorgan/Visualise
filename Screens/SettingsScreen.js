@@ -122,17 +122,13 @@ const SettingsScreen = ({ navigation }) => {
 
         }
 
-        // Permission check for accessing libray. Do it here im too lazy today :)
-
         await ImagePicker.requestMediaLibraryPermissionsAsync()
         .then(function(x){
-
-            console.log(x["granted"])
 
             if(x["granted"] == true){
 
                 let result = ImagePicker.launchImageLibraryAsync({
-                    mediaTypes: ImagePicker.MediaTypeOptions.All,
+                    mediaTypes: ImagePicker.MediaTypeOptions.Images,
                     allowsEditing: true,
                     aspect: [3, 4],
                     quality: 1,
