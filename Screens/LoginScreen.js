@@ -77,8 +77,6 @@ const LoginScreen = ({ navigation }) => {
 
             }else{
 
-                console.log(global.loginError)
-
                 if(global.loginError.includes("(auth/wrong-password)") || global.loginError.includes("(auth/user-not-found)")){
 
                     global.userAccountNotification = "Your email and/or password is incorrect."

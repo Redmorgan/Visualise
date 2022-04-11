@@ -52,8 +52,6 @@ const CalendarComponent = ({ navigation }) => {
             Vibration.vibrate(5)
 
         }
-
-        console.log(global.underlay)
         navigation.push("Settings")
 
     }

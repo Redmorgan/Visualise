@@ -43,8 +43,6 @@ const CreateAccountScreen = ({ navigation }) => {
 
                 if(global.loginError != null){
 
-                    console.log(global.loginError)
-
                     if(global.loginError.includes("(auth/email-already-in-use)")){
 
                         setErrorMessage("An account with that email address aready exists.")
