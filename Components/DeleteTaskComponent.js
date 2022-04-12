@@ -31,9 +31,9 @@ const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
 
         await firebase.deleteTask(taskID)
 
-        closeDelete()
-
         refreshTasks()
+
+        closeDelete()
 
     }
 

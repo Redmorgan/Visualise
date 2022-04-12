@@ -103,7 +103,7 @@ const TaskManagerComponent = ({ navigation }) => {
             querySnapshot.forEach((doc) => {
 
                 var task = doc.data()
-                task.id = doc.id
+                task.docID = doc.id
                 filteredTasks.push(task)
 
             });
@@ -228,7 +228,7 @@ const TaskManagerComponent = ({ navigation }) => {
                 data = {taskList}
                 keyExtractor={(item) => item.docID}
                 nestedScrollEnabled
-                renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openTaskEditor={openTaskEditor} refreshTasks={getTasks}/>)}/>}
+                renderItem={({ item }) => (<TaskManagerItemComponent taskData={item} openTaskEditor={openTaskEditor} refreshTasks={()=>{searchTasks(searchString, currentFilter)}}/>)}/>}
 
             </TaskListContainer>
 
