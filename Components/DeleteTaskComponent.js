@@ -33,6 +33,8 @@ const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
 
         refreshTasks()
 
+        refreshTasks()
+
         closeDelete()
 
     }
