@@ -14,8 +14,9 @@ import { AntDesign } from '@expo/vector-icons';
 const ForgotPasswordScreen = ({ navigation }) => {
 
     const[email, setEmail] = useState("")
-    const [isEmpty, setEmpty] = useState(false)
+    const [isError, setError] = useState(false)
     const [isReset, setReset] = useState(false)
+    const[errorMessage, setErrorMessage] = useState("")
 
     function backToReset(){
 
@@ -28,7 +29,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
         if(email != ""){
 
-            setEmpty(false)
+            setError(false)
 
             await firebaseAuth.sendPasswordReset(email)
 
@@ -36,11 +37,26 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
                 setReset(true)
 
+            }else{
+
+                if(global.loginError.includes("(auth/invalid-email)")){
+
+                    setErrorMessage("Please enter your email address in the format: yourname@example.com")
+                    setError(true)
+
+                }else if(global.loginError.includes("(auth/user-not-found)")){
+
+                    setErrorMessage("No account with that email could be found.")
+                    setError(true)
+
+                }
+
             }
 
         }else{
 
-            setEmpty(true)
+            setErrorMessage("Please enter an email.")
+            setError(true)
 
         }
 
@@ -75,11 +91,19 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
             </ResetButton>
 
-            {(isEmpty == true)?
-            <ResetMessage>No email entered</ResetMessage>:null}
+            {(isError == true)?
+            <ErrorMessageWrapper>
+
+                <ErrorMessage style={{backgroundColor:"#FF0000"}}>
+
+                    <NotificationLabel>{errorMessage}</NotificationLabel>
+
+                </ErrorMessage>
+                
+            </ErrorMessageWrapper>:null}
 
             {(isReset == true)?
-            <ResetMessage>Reset email sent</ResetMessage>:null}
+            <ResetMessage>Reset email sent.</ResetMessage>:null}
 
         </ResetBackground>
 
@@ -184,6 +208,31 @@ const ResetMessage = styled.Text`
     color:#514F4F
     text-align:center
     margin-top:2%
+
+`
+
+const ErrorMessageWrapper = styled.View`
+
+    align-items: center;
+    justify-content:center;
+    margin-top:10%
+
+`
+
+const ErrorMessage = styled.View`
+
+    border-radius:20px
+    align-items: center;
+    justify-content:center;
+    padding:2%
+
+`
+
+const NotificationLabel = styled.Text`
+
+    font-family:BarlowSemi
+    color:#ffffff
+    font-size:18px
 
 `
 

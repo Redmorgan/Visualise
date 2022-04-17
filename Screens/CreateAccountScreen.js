@@ -45,7 +45,12 @@ const CreateAccountScreen = ({ navigation }) => {
 
                     if(global.loginError.includes("(auth/email-already-in-use)")){
 
-                        setErrorMessage("An account with that email address aready exists.")
+                        setErrorMessage("An account with that email address already exists.")
+                        setError(true)
+
+                    }else if(global.loginError.includes("(auth/invalid-email)")){
+
+                        setErrorMessage("Please enter your email address in the format: yourname@example.com")
                         setError(true)
 
                     }

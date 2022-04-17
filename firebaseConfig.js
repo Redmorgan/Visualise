@@ -124,6 +124,8 @@ export async function sendPasswordReset(email) {
         .catch((error) => {
 
             const errorMessage = error.message
+            global.loginError = errorMessage
+            console.log(errorMessage)
             global.reset = false
 
         })
