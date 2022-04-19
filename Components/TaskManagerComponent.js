@@ -49,21 +49,23 @@ const TaskManagerComponent = ({ navigation }) => {
         filteredTasks = TimetableCollection.where("_UID","==", global.UID)
 
         filteredTasks
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
-                    var task = doc.data()
-                    task.docID = doc.id
-                    userTasks.push(task)
-                });
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
 
-                setTasks(userTasks)
+                var task = doc.data()
+                task.docID = doc.id
 
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
+                userTasks.push(task)
+                
             });
+
+            setTasks(userTasks)
+
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 
     }
 

@@ -40,7 +40,10 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc,
 
                 <TaskHeaderLabel>{name}</TaskHeaderLabel>
 
+                {(global.time == "24-hour")?
                 <TaskTimeLabel>{moment(new Date(start)).format("HH:mm")}-{moment(new Date(end)).format("HH:mm")}</TaskTimeLabel>
+                :
+                <TaskTimeLabel>{moment(new Date(start)).format("h:mma")}-{moment(new Date(end)).format("h:mma")}</TaskTimeLabel>}
 
                 <TaskDescriptionWrapper>
 
