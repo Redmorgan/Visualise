@@ -32,16 +32,15 @@ const EditTaskScreen = ({ navigation, route }) => {
     const [selected, setSelected] = useState()
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(moment(new Date()).add(1, 'h').toDate())
-    const [timeError, setTimeError] = useState(false)
-
-    const [taskName, setTaskName] = useState("")
-    const [taskNameError, setTaskNameError] = useState(false)
-
-    const [taskDesc, setTaskDesc] = useState("")
 
     const [selectedColour, setSelectedColour] = useState("")
+    const [taskName, setTaskName] = useState("")
+    const [taskDesc, setTaskDesc] = useState("")
 
+    const [taskNameError, setTaskNameError] = useState(false)
+    const [timeError, setTimeError] = useState(false)
     const [overlapError, setOverlapError] = useState(false)
+    const [existingError, setExistingError] = useState(false)
 
     const [isLoaded, setLoading] = useState(false)
 
@@ -341,6 +340,23 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             setTaskNameError(false)
 
+            await checkExistingName()
+            .then(function(existing){
+    
+                if(existing){
+    
+                    inputsCorrect = false
+
+                    setExistingError(true)
+    
+                }else{
+    
+                    setExistingError(false)
+    
+                }
+    
+            })
+
         }
 
         
@@ -418,7 +434,10 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                 var task = doc.data()
                 task.id = doc.id
-                tasksData.push(task)
+
+                if(task['TaskName'] != taskName){
+                    tasksData.push(task)
+                }
 
             })
 
@@ -434,7 +453,10 @@ const EditTaskScreen = ({ navigation, route }) => {
 
                 var task = doc.data()
                 task.id = doc.id
-                tasksData.push(task)
+
+                if(task['TaskName'] != taskName){
+                    tasksData.push(task)
+                }
 
             })
 
@@ -444,29 +466,21 @@ const EditTaskScreen = ({ navigation, route }) => {
         });
 
         for(let i=0; i<=tasksData.length-1; i++){
+            
+            const task2_start = new Date(tasksData[i]['TimeStart']['seconds'] * 1000)
+            const task2_end = new Date(tasksData[i]['TimeEnd']['seconds'] * 1000)
 
-            if(tasksData[i].id != route.params.taskData['docID']){
+            if(startTime < task2_start && task2_start < endTime){
 
-                const task2_start = new Date(tasksData[i]['TimeStart']['seconds'] * 1000)
-                const task2_end = new Date(tasksData[i]['TimeEnd']['seconds'] * 1000)
+                overlapBool = true
 
-                if(startTime < task2_start && task2_start < endTime){
+            }else if(startTime < task2_end && task2_end < endTime){
 
-                    overlapBool = true
+                overlapBool = true
 
-                }else if(startTime < task2_end && task2_end < endTime){
+            }else if(task2_start < startTime && endTime < task2_end){
 
-                    overlapBool = true
-
-                }else if(task2_start < startTime && endTime < task2_end){
-
-                    overlapBool = true
-
-                }else{
-
-                    overlapBool = false
-
-                }
+                overlapBool = true
 
             }else{
 
@@ -477,6 +491,62 @@ const EditTaskScreen = ({ navigation, route }) => {
         }
 
         return overlapBool
+
+    }
+
+    async function checkExistingName(){
+
+        const db = firebase.firestore()
+
+        const TimetableCollection = db.collection("Timetable")
+
+        const tasksOnDate = TimetableCollection.where("_UID","==", global.UID)
+
+        var existingName = false
+
+        await tasksOnDate
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+
+                var task = doc.data()
+
+                if(route.params.type == "edit"){
+
+                    if(route.params.taskData['TaskName'] != taskName){
+
+                        existingName = true
+
+                    }
+
+                }else{
+
+                    if(task['TaskName'] == taskName){
+
+                        existingName = true
+
+                    }
+
+                }
+
+                
+
+            })
+
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });      
+        
+        if(existingName){
+
+            return true
+
+        }else{
+
+            return false
+
+        }
 
     }
 
@@ -542,6 +612,13 @@ const EditTaskScreen = ({ navigation, route }) => {
                     <ErrorContainer>
 
                         <ErrorLabel>Task Name is required.</ErrorLabel>
+
+                    </ErrorContainer>:null}
+
+                    {(existingError == true)?
+                    <ErrorContainer>
+
+                        <ErrorLabel>You already have a task with this name, please select another one.</ErrorLabel>
 
                     </ErrorContainer>:null}
 
