@@ -445,20 +445,28 @@ const EditTaskScreen = ({ navigation, route }) => {
 
         for(let i=0; i<=tasksData.length-1; i++){
 
-            const task2_start = new Date(tasksData[i]['TimeStart']['seconds'] * 1000)
-            const task2_end = new Date(tasksData[i]['TimeEnd']['seconds'] * 1000)
+            if(tasksData[i].id != route.params.taskData['docID']){
 
-            if(startTime < task2_start && task2_start < endTime){
+                const task2_start = new Date(tasksData[i]['TimeStart']['seconds'] * 1000)
+                const task2_end = new Date(tasksData[i]['TimeEnd']['seconds'] * 1000)
 
-                overlapBool = true
+                if(startTime < task2_start && task2_start < endTime){
 
-            }else if(startTime < task2_end && task2_end < endTime){
+                    overlapBool = true
 
-                overlapBool = true
+                }else if(startTime < task2_end && task2_end < endTime){
 
-            }else if(task2_start < startTime && endTime < task2_end){
+                    overlapBool = true
 
-                overlapBool = true
+                }else if(task2_start < startTime && endTime < task2_end){
+
+                    overlapBool = true
+
+                }else{
+
+                    overlapBool = false
+
+                }
 
             }else{
 
