@@ -7,8 +7,6 @@ import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 
 /**
- * @summary Loading wheel used when something in the application is being loaded
- * 
  * @returns A component containing loading text and a loading wheel
  */
 const LoadingComponent = ({ message }) => {

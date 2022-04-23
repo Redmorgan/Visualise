@@ -1,5 +1,9 @@
+/**
+ * @fileoverview The component used for the "Today" tab that displays the tasks the user has occuring on a specified day
+ */
+
 import React, {useRef, useState, useEffect} from "react";
-import { Vibration, Alert } from "react-native";
+import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import moment from 'moment';
@@ -19,6 +23,12 @@ import TimeTableTasksComponent from "./TimeTableTasksComponent";
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks. 
+ * @param {Function} route - Pass through data from the previous layer of the stack.
+ *  
+ * @returns A component containing a timetable of the tasks occuring for a user on a specified day
+ */
 const TodayComponent = ({ navigation, route }) => {
 
     const scrollRef = useRef();
@@ -37,6 +47,10 @@ const TodayComponent = ({ navigation, route }) => {
 
     const isFocused = useIsFocused();
 
+    /**
+     * @description Loads the page differently based on if its loading "Today" or its loading a specific day from
+     * clicking on the calendar. The "Try" is from the calendar, the "Catch" is from "Today".
+     */
     useEffect(()=>{
         (async () => {
 
@@ -65,6 +79,11 @@ const TodayComponent = ({ navigation, route }) => {
         })()
     },[isFocused])
 
+    /**
+     * @summary Opens the settings page.
+     * 
+     * @description Runs when the settings cog is pressed and opens up the settings page in a new stack.
+     */
     function openSettings(){
 
         if(global.vibe != 0){
@@ -77,6 +96,13 @@ const TodayComponent = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Sets the page scroll to the current time of day
+     * 
+     * @description When the page loads it collects the current time of day, converts it into seconds, and then converts
+     * it into a pixel amount which is used for scrolling the flat list down to the current time of day. This also gets
+     * used for setting the indicator bar at the correct place.
+     */
     function getTime(){
 
         const secondsInDay = 86400
@@ -93,6 +119,15 @@ const TodayComponent = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Collects all the tasks occuring for a user on a selected date.
+     * 
+     * @param {DateTime} date - The selected date 
+     * @param {String}   day - The day of the week "date" occurs on
+     * 
+     * @description The function collects a list of all the one-off tasks occuring on the selected date, and all of the
+     * repeating tasks occuring on the day of the selected date. These tasks are collected from Firestore.
+     */
     async function getTasks(date, day){
 
         var formattedDate = date.setHours(0,0,0,0)
@@ -153,6 +188,13 @@ const TodayComponent = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Takes the user back to the calendar page
+     * 
+     * @description When a user selects a day on the calendar tab, the TodayComponent opens as a stack rather than a tab.
+     * When opened this way the user has access to a back button which will take them back to the calendar page. This function
+     * gets run when that button is pressed.
+     */
     function backToCalendar(){
 
         if(global.vibe != 0){

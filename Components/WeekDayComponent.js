@@ -1,6 +1,15 @@
+/**
+ * @fileoverview The component which makes up the individual boxes on the calendar page header for the days of the week.
+ */
+
 import React from "react";
 import styled from "styled-components/native";
 
+/**
+ * @param {String} day - Day of week e.g. Mon, Tues, Wed.
+ * 
+ * @returns A box containing a day of the week
+ */
 const WeekDayComponent = ({ day }) => {
 
     return (

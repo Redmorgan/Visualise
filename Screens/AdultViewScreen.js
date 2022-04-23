@@ -1,6 +1,9 @@
+/**
+ * @fileoverview 
+ */
 
 import React, { useState, useEffect } from "react";
-import { Vibration, Alert } from "react-native";
+import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -18,13 +21,18 @@ import { Entypo } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import { FontAwesome5 } from '@expo/vector-icons'; 
 
-import { FontAwesome } from '@expo/vector-icons'
-
-const AdultViewScreen = ({ }) => {
+/**
+ * @returns A component containing a navbar with "Calendar", "Today", and "Tasks" tabs
+ */
+const AdultViewScreen = () => {
 
     const [isReloading, setReloading] = useState(false)
     const isFocused = useIsFocused();
 
+    /**
+     * Reloads the page when ever it gets viewed, used as tabs don't update
+     * when you click between them by default.
+     */
     useEffect(()=>{
         (async () => {
 

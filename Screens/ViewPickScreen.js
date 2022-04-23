@@ -1,5 +1,9 @@
+/**
+ * @fileoverview The component for the screen where the user selects the view they want to use.
+ */
+
 import React, {useState} from 'react';
-import { Vibration, Alert } from "react-native";
+import { Vibration } from "react-native";
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,10 +14,21 @@ import LoginBackgroundImage from '../Images/LoginBackground.png'
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
+/** 
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks.
+ * 
+ * @returns A page with two options for the user to select the view they want to use.
+ */
 const ViewPickScreen = ({ navigation }) => {
 
     const[viewSelected, setSelectedView] = useState("")
 
+    /**
+     * @summary Takes the user back to the login page
+     * 
+     * @description When the user presses the back arrow this function runs and it takes
+     * the user back to the login screen.
+     */
     function backToLogin(){
 
         Vibration.vibrate(5)
@@ -21,6 +36,14 @@ const ViewPickScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Sets the view the user has selected.
+     * 
+     * @param {String} view - The view the user has selected. 
+     * 
+     * @description When the user presses on the "Adult" or "Child" view button this function will
+     * highlight that button
+     */
     function selectView(view){
 
         Vibration.vibrate(5)
@@ -28,6 +51,13 @@ const ViewPickScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens up the main application based on the selected view.
+     * 
+     * @description Based on what view the user has selected two versions of the main application will load.
+     * If the user selected "Adult" the adult view will display which has the added "Tasks", and if they
+     * selected "Child" it will show them the child view which doesnt have the "Tasks tab".
+     */
     async function openMainApp(){
 
         if(viewSelected == "Adult"){

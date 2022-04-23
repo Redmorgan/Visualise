@@ -1,3 +1,6 @@
+/**
+ * @fileoverview The component for the screen that displays help contact details for the user.
+ */
 
 import React from "react";
 import { Vibration, Alert, Linking } from "react-native";
@@ -12,9 +15,19 @@ import PhoneIcon from '../Images/PhoneIcon.png'
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks. 
+ * 
+ * @returns A page with a link to phone number and a link to an email address.
+ */
 const LoginHelpScreen = ({ navigation }) => {
 
-
+    /**
+     * @summary Takes the user back to the login page
+     * 
+     * @description When the user presses the back arrow this function runs and it takes
+     * the user back to the login screen.
+     */
     function backToLogin(){
 
         Vibration.vibrate(5)
@@ -23,6 +36,11 @@ const LoginHelpScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens a mobile link to send an email
+     * 
+     * @description Attempts to open the devices email application for the user to send an email to the support address
+     */
     function openEmail(){
 
         Vibration.vibrate(5)
@@ -30,6 +48,11 @@ const LoginHelpScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens a mobile link to make a phone call
+     * 
+     * @description Attempts to open the devices phone application for the user to make a phone call to the support address
+     */
     function openMobile(){
 
         Vibration.vibrate(5)

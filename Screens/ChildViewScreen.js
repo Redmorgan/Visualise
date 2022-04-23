@@ -1,3 +1,6 @@
+/**
+ * @fileoverview
+ */
 
 import React ,{ useEffect, useState } from "react";
 import { Vibration } from "react-native";
@@ -16,11 +19,18 @@ const Tab = createBottomTabNavigator();
 import { Entypo } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 
+/**
+ * @returns A component containing a navbar with "Calendar" and "Today" tabs
+ */
 const ChildViewScreen = ({ }) => {
 
     const [isReloading, setReloading] = useState(false)
     const isFocused = useIsFocused();
 
+    /**
+     * Reloads the page when ever it gets viewed, used as tabs don't update
+     * when you click between them by default.
+     */
     useEffect(()=>{
         (async () => {
 

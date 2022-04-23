@@ -1,6 +1,9 @@
+/**
+ * @fileoverview The component used for the "Tasks" tab where Adult users are able to create/manage their tasks.
+ */
 
 import React, {useState, useEffect} from "react";
-import { Vibration, Alert } from "react-native";
+import { Vibration } from "react-native";
 import {useIsFocused} from '@react-navigation/native';
 import styled from "styled-components/native";
 import { StatusBar } from 'expo-status-bar';
@@ -19,6 +22,11 @@ import LoadingComponent from "./LoadingComponent";
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks.
+ * 
+ * @returns A page that displays the tasks a user has created, where they can create/update tasks, and filter and search tasks.
+ */
 const TaskManagerComponent = ({ navigation }) => {
 
     const[dropDownState, setDropdownState] = useState(false)
@@ -28,6 +36,9 @@ const TaskManagerComponent = ({ navigation }) => {
     const[currentFilter, setCurrentFilter] = useState("All Tasks")
     const isFocused = useIsFocused();
 
+    /**
+     * @summary Loads a users tasks when they open the tab.
+     */
     useEffect(()=>{
         (async () => {
 
@@ -36,6 +47,13 @@ const TaskManagerComponent = ({ navigation }) => {
         })()
     },[isFocused])
 
+    /**
+     * @summary Collects all the tasks belonging to a user from Firestore
+     * 
+     * @description When the tab loads all the tasks belonging to a user are collected from Firestore, these tasks
+     * are then reformatted and added into a list along with their docID. These tasks are then loaded into the flatlist
+     * on the page.
+     */
     async function getTasks(){
 
         const db = firebase.firestore()
@@ -69,6 +87,15 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Filters the tasks based on the whats entered in the search field
+     * 
+     * @param {String} searchString - The search the user has entered
+     * @param {String} filter - The currently selected filter
+     * 
+     * @description This function runs whilst the user is searching for a task. As they type this function will run and the database will
+     * be queried to find tasks that match the search made by the user. The currently set filter also gets applied to this.
+     */
     async function searchTasks(searchString, filter){
 
         setSearchString(searchString)
@@ -125,6 +152,12 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Clears the search bar
+     * 
+     * @description When the users starts typing the magnifying glass icon turns into an X, when the user presses the X the search
+     * bar is cleared and the tasks are refiltered without a search.
+     */
     function clearSearch(){
 
         if(global.vibe != 0){
@@ -139,6 +172,14 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens the task editor page for the selected task.
+     * 
+     * @param {Object} taskData - Object containing data about a task
+     * 
+     * @description This function runs when the pencil "edit" button is pressed on a task in the flat list. When pressed it takes the taskData stored
+     * on the component and passes it into this function where the EditTaskScreen the gets opened up which will be populated by taskData.
+     */
     function openTaskEditor(taskData){
 
         if(global.vibe != 0){
@@ -151,6 +192,12 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens the EditTaskScreen to let users create a new task
+     * 
+     * @description When the users pressed the "NEW TASK" button it will open a new stack of the EditTaskView which will be blank and let users
+     * input information to create a new task.
+     */
     function openNewTask(){
 
         if(global.vibe != 0){
@@ -163,6 +210,14 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Sets the current task filter based on the user selection.
+     * 
+     * @param {String} filter - The filter type the user has selected. 
+     * 
+     * @description On the dropdown when the user selects an option that option is passed into this function which will update the current filter
+     * and re-filter the displayed tasks against this new filter.
+     */
     function selectFilter(filter){
 
         if(global.vibe != 0){
@@ -178,6 +233,12 @@ const TaskManagerComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens/Closes the Filter Dropdown
+     * 
+     * @description When the user selects the drop down it will either open/close based on its current state, the dropdown will also close when the
+     * user selects an option from it.
+     */
     function changeDropdownState(){
 
         if(global.vibe != 0){

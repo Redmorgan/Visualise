@@ -1,10 +1,29 @@
+/**
+ * @fileoverview The component used for displaying a single week on the calendar
+*/
+
 import React from "react";
 import styled from "styled-components/native";
 import { Vibration } from "react-native";
 import moment from 'moment';
 
+/**
+ * 
+ * @param {Object List} dates - Contains 7 "days" of data for each box on the row (42 days split across 6 rows)
+ * @param {Function}    navigation - Passed through navigation function for navigation between stacks. 
+ * 
+ * @returns 
+ */
 const CalendarGridRowComponent = ({ dates, navigation }) => {
 
+    /**
+     * @summary Opens the timetable for the selected day
+     * 
+     * @param {DateTime} date - The date the user has selected
+     * 
+     * @description Based on which date the user has selected it will open up a version of the "Today" tab that will show
+     * the tasks occuring on that given date (Rather than the current day). This will open up as a stack instead of a tab.
+     */
     function openTasks(date){
 
         if(date != "X"){

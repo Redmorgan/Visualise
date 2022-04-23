@@ -1,25 +1,26 @@
+/**
+ * @fileoverview The component used for the pop-up that displays the task information when a task is pressed on the "Today" tab.
+ */
+
 import React from "react";
 import styled from "styled-components/native";
-import { Vibration } from "react-native";
 import moment from 'moment';
 
 // Icons
-import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc, start, end }) => {
-
-    function closeOverview(){
-
-        if(global.vibe != 0){
-
-            Vibration.vibrate(5)
-
-        }
-
-        taskOverviewTouchable()
-
-    }
+/**
+ * @param {Boolean}   state - The current visibile state of the pop-up (True = Visible, False = Invisible). 
+ * @param {Function}  closeTaskOverview - Function for closing the task overview modal
+ * @param {String}    name - The name of the task
+ * @param {String}    desc - The task's description
+ * @param {DateTime}  start - The start time of the task
+ * @param {DateTime}  end - The end time of the task
+ *  
+ * @returns A modal which contains the full name of the task, the exact time frame the task covers, and the set
+ * description for the task.
+ */
+const TaskOverviewComponent = ({ state, closeTaskOverview, name, desc, start, end }) => {
 
     return (
 
@@ -32,7 +33,7 @@ const TaskOverviewComponent = ({ view, state, taskOverviewTouchable, name, desc,
             
             <TaskOverviewBody>
 
-                <CloseButton onPress={()=>{closeOverview()}} underlayColor={'#00000033'} activeOpacity={1}>
+                <CloseButton onPress={()=>{closeTaskOverview()}} underlayColor={'#00000033'} activeOpacity={1}>
 
                     <AntDesign name="close" size={35} color="black" />
 

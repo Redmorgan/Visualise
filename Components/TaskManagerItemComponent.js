@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Component used in the flatList in TaskManagerComponent, used for displaying individual tasks.
+ */
+
 import React, {useState, useEffect} from "react";
 import styled from "styled-components/native";
 import moment from 'moment';
@@ -10,11 +14,22 @@ import { AntDesign } from '@expo/vector-icons';
 // Components
 import DeleteTaskComponent from "./DeleteTaskComponent";
 
+/**
+ * 
+ * @param {Object}    taskData - Object containing data about a task.
+ * @param {Function}  openTaskEditor - Function for opening the EditTaskScreen to let users edit the task.
+ * @param {Function}  refreshTasks - Function for refreshing the tasks being displayed to the user.
+ *  
+ * @returns 
+ */
 const TaskManagerItemComponent = ({  taskData, openTaskEditor, refreshTasks }) => {
 
     const[timingState, setTiming] = useState()
     const[deleteState, setDeleteState] = useState(false)
 
+    /**
+     * @summary Sets the task type as either "Repeating" if its a repeating task or as the start time and date if its a one-off task.
+     */
     useEffect(()=>{
         (async () => {
 
@@ -33,6 +48,12 @@ const TaskManagerItemComponent = ({  taskData, openTaskEditor, refreshTasks }) =
         })()
     },[taskData])
 
+    /**
+     * @summary Opens the task delete overlay
+     * 
+     * @description When the users presses the delete button on a task it will open the DeleteTaskComponent modal which
+     * gives the user the ability to delete the task they selected.
+     */
     function openDelete(){
 
         if(global.vibe != 0){

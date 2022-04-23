@@ -1,3 +1,6 @@
+/**
+ * @fileoverview The component used for the calendar tab that displays the interactive calendar and notes section
+*/
 
 import React, { useState, useEffect } from "react";
 import { Vibration } from "react-native";
@@ -20,6 +23,11 @@ import CalendarGridComponent from "./CalendarGridComponent";
 import { FontAwesome } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks. 
+ * 
+ * @returns A component containing a calendar and a notes section.
+ */
 const CalendarComponent = ({ navigation }) => {
 
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -45,6 +53,11 @@ const CalendarComponent = ({ navigation }) => {
         })()
     },[isFocused])
 
+    /**
+     * @summary Opens the settings page.
+     * 
+     * @description Runs when the settings cog is pressed and opens up the settings page in a new stack.
+     */
     function openSettings(){
 
         if(global.vibe != 0){
@@ -52,10 +65,21 @@ const CalendarComponent = ({ navigation }) => {
             Vibration.vibrate(5)
 
         }
+
         navigation.push("Settings")
 
     }
 
+    /**
+     * @summary Collects and returns a list of all the days in a month.
+     * 
+     * @description Collects a list of all the dates in a given month in a given year, the list is formatted to fit into 6 weeks so that
+     * it lines up with the correct day of the week the month starts on and what day it ends on. X's are used to fill the gaps at either the beginning
+     * or the end of the 6 week period.
+     * 
+     * @returns A list containing the dates in a specified month padded on either side with X's so the 1st day of the month lines up with the
+     * correct day of the week.
+     */
     function setUpCalendar(){
 
         var firstDate = new Date(year, month-1, 1)
@@ -94,18 +118,45 @@ const CalendarComponent = ({ navigation }) => {
         
     }
 
+    /**
+     * @summary Gets the integer value of the first day of a given month
+     * 
+     * @param {DateTime} setMonth - The current month
+     * 
+     * @description Takes in a given month and returns the integer value for whatever the first day of the month is, this
+     * is used by setUpCalendar() when working out how many X's it needs to put at the front of the list so that the first day
+     * of the month lines up with the correct day of the week.
+     *  
+     * @returns An integer value for the day of the week e.g. Monday = 0 and Sunday = 6
+     */
     function getFirstDay(setMonth){
 
         return new Date(year, setMonth-1, 1).getDay()
 
     }
 
+    /**
+     * @summary Gets how many days are in a month
+     * 
+     * @param {DateTime} setMonth - The current month
+     * 
+     * @description Takes in a given month and returns the integer value for how many days occur in that given month, this is
+     * used by setUpCalendar() to add the correct amount of ordinal dates to the list its building.
+     *  
+     * @returns Returns an integer value of how many days are in a given month
+     */
     function getDaysInMonth(setMonth){
 
         return new Date(year, setMonth, 0).getDate()
 
     }
 
+    /**
+     * @summary Displays the calendar for the next month to the user
+     * 
+     * @description When pressed the calendar is redrawn with the ordinal dates occuring in that month and then lines up the first
+     * day of the month with the correct day of the week. It also handles updating the year if the user tries to move past December.
+     */
     function nextMonth(){
 
         if(global.vibe != 0){
@@ -141,6 +192,12 @@ const CalendarComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Displays the calendar for the previous month to the user
+     * 
+     * @description When pressed the calendar is redrawn with the ordinal dates occuring in that month and then lines up the first
+     * day of the month with the correct day of the week. It also handles updating the year if the user tries to move before January.
+     */
     function previousMonth(){
 
         if(global.vibe != 0){
@@ -176,6 +233,12 @@ const CalendarComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Loads the notes saved to the users account
+     * 
+     * @summary Queries Firebase to return the notes string that has been previously saved by the user, this string is then
+     * inserted into either the text box or scrollable label based on the view type selected (Adult or Child).
+     */
     async function loadNotes(){
 
         const db = firebase.firestore()
@@ -204,6 +267,11 @@ const CalendarComponent = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Saves the notes a user has written.
+     * 
+     * @description Takes the contents of the notes input box and saves a copy of it to Firestore
+     */
     function saveNotes(){
 
         if(global.vibe != 0){

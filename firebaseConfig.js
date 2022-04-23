@@ -26,6 +26,16 @@ if (firebase.apps.length === 0) {
 
 LogBox.ignoreLogs(['Setting a timer']);
 
+/**
+ * @summary Logs the user into their account.
+ * 
+ * @param {String} email - The users email.
+ * @param {String} password - The users password.
+ * 
+ * @description Takes the inputted email and password and passes it to the Firebase Auth which
+ * checks to see if the credentials are valid. Based on that the user will either be logged in
+ * or an error message will be displayed.
+ */
 export const login = async (email, password) => {
 
     const auth = firebase.auth();
@@ -49,6 +59,13 @@ export const login = async (email, password) => {
         });
 }
 
+/**
+ * @summary Checks to see if the users password is valid.
+ * 
+ * @param {String} password - The users password.
+ * 
+ * @description Checks to see if the password the user entered matches the account currently logged in.
+ */
 export const checkPassword = async (password) => {
 
     const auth = firebase.auth();
@@ -66,10 +83,12 @@ export const checkPassword = async (password) => {
 }
 
 /** 
- * @summary Takes in an email and password and generates a user account from it, then logs the user into the system.
+ * @summary Creates an account using the entered details.
  * 
  * @param {string} email - The user inputted email address they want to use.
  * @param {string} password -  The user inputted password they want to use.
+ * 
+ * @description Takes in an email and password and generates a user account from it, then logs the user into the system.
 */
 
 export const signup = async (email, password) => {
@@ -79,21 +98,17 @@ export const signup = async (email, password) => {
         const auth = firebase.auth();
 
         await auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
+        .then((userCredential) => {
 
-                global.loginError = null
+            global.loginError = null
 
-            })
-            .catch((error) => {
+        })
+        .catch((error) => {
 
-                const errorMessage = error.message;
-                global.loginError = errorMessage
+            const errorMessage = error.message;
+            global.loginError = errorMessage
 
-            });
-
-    }else{
-
-        
+        });
 
     }
 
@@ -102,7 +117,6 @@ export const signup = async (email, password) => {
 /** 
  * @summary Logs the user out of the system and resets the pages cookies for the user.
 */
-
 export async function logout() {
 
     const auth = firebase.auth()
@@ -111,6 +125,14 @@ export async function logout() {
 
 }
 
+/**
+ * @summary Sends a reset password link to the user.
+ * 
+ * @param {String} email - The users email.
+ * 
+ * @description Takes the email the user has submitted and uses Firebase Auth to send a reset email
+ * to the user which contains a link to reset their password.
+ */
 export async function sendPasswordReset(email) {
 
     const auth = firebase.auth()
@@ -134,6 +156,20 @@ export async function sendPasswordReset(email) {
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
+/**
+ * @summary Creates a new task for the user.
+ * 
+ * @param {String} selectedColour - The selected colour of the task.
+ * @param {String} taskName - The selected name of the task.
+ * @param {String} taskDesc - The selected description of the task.
+ * @param {String} days - The selected repeating days of the task.
+ * @param {String} date - The selected date of the task.
+ * @param {String} timeStart - The selected start time of the task.
+ * @param {String} timeEnd - The selected end time of the task.
+ * 
+ * @description Takes the user submitted details for the tasks and generates a new object on Firebase
+ * using them.
+ */
 export async function createTask(selectedColour, taskName, taskDesc, days, date, timeStart, timeEnd){
 
     const db = firebase.firestore()
@@ -169,6 +205,20 @@ export async function createTask(selectedColour, taskName, taskDesc, days, date,
 
 }
 
+/**
+ * @summary Creates a new task for the user.
+ * 
+ * @param {String} selectedColour - The selected colour of the task.
+ * @param {String} taskName - The selected name of the task.
+ * @param {String} taskDesc - The selected description of the task.
+ * @param {String} days - The selected repeating days of the task.
+ * @param {String} date - The selected date of the task.
+ * @param {String} timeStart - The selected start time of the task.
+ * @param {String} timeEnd - The selected end time of the task.
+ * @param {String} docID -  The ID of the document on Firebase being updated.
+ * 
+ * @description Takes the user submitted details for the tasks and updates the task connected to the docID.
+ */
 export async function updateTask(selectedColour, taskName, taskDesc, days, date, timeStart, timeEnd, docID){
 
     const db = firebase.firestore()
@@ -206,6 +256,13 @@ export async function updateTask(selectedColour, taskName, taskDesc, days, date,
 
 }
 
+/**
+ * @summary Deletes a selected task from Firestore.
+ * 
+ * @param {String} docID -  The ID of the document on Firebase being deleted.
+ * 
+ * @description Takes the docID and deletes that specific document from Firestore.
+ */
 export async function deleteTask(docID){
 
     const db = firebase.firestore()
@@ -218,6 +275,14 @@ export async function deleteTask(docID){
 
 }
 
+/**
+ * @summary Saves the notes of the user to Firestore.
+ * 
+ * @param {String} notes - Notes data submitted by the user. 
+ *
+ * @description Takes the notes the user has submitted and saves it to Firestore against the
+ * UID of the user.
+ */
 export async function updateNotes(notes){
 
     const db = firebase.firestore()

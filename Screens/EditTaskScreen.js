@@ -1,3 +1,6 @@
+/**
+ * @fileoverview The component for the page where users are able to create/update tasks.
+ */
 
 import React, {useState} from "react";
 import { Vibration, Alert } from "react-native";
@@ -18,6 +21,12 @@ import MainBackgroundImage from '../Images/MainBackground.png'
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks. 
+ * @param {Function} route - Pass through data from the previous layer of the stack.
+ *  
+ * @returns 
+ */
 const EditTaskScreen = ({ navigation, route }) => {
 
     const [date, setDate] = useState(new Date())
@@ -48,6 +57,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     if(isLoaded == false){
 
+        // If its a task edit it will populate all the fields automatically
         if(route.params.type == "edit"){
 
             setTaskName(route.params.taskData['TaskName'])
@@ -86,6 +96,7 @@ const EditTaskScreen = ({ navigation, route }) => {
 
             }
 
+        // If its a new task it will randomly select a colour for the task
         }else{
 
             const rndColour = Math.floor(Math.random() * (10 - 1 + 1) + 1)
@@ -128,6 +139,15 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Updates the set date when the date picker is used.
+     * 
+     * @param {Function} event - Left over from datepicker library, needs to be there but doesnt do anything 
+     * @param {DateTime} selectedDate - The date the user has selected from the date picker
+     * 
+     * @description When the user opens the date picker, selects a date, then presses confirm, this function runs
+     * which takes the selected date and updates the date use state to it.
+     */
     function onDateChange(event, selectedDate){
 
         const currentDate = selectedDate || date
@@ -138,6 +158,15 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Updates the set start or end time when the time picker is used.
+     * 
+     * @param {Function} event - Left over from datepicker library, needs to be there but doesnt do anything 
+     * @param {DateTime} selectedDate - Also uses a datetime object, but only the time part of it gets used.
+     * 
+     * @description  When the user selectgs the time picker for either the start or end time, then presses confirm, this function
+     * runs which takes the selected time and updates either the start or end time based on which one was selected.
+     */
     function onTimeChange(event, selectedDate){
 
         const currentDate = selectedDate || date
@@ -156,6 +185,12 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Takes the user back to the task manager page.
+     * 
+     * @description When the user presses the back button, this function runs which then pops the top layer of the stack,
+     * taking the user back to the task manager page.
+     */
     function goBack(){
 
         if(global.vibe != 0){
@@ -168,6 +203,12 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Opens the datepicker pop-up
+     * 
+     * @description When the user presses the date picker button it changes the visibility of the datepicker to true
+     * and displays it to the user. The datepicker displayed is the one inbuilt into the phones OS.
+     */
     function openDatePicker(){
 
         if(global.vibe != 0){
@@ -181,6 +222,12 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Opens the start time timepicker pop-up
+     * 
+     * @description When the user presses the start time timepicker button it changes the visibility of the timepicker to true
+     * and displays it to the user. The timepicker displayed is the one inbuilt into the phones OS.
+     */
     function openStartTime(){
 
         if(global.vibe != 0){
@@ -195,6 +242,12 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Opens the end time timepicker pop-up.
+     * 
+     * @description When the user presses the end time timepicker button it changes the visibility of the timepicker to true
+     * and displays it to the user. The timepicker displayed is the one inbuilt into the phones OS.
+     */
     function openEndTime(){
 
         if(global.vibe != 0){
@@ -209,6 +262,15 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Adds the selected day to the list of repeating days.
+     * 
+     * @param {String} day - Day of week to add.
+     * 
+     * @description When the user selects on a day of the week to set it as a repeating day it gets added to a list which is
+     * displayed to the user. If the day is already selected then the day is removed from the list. If every day is selected then
+     * "Every day" will be displayed to the user.
+     */
     function setDay(day){
 
         if(global.vibe != 0){
@@ -262,6 +324,12 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Cancels the task and takes the user back to the task manager page.
+     * 
+     * @description When the user presses the cancel button it takes the user back to the task manager page,
+     * this works the same as the back button, its just another option for the user.
+     */
     function cancelTask(){
 
         if(global.vibe != 0){
@@ -274,6 +342,12 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Checks the inputs and saves the new task to firestore
+     * 
+     * @summary When the user presses SAVE the inputs the user has made will be checked to make sure they are all valid,
+     * if they are all valid then the task will be added into Firestore.
+     */
     async function saveTask(){
 
         if(global.vibe != 0){
@@ -296,6 +370,12 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Checks the inputs and updates the existing task to firestore
+     * 
+     * @summary When the user presses UPDATE the inputs the user has made will be checked to make sure they are all valid,
+     * if they are all valid then the existing task on Firestore will be updated.
+     */
     async function updateTask(){
 
         if(global.vibe != 0){
@@ -314,6 +394,14 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Sets the task colour to whatever colour the user has selected
+     * 
+     * @param {String} colour - The task colour the user has selected
+     * 
+     * @description When one of the 10 colour options is selected this function runs which will save the selection made
+     * by the user.
+     */
     function selectColour(colour){
 
         if(global.vibe != 0){
@@ -326,6 +414,18 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Checks the inputs to see if there are any errors.
+     * 
+     * @description 4 input checks are made within the function:
+     * - If there is a name in the Task Name input box.
+     * - If the name in the Task Name input box is unique and the user doesnt already have a task with that name.
+     * - If the task start time is before the task end time.
+     * - If this task would overlap with a pre-existing task the user has created.
+     * If all these checks pass then a true value will be returned.
+     * 
+     * @returns A boolean thats true if there are no error and false if there are errors.
+     */
     async function checkInputsCorrect(){
 
         var inputsCorrect = true
@@ -393,6 +493,15 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Checks to see if the task being made/updated would overlap with a pre-existing task.
+     * 
+     * @description This function compares the task being created against all the other tasks a user has already created, both
+     * one-off and repeating. It checks to see if there is any overlap in times. If there is an overlap it will return a true value.
+     * The overlap does however filter out one-off tasks that have already happened.
+     * 
+     * @returns A boolean that is true if there is an overlap and false if there isnt.
+     */
     async function checkOverlappingTasks(){
 
         const db = firebase.firestore()
@@ -494,6 +603,14 @@ const EditTaskScreen = ({ navigation, route }) => {
 
     }
 
+    /**
+     * @summary Checks to see if a task with that name already exists.
+     * 
+     * @description The function checks to see if the user has already created a task with the name they are trying to use.
+     * This is only on a user by user basis, two different users are able to have tasks with the same name.
+     * 
+     * @returns A boolean that is true if the name already exists and false if it doesnt
+     */
     async function checkExistingName(){
 
         const db = firebase.firestore()
@@ -528,8 +645,6 @@ const EditTaskScreen = ({ navigation, route }) => {
                     }
 
                 }
-
-                
 
             })
 

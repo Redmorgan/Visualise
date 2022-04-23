@@ -1,3 +1,6 @@
+/**
+ * @fileoverview The component that makes up the login page where the user can login and access the reset of the login pages.
+ */
 
 import React, {useState} from "react";
 import { Vibration } from "react-native";
@@ -17,6 +20,11 @@ import LoginBackgroundImage from '../Images/LoginBackground.png'
 //Componenets
 import LoadingComponent from "../Components/LoadingComponent.js";
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks.  
+ * 
+ * @returns A component with input boxes to login and a series of links to navigate around the other login pages.
+ */
 const LoginScreen = ({ navigation }) => {
 
     const [isLoaded, setLoading] = useState(false)
@@ -26,6 +34,12 @@ const LoginScreen = ({ navigation }) => {
     const [isAuto, setAuto] = useState(false)
     const [loginError, setLoginError] = useState(false)
 
+    /**
+     * @summary Opens the create account page.
+     * 
+     * @description When the "Sign Up" link is pressed it will take them to the create account page
+     * where they can then create an account.
+     */
     function openCreateAccount(){
 
         Vibration.vibrate(5)
@@ -33,6 +47,12 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens the forgotten password page.
+     * 
+     * @description When the "Forgotten Password" link is pressed it will take them to the forgotten password
+     * page where they can request a link to reset their accounts password.
+     */
     function openForgotPassword(){
 
         Vibration.vibrate(5)
@@ -41,6 +61,12 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens the contact us page
+     * 
+     * @description When the "Contact Us" link is pressed it will take the to the login help page where
+     * they will be provided with the support contact details.
+     */
     function openContactUs(){
 
         Vibration.vibrate(5)
@@ -48,6 +74,14 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Opens the view select page after logging in.
+     * 
+     * @description When a user has entered their login details and they have been error checked to see if theyre valid, if
+     * Firebase confirms the login details are correct the user will be taken to the view select screen where they can pick
+     * what view they want to use.
+     * If the details are incorrect they will be provided with relevenat error messages.
+     */
     async function openViewPick(){
 
         setLoginError(false)
@@ -101,6 +135,13 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Switches the "remember me" state on and off
+     * 
+     * @description Users can decide if they want the app to log them in automatically when they open the app,
+     * depending on if the box is checked or not, the app will either automatically log them in or will open
+     * the login page when a new instance of the app is loaded.
+     */
     function onPressRememberMe(){
 
         Vibration.vibrate(5)
@@ -109,12 +150,24 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Saves the set "remember me" state to the local storage
+     * 
+     * @description Saves the set state so it can be checked between app sessions so the app can auto log the user
+     * in when the app opens.
+     */
     const saveRememberMeState = async () => {
 
         await AsyncStorage.setItem("rememberMe", JSON.stringify(!rememberMeState))
 
     }
 
+    /**
+     * @summary Saves the login details to the local storage
+     * 
+     * @description Used for the auto login so that the details can automatically be submitted to Firebase Auth to
+     * log the user in.
+     */
     const saveLoginDetails = async (userEmail, userPassword) => {
 
         await AsyncStorage.setItem("email", JSON.stringify(userEmail))
@@ -122,6 +175,12 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Loads the login details when the app opens
+     * 
+     * @description If the user has auto login selected this function will run which will collect the login details
+     * from the local storage and log the user into the system.
+     */
     const loadLoginDetails = async () => {
 
         var rememberMe = ""
@@ -149,6 +208,15 @@ const LoginScreen = ({ navigation }) => {
         }
     }
 
+    /**
+     * @summary Auto logs the user into the system
+     * 
+     * @param {String} email - The users email address
+     * @param {String} password - The users password
+     * 
+     * @description If the user has "Auto Login" selected this function will run which will take the stored login details
+     * and log the user in for them when a new instance of the application is opened.
+     */
     async function autoLogin(email, password){
 
         await firebaseAuth.login(email.replace(/"/g,''), password.replace(/"/g,''))
@@ -189,6 +257,12 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Loads the users settings on login
+     * 
+     * @description When the user logins it sets all the settings the user has configured on the settings
+     * page within the app, i.e. Colour theme and background.
+     */
     async function loadSettings(){
 
         const vibrationState = await AsyncStorage.getItem("vibration")
@@ -273,6 +347,12 @@ const LoginScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Closes the error pop-up
+     * 
+     * @description When the user clicks on the pop-up that appears from errors or for new account
+     * creation the pop-up will disappear.
+     */
     function closePopup(){
 
         Vibration.vibrate(5)

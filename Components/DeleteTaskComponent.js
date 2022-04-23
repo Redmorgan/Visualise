@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Contains the component that is used as the pop-up for when a user tries to delete a task.
+ * Gives the user the option to either confirm or cancel the deletion.
+ */
+
 import React from "react";
 import styled from "styled-components/native";
 import { Vibration } from "react-native";
@@ -7,8 +12,24 @@ import * as firebase from '../firebaseConfig.js'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Entypo } from '@expo/vector-icons'
 
+/**
+ * 
+ * @param {Boolean}  state - The current visibile state of the pop-up (True = Visible, False = Invisible)
+ * @param {Function} closeDelete - The function that closes the delete task modal
+ * @param {String}   taskID - The docID of the task that has been selected for deletion
+ * @param {Function} refreshTasks - The function that refreshes the tasks displayed, used to remove the deleted task from the screen.
+ *  
+ * @returns - A pop-up that can be used to confirm or cancel the deletion of a task.
+ * 
+ */
 const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
 
+    /**
+     * @summary Closes the delete pop-up
+     * 
+     * @description If the user wants to cancel the deletion of the task they can press the X button and it will run this
+     * function which will then hide the delete task modal.
+     */
     function cancelDelete(){
 
         if(global.vibe != 0){
@@ -21,6 +42,12 @@ const DeleteTaskComponent = ({ state, closeDelete, taskID, refreshTasks }) => {
 
     }
 
+    /**
+     * @summary Confirms the deletion of the task
+     * 
+     * @description If the user wants to confirm the deletion of the task they can press the tick button and it will remove the task
+     * from firestore, refresh the tasks on the page to remove the old component, then close the delete task modal.
+     */
     async function confirmDelete(){
 
         if(global.vibe != 0){

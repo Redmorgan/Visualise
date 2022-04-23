@@ -1,3 +1,6 @@
+/**
+ * @fileoverview The component for the page that lets users reset their password.
+ */
 
 import React, { useState } from "react";
 import { Vibration, Alert } from "react-native";
@@ -11,6 +14,11 @@ import ResetBackgroundImage from '../Images/LoginBackground.png'
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks. 
+ * 
+ * @returns 
+ */
 const ForgotPasswordScreen = ({ navigation }) => {
 
     const[email, setEmail] = useState("")
@@ -18,13 +26,26 @@ const ForgotPasswordScreen = ({ navigation }) => {
     const [isReset, setReset] = useState(false)
     const[errorMessage, setErrorMessage] = useState("")
 
-    function backToReset(){
+    /**
+     * @summary Takes the user back to the login page
+     * 
+     * @description When the user presses the back arrow this function runs and it takes
+     * the user back to the login screen.
+     */
+    function backToLogin(){
 
         Vibration.vibrate(5)
         navigation.pop()
 
     }
 
+    /**
+     * @summary Takes the inputted email and sends a password reset link to it.
+     * 
+     * @description The function takes the email the user entered, checks to make sure its connected to an account and
+     * in a valid format. This email is then passed to Firestore which will send an email to that address with a link to
+     * reset their password.
+     */
     async function resetPassword(){
 
         if(email != ""){
@@ -61,8 +82,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
         }
 
     }
-    
-
 
     return (
  
@@ -72,7 +91,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
         <ResetBackground source={ResetBackgroundImage}>
 
-            <BackArrowTouchable onPress={()=>{backToReset()}} underlayColor={"transparent"}>
+            <BackArrowTouchable onPress={()=>{backToLogin()}} underlayColor={"transparent"}>
 
                 <AntDesign name="arrowleft" size={40} color="#8A84FF" />
 

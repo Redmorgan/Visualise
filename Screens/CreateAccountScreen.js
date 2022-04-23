@@ -1,3 +1,6 @@
+/**
+ * @fileoverview The component for the page that the users uses to create accounts.
+ */
 
 import React, {useState} from "react";
 import { Vibration, Alert } from "react-native";
@@ -12,6 +15,11 @@ import LoginBackgroundImage from '../Images/LoginBackground.png'
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks. 
+ *  
+ * @returns A page where users are able to create a new account, containing 3 input boxes and a button.
+ */
 const CreateAccountScreen = ({ navigation }) => {
 
     const[email, setEmail] = useState("")
@@ -20,6 +28,12 @@ const CreateAccountScreen = ({ navigation }) => {
     const[isError, setError] = useState(false)
     const[errorMessage, setErrorMessage] = useState("")
 
+    /**
+     * @summary Takes the user back to the login page
+     * 
+     * @description When the user presses the back arrow this function runs and it takes
+     * the user back to the login screen.
+     */
     function backToLogin(){
 
         if(global.vibe != 0){
@@ -31,23 +45,36 @@ const CreateAccountScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Create an account for the user as well as error checking inputs
+     * 
+     * @description Takes the user entered email, password, and confirmation password and performs a series
+     * of error check to make sure the inputs are valid to make an account. If the checks are passed then a new
+     * user account is created and the user is taken back to the login page and shown a message to inform them
+     * their account has been successfully created. This account can now be used to login.
+     */
     const createAccount = async () => {
 
         setError(false)
 
+        // If any of the fields are empty
         if(email != "" && password != "" && confirmPassword != ""){
 
+            // If the password and confirmation password match
             if(password == confirmPassword){
 
                 await firebaseAuth.signup(email, password)
 
+                // If firebase auth does not return an error
                 if(global.loginError != null){
 
+                    // If the email address chosen is already in use
                     if(global.loginError.includes("(auth/email-already-in-use)")){
 
                         setErrorMessage("An account with that email address already exists.")
                         setError(true)
 
+                    // If the email address chosen is in an invalid format
                     }else if(global.loginError.includes("(auth/invalid-email)")){
 
                         setErrorMessage("Please enter your email address in the format: yourname@example.com")

@@ -1,9 +1,21 @@
+/**
+ * @fileoverview The component used for container that contains all 6 rows of the calendar used on CalendarComponent.js
+*/
+
 import React from "react";
 import styled from "styled-components/native";
 
 // Components
 import CalendarGridRowComponent from "./CalendarGridRowComponent";
 
+/**
+ * @summary Component that displays the boxes making up the calendar
+ * 
+ * @param {Object List} dates - The dates occuring in the selected month
+ * @param {Function}    navigation - Passed through navigation function for navigation between stacks. 
+ * 
+ * @returns 6 rows of 7 boxes which will contain either an X or an ordinal date.
+ */
 const CalendarGridComponent = ({ dates, navigation }) => {
 
    return (

@@ -1,7 +1,13 @@
+/**
+ * @fileoverview Component containing a full 24-hour clock for use on the "Today" tab.
+ */
+
 import React from "react";
 import styled from "styled-components/native";
 
-
+/**
+ * @returns a flat list containing a full 24-hour clock in either 24-hour or 12-hour format based on the settings.
+ */
 const TimeOfDayComponent = () => {
 
     return (

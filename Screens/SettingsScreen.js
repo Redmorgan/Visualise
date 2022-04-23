@@ -1,3 +1,6 @@
+/**
+ * @file The component for the settings page which lets users configure some settings within the application.
+ */
 
 import React, {useState, useEffect} from "react";
 import { Vibration } from "react-native";
@@ -19,6 +22,11 @@ import EnterPasswordComponent from "../Components/EnterPasswordComponent";
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
+/**
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks.  
+ *  
+ * @returns A component containing various application settings as well as buttons to switch the view and logout.
+ */
 const SettingsScreen = ({ navigation }) => {
 
     const[passwordState, setPasswordState] = useState(false)
@@ -27,7 +35,6 @@ const SettingsScreen = ({ navigation }) => {
     const [militaryTimeEnabled, setMilitaryTimeEnabled] = useState(false);
     const toggleTimeSwitch = () => toggleTime();
     const [colourTheme, setColourTheme] = useState("")
-
     useEffect(()=>{
         (async () => {
 
@@ -36,6 +43,12 @@ const SettingsScreen = ({ navigation }) => {
         })()
     },[])
 
+    /**
+     * @summary Takes the user back to the previous page.
+     * 
+     * @description When the back button is pressed it will take the user back to the previous page, this will either be the
+     * "Calendar" tab or the "Today" tab
+     */
     function goBack(){
 
         if(global.vibe != 0){
@@ -48,6 +61,12 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Takes the user back to the login page
+     * 
+     * @description When the user presses "LOGOUT" it will set the remember me state back to false, log the user out from
+     * Firebase auth, and then take the user back to the login screen.
+     */
     async function returnToLogin(){
 
         if(global.vibe != 0){
@@ -68,6 +87,14 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Takes the user back to the view select screen.
+     * 
+     * @description The main purpose of this funciton is to take the user back to the view select screen. However, to stop children
+     * from gaining access to admin controls, if the user is on the adult view they can switch to the child view straight away, but if
+     * they are on the child view a pop-up will appear and the user will have to reenter the email for the account before being able
+     * to switch views.
+     */
     async function returnToViewSelect(){
 
         if(global.vibe != 0){
@@ -90,6 +117,12 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Setting for toggling vibrations across the app
+     * 
+     * @description Based on the postion of the toggle switch will change if vibrations are enabled across the application. The chosen setting
+     * gets saved to the local storage so that it can be reapplied when a new session of the application is loaded.
+     */
     async function toggleVibrate(){
 
         await AsyncStorage.setItem("vibration", JSON.stringify("none"))
@@ -114,6 +147,16 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Setting for letting users select a custom background
+     * 
+     * @description When the "UPLOAD" button is pressed the user will first be prompted with an indevice notification asking for the app
+     * to have permission to access their local gallery. If they select yes the photo gallery will open. Once they select a photo they will
+     * have to crop it to a 3:4 ration, once they click confirm this picture will now be displayed as the background for the "Calendar" and
+     * "Today" tabs. If the user selects no nothing will happen and they will have to keep pressing the button until they accept the permission
+     * otherwise they wont be able to add a background
+     * 
+     */
     async function pickBackground(){
 
         if(global.vibe != 0){
@@ -147,6 +190,11 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Resets the background image to default
+     * 
+     * @description When the "RESET" button is pressed the currently set background gets reverted back to the default image.
+     */
     async function resetBackground(){
 
         if(global.vibe != 0){
@@ -161,6 +209,12 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Preloads the already selected settings.
+     * 
+     * @description Updates all the setting indicators (switches and buttons) to the correct states based on
+     * what settings the user has already set.
+     */
     async function loadSettings(){
 
         const vibrationState = await AsyncStorage.getItem("vibration")
@@ -208,6 +262,14 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Sets the theme the user has selected.
+     * 
+     * @param {String} colour - Colour theme the user has selected.
+     * 
+     * @description Takes the theme the user has selected, saves a copy of it locally so that it can be loaded
+     * on the next instance of the application. The theme is also then applied across the application.
+     */
     async function selectTheme(colour){
 
         if(global.vibe != 0){
@@ -226,6 +288,14 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Sets the underlay colour based on the theme selection
+     * 
+     * @param {String} colour - Colour theme the user has selected. 
+     * 
+     * @description There is no automated way of handling the underlay colours for on press events, this function
+     * sets the underlay colour globally based on the theme selected by the user.
+     */
     async function setUnderlay(colour){
 
         var underlay;
@@ -258,6 +328,12 @@ const SettingsScreen = ({ navigation }) => {
 
     }
 
+    /**
+     * @summary Switches the timeformat between 12-hour and 24-hour format.
+     * 
+     * @description This function lets users switch between the 12-hour and 24-hour format, this affects the times seen on
+     * the "Today" tab. This setting is also saved locally for use when loading a new session of the application.
+     */
     async function toggleTime(){
 
         if(global.vibe != 0){

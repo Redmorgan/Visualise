@@ -1,16 +1,32 @@
+/**
+ * @fileoverview Contains the component that is used as a password prompt pop-up when a child user tries to switch to the adult view.
+ */
+
 import React, {useState} from "react";
 import styled from "styled-components/native";
 import { Vibration } from "react-native";
-
 import * as firebaseAuth from '../firebaseConfig.js'
 
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
+/**
+ * 
+ * @param {Boolean}  state - The current visibile state of the pop-up (True = Visible, False = Invisible).
+ * @param {Function} closePassword - The function that closes the password modal.
+ * @param {Function} navigation - Passed through navigation function for navigation between stacks. 
+ *  
+ * @returns A pop-up that asks a user to enter the password for their account.
+ */
 const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
 
     const[password, setPassword] = useState("")
 
+    /**
+     * @summary Closes the password pop-up
+     * 
+     * @description When the close button on the pop-up is pressed this function is run which hides the pop-up to reveal the settings page again.
+     */
     function closePasswordPopup(){
 
         if(global.vibe != 0){
@@ -23,6 +39,12 @@ const EnterPasswordComponent = ({ state, closePassword, navigation }) => {
 
     }
 
+    /**
+     * @summary Takes the user to the ViewSelectScreen if the entered password is correct
+     * 
+     * @summary When the user presses the "SWITCH" button the password from the input box is taken, if the password is valid then
+     * the user is taken to the view select screen, otherwise they just stay on the page
+     */
     async function switchView(){
 
         if(global.vibe != 0){
