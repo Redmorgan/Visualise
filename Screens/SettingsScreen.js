@@ -304,21 +304,21 @@ const SettingsScreen = ({ navigation }) => {
 
             underlay = "#6e69cc"
 
-        }else if(colour == "#00BFFF"){
+        }else if(colour == "#ffb3ba"){
 
-            underlay = "#0098cc"
+            underlay = "#cc8f94"
 
-        }else if(colour == "#FFA500"){
+        }else if(colour == "#ffdfba"){
 
-            underlay = "#cc8400"
+            underlay = "#ccb294"
 
-        }else if(colour == "#FF0000"){
+        }else if(colour == "#baffc9"){
 
-            underlay = "#cc0000"
+            underlay = "#94cca0"
 
-        }else if(colour == "#228B22"){
+        }else if(colour == "#bae1ff"){
 
-            underlay = "#1b6f1b"
+            underlay = "#94b4cc"
 
         }
 
@@ -432,13 +432,13 @@ const SettingsScreen = ({ navigation }) => {
 
                                 <ColourThemeButton style={{backgroundColor:"#8A84FF", borderColor:"transparent", borderWidth:colourTheme!="#8A84FF"?5:0}} onPress={()=>{selectTheme("#8A84FF")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#00BFFF", borderColor:"transparent", borderWidth:colourTheme!="#00BFFF"?5:0}} onPress={()=>{selectTheme("#00BFFF")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#ffb3ba", borderColor:"transparent", borderWidth:colourTheme!="#ffb3ba"?5:0}} onPress={()=>{selectTheme("#ffb3ba")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#FFA500", borderColor:"transparent", borderWidth:colourTheme!="#FFA500"?5:0}} onPress={()=>{selectTheme("#FFA500")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#ffdfba", borderColor:"transparent", borderWidth:colourTheme!="#ffdfba"?5:0}} onPress={()=>{selectTheme("#ffdfba")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#FF0000", borderColor:"transparent", borderWidth:colourTheme!="#FF0000"?5:0}} onPress={()=>{selectTheme("#FF0000")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#baffc9", borderColor:"transparent", borderWidth:colourTheme!="#baffc9"?5:0}} onPress={()=>{selectTheme("#baffc9")}}/>
 
-                                <ColourThemeButton style={{backgroundColor:"#228B22", borderColor:"transparent", borderWidth:colourTheme!="#228B22"?5:0}} onPress={()=>{selectTheme("#228B22")}}/>
+                                <ColourThemeButton style={{backgroundColor:"#bae1ff", borderColor:"transparent", borderWidth:colourTheme!="#bae1ff"?5:0}} onPress={()=>{selectTheme("#bae1ff")}}/>
 
                             </ColourButtonContainer>
 
