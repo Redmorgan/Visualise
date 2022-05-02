@@ -29,5 +29,5 @@ To install the application on your device, you must take the file from Brightspa
 </br>Once the file is on your device you must locate it using the file manager that is installed on your device. Once you find the file click on it and you should be prompted to install the app, follow the steps on screen until it says the app has been installed.
 </br>Opening your apps tab you should now be able to open the application.
 
-#APK - Android Emulator
+# APK - Android Emulator
 Take  the **Visualise_APK** file and load it onto your emulator of choice
