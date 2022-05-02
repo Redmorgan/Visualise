@@ -16,3 +16,10 @@ Next we need to install Expo and React-Native which will be installed as a depen
 </br>`npm install --global expo-cli`
 </br>
 </br>It might take a bit of time,. Once finished, you might get some warnings, but they are for additional dependencies - so we can ignore them for now. Run `expo -V`.
+</br>
+</br><h2>3. Expo App</h2>
+Next, we need to install the client app for our mobile device. We use this to run the application.
+</br> The app can be found here: https://play.google.com/store/apps/details?id=host.exp.exponent
+</br>
+</br><h2>4. Running the Application</h2>
+To run the application, using CMD you must navigate inside the folder Timetable folder that was provided on Brightspace. Now type `npm install` to install all the necessary dependencies, this may take a few minutes. Once this has completed type `expo start` and a script should start running and tab should open in your browser. Next open the expo app that you installed and press the **Scan QR Code** button. How scan the QR code that should have appear in the top left of the tab that opened. For this to work properly the PC and the phone must be on the same WiFi network. If all the previous steps have been followed correctly the Timetable application should load onto the phones screen.
